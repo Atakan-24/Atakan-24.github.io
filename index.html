@@ -4,23 +4,69 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Atakan — Builder, Automation &amp; AI Systems</title>
-<meta name="description" content="Portfolio of Atakan: 21 production systems — a cold-calling CRM platform, a lead-generation data pipeline, and a multi-agent AI operations layer that runs a real business.">
+<meta name="description" content="Portfolio of Atakan: 22 production systems — a cold-calling CRM platform, a lead-generation data pipeline, a multi-agent AI operations layer, and a security tool with measured precision and recall.">
+<link rel="canonical" href="https://atakan-24.github.io/">
+<meta name="theme-color" content="#0a0a0a">
+
+<!-- Open Graph / Twitter. This link gets sent to recruiters over WhatsApp,
+     LinkedIn and email; without these it arrives as a bare URL. -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://atakan-24.github.io/">
+<meta property="og:site_name" content="Atakan">
+<meta property="og:title" content="Atakan — Builder, Automation &amp; AI Systems">
+<meta property="og:description" content="22 production systems built and operated solo: a cold-calling CRM, a 24/7 lead pipeline, a multi-agent AI operations layer, and a security tool with measured 100% precision and recall.">
+<meta property="og:image" content="https://atakan-24.github.io/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Atakan — Builder, Automation and AI Systems">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Atakan — Builder, Automation &amp; AI Systems">
+<meta name="twitter:description" content="22 production systems built and operated solo. Two of them run live on this page.">
+<meta name="twitter:image" content="https://atakan-24.github.io/og.jpg">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230a0a0a'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='38' font-weight='700' fill='%23d9a441' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Atakan",
+  "url": "https://atakan-24.github.io/",
+  "jobTitle": "Software Engineer — Automation & AI Systems",
+  "email": "atakanfisc@gmail.com",
+  "address": { "@type": "PostalAddress", "addressCountry": "DE" },
+  "sameAs": [
+    "https://github.com/Atakan-24",
+    "https://teamgoldllc.de",
+    "https://t.me/Akioatakan"
+  ],
+  "knowsAbout": [
+    "TypeScript", "Python", "Next.js", "Node.js", "PostgreSQL",
+    "WebRTC", "LLM agents", "Model Context Protocol", "Data pipelines",
+    "Application security", "CI/CD"
+  ]
+}
+</script>
 <style>
   :root {
-    --bg: #0b0d12;
-    --bg-card: #12151d;
-    --bg-card-hover: #171b25;
-    --bg-nav: rgba(11,13,18,0.85);
-    --text: #e7e9ee;
-    --text-dim: #9aa1b0;
-    --text-dimmer: #6b7280;
-    --accent: #7dd3c0;
-    --accent-strong: #a5e8db;
-    --border: #232734;
-    --tag-bg: #1a1f2b;
-    --tag-text: #b7c6ea;
-    --chip-active-bg: #7dd3c0;
-    --chip-active-text: #0b0d12;
+    /* Same palette as teamgoldllc.de, so the portfolio and the business
+       read as one brand rather than two unrelated pages. Measured contrast
+       on #0a0a0a: accent 8.8:1, accent-strong 14.1:1 — both well past the
+       4.5:1 the guidelines ask for. */
+    --bg: #0a0a0a;
+    --bg-card: #121110;
+    --bg-card-hover: #17150f;
+    --bg-nav: rgba(10,10,10,0.85);
+    --text: #eceae4;
+    --text-dim: #a5a096;
+    --text-dimmer: #6f6a60;
+    --accent: #d9a441;
+    --accent-strong: #ffd700;
+    --border: #2a2620;
+    --tag-bg: #1a1710;
+    --tag-text: #d6c9a8;
+    --chip-active-bg: #d9a441;
+    --chip-active-text: #0a0a0a;
     --max-w: 1040px;
   }
   * { box-sizing: border-box; }
@@ -195,6 +241,111 @@
   .tok-fn  { color: #82aaff; }
   .snippet-caption { color: var(--text-dimmer); font-size: 0.85rem; margin: 10px 0 0; }
 
+  /* Hero particle field — hand-written canvas, no library.
+     Importing three.js would be ~600 KB of somebody else's code on a page
+     whose whole argument is that the tools here have no dependencies. */
+  #particles {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 0; opacity: .55;
+  }
+  header.hero { position: relative; overflow: hidden; }
+  header.hero .wrap { position: relative; z-index: 1; }
+
+  /* Interactive demos */
+  .demo {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 26px;
+    margin-bottom: 24px;
+  }
+  .demo h3 { margin: 0 0 6px; font-size: 1.12rem; }
+  .demo .why { color: var(--text-dim); font-size: .92rem; margin: 0 0 20px; }
+  .demo a, .detail-body a, .section-intro a { color: var(--accent); }
+  .demo .caption { color: var(--text-dimmer); font-size: .82rem; margin-top: 14px; line-height: 1.55; }
+
+  .sliders { display: grid; gap: 14px; margin-bottom: 20px; }
+  .slider-row { display: grid; grid-template-columns: 120px 1fr 46px; gap: 12px; align-items: center; }
+  .slider-row label { font-size: .86rem; color: var(--text-dim); }
+  .slider-row output {
+    font-variant-numeric: tabular-nums; text-align: right;
+    font-size: .9rem; color: var(--accent); font-weight: 600;
+  }
+  input[type=range] { width: 100%; accent-color: var(--accent); cursor: pointer; }
+
+  .verdicts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+  .verdict {
+    background: #0d0c0a; border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px; text-align: center;
+  }
+  .verdict.good { border-color: var(--accent); }
+  .verdict .lbl { font-size: .72rem; text-transform: uppercase; letter-spacing: .07em; color: var(--text-dimmer); }
+  .verdict .val {
+    font-size: 2rem; font-weight: 700; font-variant-numeric: tabular-nums;
+    display: block; margin: 6px 0 2px; color: var(--text);
+  }
+  .verdict.good .val { color: var(--accent); }
+  .verdict .sub { font-size: .78rem; color: var(--text-dimmer); }
+  @media (max-width: 560px) { .verdicts { grid-template-columns: 1fr; } }
+
+  .hist { margin-top: 6px; }
+  .hist h4 { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em;
+             color: var(--text-dimmer); margin: 0 0 8px; font-weight: 600; }
+  .hist-row { display: flex; align-items: flex-end; gap: 2px; height: 54px; margin-bottom: 6px; }
+  .hist-row .bar { flex: 1; background: var(--border); border-radius: 2px 2px 0 0; min-height: 1px; }
+  .hist-row.new .bar { background: var(--accent); }
+  .hist-legend { display: flex; justify-content: space-between; font-size: .72rem; color: var(--text-dimmer); }
+
+  .scanner textarea {
+    width: 100%; min-height: 132px; resize: vertical;
+    background: #0d0c0a; color: var(--text);
+    border: 1px solid var(--border); border-radius: 10px; padding: 14px;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: .82rem; line-height: 1.6;
+  }
+  .scanner textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .findings { margin-top: 14px; display: grid; gap: 8px; }
+  .finding {
+    display: flex; gap: 10px; align-items: baseline;
+    background: #0d0c0a; border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px; padding: 10px 14px; font-size: .84rem;
+  }
+  .finding.ok { border-left-color: #3f6b4a; color: var(--text-dim); }
+  .finding .ln { color: var(--text-dimmer); font-variant-numeric: tabular-nums; min-width: 46px; }
+  .finding .what { color: var(--accent); font-weight: 600; }
+  .finding code {
+    font-family: "SFMono-Regular", Consolas, monospace; font-size: .8rem; color: var(--text-dim);
+  }
+  .local-note { font-size: .78rem; color: var(--text-dimmer); margin-top: 10px; }
+
+  /* Case-study screenshot */
+  .shot {
+    margin: 18px 0 6px; border: 1px solid var(--border); border-radius: 10px;
+    overflow: hidden; background: #0d0c0a;
+  }
+  .shot .chrome {
+    display: flex; gap: 6px; padding: 9px 12px;
+    background: #17150f; border-bottom: 1px solid var(--border);
+  }
+  .shot .chrome i { width: 9px; height: 9px; border-radius: 50%; background: #3a352c; display: block; }
+  .shot img { display: block; width: 100%; height: auto; }
+
+  /* Contact */
+  .channels { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+  .channel {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 15px 17px;
+    text-decoration: none; color: var(--text);
+    transition: border-color .15s, transform .15s;
+  }
+  .channel:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .channel.primary { border-color: var(--accent); background: #17150f; }
+  .channel svg { width: 19px; height: 19px; flex: none; color: var(--accent); }
+  .channel .t { font-weight: 600; font-size: .93rem; display: block; }
+  .channel .s { font-size: .77rem; color: var(--text-dimmer); }
+
   /* Scroll reveal */
   .reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -360,14 +511,16 @@
     <a class="brand" href="#top">Atakan</a>
     <div class="navlinks">
       <a href="#featured">Featured</a>
+      <a href="#try">Try it</a>
       <a href="#built">Everything else</a>
-      <a href="#skills">Skills</a>
       <a href="#code">Code</a>
+      <a href="#contact">Contact</a>
     </div>
   </div>
 </nav>
 
 <header class="hero" id="top">
+  <canvas id="particles" aria-hidden="true"></canvas>
   <div class="wrap">
     <p class="kicker">Portfolio</p>
     <h1>I build the systems that run the business,<br>not just the demo of one.</h1>
@@ -387,15 +540,15 @@
     </div>
 
     <div class="links">
-      <a class="btn primary" href="mailto:atakanfisc@gmail.com">Get in touch</a>
-      <a class="btn" href="https://github.com/Atakan-24">GitHub</a>
-      <a class="btn" href="#built">See everything I've built</a>
+      <a class="btn primary" href="https://cal.com/atakanoztunc/30min" rel="noopener noreferrer">Book a 30-min call</a>
+      <a class="btn" href="#try">Try two of them, live</a>
+      <a class="btn" href="https://github.com/Atakan-24" rel="noopener noreferrer">GitHub</a>
     </div>
     <div class="stats-strip">
-      <div class="cell"><span class="n">21</span><span class="l">systems shipped, solo</span></div>
+      <div class="cell"><span class="n">22</span><span class="l">systems shipped, solo</span></div>
       <div class="cell"><span class="n">100k+</span><span class="l">records processed in production</span></div>
       <div class="cell"><span class="n">24/7</span><span class="l">self-healing, unattended infra</span></div>
-      <div class="cell"><span class="n">0→1</span><span class="l">every one, sole builder &amp; operator</span></div>
+      <div class="cell"><span class="n">100%</span><span class="l">precision &amp; recall, measured, on the security tool</span></div>
     </div>
   </div>
 </header>
@@ -404,7 +557,7 @@
   <div class="wrap-narrow">
     <h2>Featured</h2>
     <p class="section-intro">
-      The three largest systems, in active daily production use. Source
+      The four largest systems, in active daily production use. Source
       code stays private where it touches real customer data — what's shown
       here is the architecture, the scale, and the specific engineering
       problems each one solved.
@@ -557,6 +710,156 @@
         <span class="tag">Python</span><span class="tag">Telegram Bot API</span>
         <span class="tag">Task scheduling</span><span class="tag">System design</span>
       </div>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-head">
+        <h3>teamgoldllc.de — Bilingual Marketing Site &amp; SEO Engineering</h3>
+        <span class="role">Built &amp; shipped</span>
+      </div>
+      <p class="summary">
+        The public site for the business the systems above serve. A React
+        single-page app in two languages, with the structured-data and
+        loading work that decides whether a small business is findable at
+        all — the part of "a website" that is engineering rather than
+        decoration.
+      </p>
+
+      <div class="shot">
+        <div class="chrome"><i></i><i></i><i></i></div>
+        <img src="teamgold.jpg" width="1280" height="800" loading="lazy" decoding="async"
+             alt="teamgoldllc.de homepage: dark layout with gold serif headline reading Websites that load fast.">
+      </div>
+
+      <div class="stat-row">
+        <div class="stat"><span class="n">2</span><span class="l">languages, full translations</span></div>
+        <div class="stat"><span class="n">4</span><span class="l">JSON-LD schema types</span></div>
+        <div class="stat"><span class="n">live</span><span class="l">at teamgoldllc.de</span></div>
+      </div>
+
+      <details>
+        <summary>What made this hard</summary>
+        <div class="detail-body">
+          <ul>
+            <li><strong>Two languages, not a language switcher.</strong>
+              Full EN and DE translation files with correct
+              <code>hreflang</code> including <code>x-default</code> —
+              which is what stops Google serving the German page to a US
+              searcher and treating the pair as duplicate content.</li>
+            <li><strong>Structured data as a first-class output.</strong>
+              Four JSON-LD types (WebSite, Organization, Service and an
+              OfferCatalog of the individual services). Search engines can
+              read what the business sells without parsing the prose —
+              which is the entire point of doing SEO as markup rather than
+              keyword stuffing.</li>
+            <li><strong>Fonts that do not block the first paint.</strong>
+              Preloaded as a stylesheet with an <code>onload</code> swap
+              and a <code>&lt;noscript&gt;</code> fallback, plus a
+              <code>preconnect</code> for the booking widget. Every one of
+              these is verifiable in the page source — which is exactly
+              where a technical reviewer will look.</li>
+          </ul>
+          <p style="margin-top:14px;">
+            Honest scope: this was assembled fast on React with a component
+            library, not hand-written from zero. What I own here are the
+            decisions — the bilingual structure, the schema modelling, and
+            the loading strategy.
+          </p>
+        </div>
+      </details>
+      <div class="tags">
+        <span class="tag">React</span><span class="tag">Vite</span>
+        <span class="tag">TypeScript</span><span class="tag">i18n</span>
+        <span class="tag">JSON-LD / Schema.org</span><span class="tag">Core Web Vitals</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="try">
+  <div class="wrap-narrow">
+    <h2>Two of them, running right here</h2>
+    <p class="section-intro">
+      Not screenshots. Both of these are the real logic from the systems
+      above, ported to run in this page. Move something and watch it
+      change.
+    </p>
+
+    <div class="demo reveal">
+      <h3>1 · The lead-scoring bug that made a ranking useless</h3>
+      <p class="why">
+        The CRM decides who gets called next. The first version multiplied
+        need × budget × reachability — mathematically reasonable, and it
+        quietly destroyed the ranking. Drag the sliders.
+      </p>
+
+      <div class="sliders">
+        <div class="slider-row">
+          <label for="s-need">Need</label>
+          <input type="range" id="s-need" min="0" max="100" value="70" aria-describedby="o-need">
+          <output id="o-need">70</output>
+        </div>
+        <div class="slider-row">
+          <label for="s-budget">Budget</label>
+          <input type="range" id="s-budget" min="0" max="100" value="60" aria-describedby="o-budget">
+          <output id="o-budget">60</output>
+        </div>
+        <div class="slider-row">
+          <label for="s-reach">Reachability</label>
+          <input type="range" id="s-reach" min="0" max="100" value="45" aria-describedby="o-reach">
+          <output id="o-reach">45</output>
+        </div>
+      </div>
+
+      <div class="verdicts">
+        <div class="verdict">
+          <span class="lbl">Old — raw product</span>
+          <span class="val" id="v-old">0</span>
+          <span class="sub" id="t-old">tier —</span>
+        </div>
+        <div class="verdict good">
+          <span class="lbl">New — geometric mean</span>
+          <span class="val" id="v-new">0</span>
+          <span class="sub" id="t-new">tier —</span>
+        </div>
+      </div>
+
+      <p class="caption" id="reach-note"></p>
+
+      <div class="hist">
+        <h4>Every possible lead, both formulas</h4>
+        <div class="hist-row" id="h-old"></div>
+        <div class="hist-row new" id="h-new"></div>
+        <div class="hist-legend"><span>score 0</span><span>1000</span></div>
+        <p class="caption">
+          All 9,261 combinations of the three inputs in steps of 5, bucketed
+          into 20 bins. Grey is the old formula, gold the new one. This is a
+          property of the two formulas, not a claim about anyone's data.
+          <br><br>
+          On the real dataset the collapse was measured: <strong>9,400 of
+          59,725 leads landed on the identical score 35</strong>. A ranking
+          that puts thousands of leads on one point is not a ranking, and
+          the dialer only ever loads the first page of it.
+        </p>
+      </div>
+    </div>
+
+    <div class="demo scanner reveal">
+      <h3>2 · The secret scanner — paste something and watch</h3>
+      <p class="why">
+        The real patterns from
+        <a href="https://github.com/Atakan-24/git-secret-scan" rel="noopener noreferrer">git-secret-scan</a>,
+        ported to JavaScript for this page. Four lines are pre-filled, each
+        producing a different verdict — a catch, a placeholder, the prose
+        that caused a real false positive, and an explicit opt-out.
+      </p>
+      <label for="scan-in" style="position:absolute;left:-9999px;">Text to scan for credentials</label>
+      <textarea id="scan-in" spellcheck="false"></textarea>
+      <div class="findings" id="scan-out"></div>
+      <p class="local-note">
+        Runs entirely in your browser. This page makes no network requests
+        of any kind — nothing you type leaves it.
+      </p>
     </div>
   </div>
 </section>
@@ -844,16 +1147,67 @@
         <div>
           <h3 style="margin-bottom:8px;">git-secret-scan</h3>
           <p class="summary" style="margin:0;">
-            A dependency-free pre-commit hook that stops API keys and tokens
-            from ever reaching a commit — written after a real incident where
-            five live credentials sat exposed in a repo for months, unnoticed
-            until a backup was being prepared.
+            A dependency-free pre-commit hook and GitHub Action that stops
+            API keys from reaching a commit — written after a real incident
+            where five live credentials sat exposed in a repo for months,
+            unnoticed until a backup was being prepared.
           </p>
         </div>
-        <a class="repo-link" href="https://github.com/Atakan-24/git-secret-scan">View on GitHub →</a>
+        <a class="repo-link" href="https://github.com/Atakan-24/git-secret-scan" rel="noopener noreferrer">View on GitHub →</a>
       </div>
+
+      <div class="stat-row">
+        <div class="stat"><span class="n">98</span><span class="l">tests, 98 % coverage</span></div>
+        <div class="stat"><span class="n">11</span><span class="l">CI jobs — 3 OS × 3 Python versions</span></div>
+        <div class="stat"><span class="n">80→100 %</span><span class="l">recall, after measuring it</span></div>
+      </div>
+
+      <details>
+        <summary>The part worth reading: I measured it and found it broken</summary>
+        <div class="detail-body">
+          <p>
+            The tool had never been measured. Building a labelled corpus of
+            61 cases surfaced <strong>three bugs, all false negatives</strong> —
+            the failure mode that matters in security work, because it looks
+            exactly like success.
+          </p>
+          <ul>
+            <li><strong>The false-positive guard was eating real tokens.</strong>
+              It demanded an uppercase letter <em>and</em> a digit in every
+              match. Slack and GitHub tokens are routinely
+              lowercase-plus-digits, so <strong>2 of 10 credential types were
+              undetectable</strong>. Worse, it no longer did the job it was
+              written for — the patterns had since gained a word boundary
+              that handled that case anyway.</li>
+            <li><strong>A placeholder anywhere on the line disabled the
+              line.</strong> A real key with <code>// see EXAMPLE</code> in a
+              trailing comment went through silently.</li>
+            <li><strong>A broken git environment reported "clean".</strong>
+              Run outside a repository it printed clean and exited 0. A hook
+              that passes when it cannot see anything is worse than no hook,
+              because it is trusted.</li>
+          </ul>
+          <p>
+            Recall went from <strong>80 % to 100 %</strong>, precision from
+            91.4 % to 100 %, measured — and the benchmark now gates CI, so a
+            regression fails the build instead of going unnoticed.
+          </p>
+          <p>
+            Two more things only real delivery teaches: GitHub's own push
+            protection <strong>blocked the first push</strong>, because its
+            scanner could not tell my synthetic test token from a live one —
+            fixed by assembling fixtures from parts rather than weakening the
+            check. And the CI matrix caught a genuine Python 3.9
+            incompatibility that a machine running 3.12 could never have
+            surfaced.
+          </p>
+        </div>
+      </details>
+
       <div class="tags">
-        <span class="tag">Python</span><span class="tag">Git hooks</span><span class="tag">Security tooling</span>
+        <span class="tag">Python</span><span class="tag">Git hooks</span>
+        <span class="tag">GitHub Actions</span><span class="tag">Hypothesis</span>
+        <span class="tag">Security tooling</span>
       </div>
     </div>
   </div>
@@ -879,9 +1233,56 @@
   </div>
 </section>
 
+<section id="contact">
+  <div class="wrap-narrow">
+    <h2>Get in touch</h2>
+    <p class="section-intro">
+      Based in Germany, open to engineering roles. Booking a slot is the
+      fastest route — pick a time and it is in both calendars.
+    </p>
+
+    <div class="channels">
+      <a class="channel primary" href="https://cal.com/atakanoztunc/30min" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+        </svg>
+        <span><span class="t">Book a call</span><span class="s">30 minutes, pick a slot</span></span>
+      </a>
+
+      <a class="channel" href="mailto:atakanfisc@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/>
+        </svg>
+        <span><span class="t">Email</span><span class="s">atakanfisc@gmail.com</span></span>
+      </a>
+
+      <a class="channel" href="https://wa.me/201069564012" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.1-.2 0-.4.1-.5l.4-.5c.1-.2.2-.3.3-.5v-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.6 4c.6.3 1.1.4 1.5.5a3.6 3.6 0 0 0 1.6.1 2.7 2.7 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .2-1.2c-.1-.1-.2-.2-.4-.3Z"/>
+        </svg>
+        <span><span class="t">WhatsApp</span><span class="s">fastest reply</span></span>
+      </a>
+
+      <a class="channel" href="https://t.me/Akioatakan" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M21.9 4.3 18.8 19c-.2 1-.9 1.3-1.7.8l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.8 8.8-8c.4-.3-.1-.5-.6-.2l-10.9 6.9-4.7-1.5c-1-.3-1-1 .2-1.5l18.4-7.1c.9-.3 1.6.2 1.3 1.5Z"/>
+        </svg>
+        <span><span class="t">Telegram</span><span class="s">@Akioatakan</span></span>
+      </a>
+
+      <a class="channel" href="https://github.com/Atakan-24" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 5.3 18.3 5.6 18.3 5.6c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/>
+        </svg>
+        <span><span class="t">GitHub</span><span class="s">github.com/Atakan-24</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
-    <p>Atakan · <a href="mailto:atakanfisc@gmail.com">atakanfisc@gmail.com</a> · <a href="https://github.com/Atakan-24">github.com/Atakan-24</a></p>
+    <p>Atakan · <a href="mailto:atakanfisc@gmail.com">atakanfisc@gmail.com</a> · <a href="https://github.com/Atakan-24" rel="noopener noreferrer">github.com/Atakan-24</a> · <a href="https://teamgoldllc.de" rel="noopener noreferrer">teamgoldllc.de</a></p>
     <p style="margin-top:8px;">© 2026 Atakan. All rights reserved.</p>
   </div>
 </footer>
@@ -930,6 +1331,249 @@
   });
 })();
 
+// ---------------------------------------------------------------------
+// Demo 1 — lead scoring. The constants are the real ones from the CRM:
+// reachability is a 0.5–1.3 band, not a third equal multiplicand, because
+// it decides how expensive a lead is to reach, not whether it is worth
+// anything. Tier thresholds come from the real score distribution.
+// ---------------------------------------------------------------------
+(function () {
+  var need = document.getElementById('s-need');
+  if (!need) return;
+  var budget = document.getElementById('s-budget');
+  var reach  = document.getElementById('s-reach');
+
+  var REACH_MIN = 0.5, REACH_MAX = 1.3;
+  var TIERS = [
+    [496, 'S — call today'], [374, 'A — call this week'],
+    [306, 'B — after the A list'], [266, 'C — bulk outreach'],
+    [248, 'D — low priority'], [1, 'E — background']
+  ];
+
+  function oldScore(n, b, c) {
+    return Math.min(1000, Math.round(1000 * (n / 100) * (b / 100) * (c / 100)));
+  }
+  function newScore(n, b, c) {
+    var core = Math.sqrt((n / 100) * (b / 100));
+    var factor = REACH_MIN + (c / 100) * (REACH_MAX - REACH_MIN);
+    return Math.min(1000, Math.round(1000 * core * factor));
+  }
+  function tierOf(s) {
+    for (var i = 0; i < TIERS.length; i++) if (s >= TIERS[i][0]) return TIERS[i][1];
+    return 'F — filtered out';
+  }
+
+  // Sweep every combination once; it is a property of the formulas, so it
+  // never needs recomputing.
+  function buildHistograms() {
+    var BINS = 20, o = new Array(BINS).fill(0), nw = new Array(BINS).fill(0);
+    for (var a = 0; a <= 100; a += 5)
+      for (var b = 0; b <= 100; b += 5)
+        for (var c = 0; c <= 100; c += 5) {
+          o[Math.min(BINS - 1, Math.floor(oldScore(a, b, c) / (1000 / BINS)))]++;
+          nw[Math.min(BINS - 1, Math.floor(newScore(a, b, c) / (1000 / BINS)))]++;
+        }
+    return [o, nw];
+  }
+
+  function paint(el, data) {
+    var max = Math.max.apply(null, data);
+    el.innerHTML = data.map(function (v) {
+      return '<span class="bar" style="height:' + (max ? (v / max) * 100 : 0) + '%"></span>';
+    }).join('');
+  }
+
+  function update() {
+    var n = +need.value, b = +budget.value, c = +reach.value;
+    document.getElementById('o-need').textContent = n;
+    document.getElementById('o-budget').textContent = b;
+    document.getElementById('o-reach').textContent = c;
+
+    var so = oldScore(n, b, c), sn = newScore(n, b, c);
+    document.getElementById('v-old').textContent = so;
+    document.getElementById('v-new').textContent = sn;
+    document.getElementById('t-old').textContent = tierOf(so);
+    document.getElementById('t-new').textContent = tierOf(sn);
+
+    var f = (REACH_MIN + (c / 100) * (REACH_MAX - REACH_MIN)).toFixed(2);
+    document.getElementById('reach-note').textContent =
+      'Reachability is applied as a ×' + f + ' band (0.50–1.30), not as a third '
+      + 'equal factor — it changes how expensive a lead is to reach, not whether '
+      + 'it is worth reaching.';
+  }
+
+  [need, budget, reach].forEach(function (el) { el.addEventListener('input', update); });
+  update();
+
+  var built = false;
+  function maybeBuild() {
+    if (built) return;
+    built = true;
+    var h = buildHistograms();
+    paint(document.getElementById('h-old'), h[0]);
+    paint(document.getElementById('h-new'), h[1]);
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (e) {
+      if (e[0].isIntersecting) { maybeBuild(); io.disconnect(); }
+    }, { threshold: 0.15 });
+    io.observe(document.getElementById('h-old'));
+  } else { maybeBuild(); }
+})();
+
+// ---------------------------------------------------------------------
+// Demo 2 — the secret scanner, ported from scan.py. Patterns, allow-list
+// and the prose guard are the same rules the Python tool applies.
+// ---------------------------------------------------------------------
+(function () {
+  var input = document.getElementById('scan-in');
+  if (!input) return;
+  var out = document.getElementById('scan-out');
+
+  // [label, regex, proseProne] — mirrors PATTERNS in scan.py.
+  var PATTERNS = [
+    ['OpenAI key',        /\bsk-(proj-)?[A-Za-z0-9_-]{20,}/g, true],
+    ['Anthropic key',     /\bsk-ant-[A-Za-z0-9_-]{20,}/g, true],
+    ['GitHub token',      /\bgh[pousr]_[A-Za-z0-9]{30,}/g, false],
+    ['Slack token',       /\bxox[baprs]-[A-Za-z0-9-]{10,}/g, false],
+    ['AWS access key id', /\b(?:AKIA|ASIA)[0-9A-Z]{16}\b/g, false],
+    ['Google API key',    /\bAIza[A-Za-z0-9_-]{35}\b/g, false],
+    ['Telegram bot token',/\b[0-9]{8,12}:AA[A-Za-z0-9_-]{30,}/g, false],
+    ['JWT',               /\beyJhbGciOi[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}/g, false],
+    ['private key block', /-----BEGIN [A-Z ]*PRIVATE KEY-----/g, false]
+  ];
+  var ALLOW = [
+    /REPLACE[_-]?ME/i, /<[a-z_]+>/i,
+    /(YOUR|DEIN|EXAMPLE|BEISPIEL|DUMMY|SAMPLE|PLACEHOLDER|CHANGEME)/i,
+    /^x+$/i, /(0{8,}|1{8,}|a{8,})/i
+  ];
+  var IGNORE = /secret-scan:\s*ignore/;
+
+  function looksLikeProse(v) { return /^[a-z]+(?:-[a-z]+){2,}$/.test(v); }
+  function mask(v) { return v.length > 18 ? v.slice(0, 10) + '…' + v.slice(-4) : v; }
+
+  function scan(text) {
+    var lines = text.split('\n'), hits = [];
+    lines.forEach(function (line, i) {
+      if (IGNORE.test(line)) {
+        hits.push({ n: i + 1, ok: true, msg: 'suppressed — explicit "secret-scan: ignore"' });
+        return;
+      }
+      PATTERNS.forEach(function (p) {
+        p[1].lastIndex = 0;
+        var m;
+        while ((m = p[1].exec(line)) !== null) {
+          var v = m[0];
+          if (ALLOW.some(function (a) { return a.test(v); })) {
+            hits.push({ n: i + 1, ok: true, msg: 'suppressed — looks like a placeholder' });
+            continue;
+          }
+          if (p[2] && looksLikeProse(v)) {
+            hits.push({ n: i + 1, ok: true, msg: 'suppressed — kebab-case prose, not a key' });
+            continue;
+          }
+          hits.push({ n: i + 1, ok: false, what: p[0], val: mask(v) });
+        }
+      });
+    });
+    return hits;
+  }
+
+  function render() {
+    var hits = scan(input.value);
+    if (!hits.length) {
+      out.innerHTML = '<div class="finding ok"><span class="ln">—</span>'
+        + '<span>Nothing found. Paste an API key shape to see it caught.</span></div>';
+      return;
+    }
+    out.innerHTML = hits.map(function (h) {
+      return h.ok
+        ? '<div class="finding ok"><span class="ln">L' + h.n + '</span><span>' + h.msg + '</span></div>'
+        : '<div class="finding"><span class="ln">L' + h.n + '</span>'
+          + '<span><span class="what">' + h.what + '</span> — <code>' + h.val + '</code></span></div>';
+    }).join('');
+  }
+
+  // Prefilled so a visitor sees the payoff without typing — four lines,
+  // four different verdicts. Three outcomes demonstrate judgement; one
+  // outcome would only demonstrate a regex.
+  input.value =
+    'AWS_KEY = "AKIA' + '2X4YQZ7NPLMV3RTB"\n' +
+    'OPENAI_KEY = "sk-proj-REPLACE_ME_WITH_YOUR_KEY"\n' +
+    'policy = "sk-ask-before-high-impact-changes"\n' +
+    'LEGACY = "AKIA' + '2X4YQZ7NPLMV3RTB"  // secret-scan: ignore';
+
+  var t;
+  input.addEventListener('input', function () {
+    clearTimeout(t);
+    t = setTimeout(render, 120);
+  });
+  render();
+})();
+
+// ---------------------------------------------------------------------
+// Hero particle field. Hand-written canvas — no library, because the page
+// argues the tools here have no dependencies.
+// ---------------------------------------------------------------------
+(function () {
+  var c = document.getElementById('particles');
+  if (!c || !c.getContext) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var ctx = c.getContext('2d'), dots = [], raf = null, w = 0, h = 0;
+
+  function size() {
+    var r = c.parentElement.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = r.width; h = r.height;
+    c.width = w * dpr; c.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    // Density scaled to area, capped — a phone should not run 200 dots.
+    var n = Math.min(64, Math.round((w * h) / 16000));
+    dots = [];
+    for (var i = 0; i < n; i++) {
+      dots.push({ x: Math.random() * w, y: Math.random() * h,
+                  vx: (Math.random() - .5) * .22, vy: (Math.random() - .5) * .22 });
+    }
+  }
+
+  function frame() {
+    ctx.clearRect(0, 0, w, h);
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      d.x += d.vx; d.y += d.vy;
+      if (d.x < 0 || d.x > w) d.vx *= -1;
+      if (d.y < 0 || d.y > h) d.vy *= -1;
+      for (var j = i + 1; j < dots.length; j++) {
+        var e = dots[j], dx = d.x - e.x, dy = d.y - e.y, dist = dx * dx + dy * dy;
+        if (dist < 14000) {
+          ctx.strokeStyle = 'rgba(217,164,65,' + (1 - dist / 14000) * 0.22 + ')';
+          ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(d.x, d.y); ctx.lineTo(e.x, e.y); ctx.stroke();
+        }
+      }
+      ctx.fillStyle = 'rgba(217,164,65,0.5)';
+      ctx.beginPath(); ctx.arc(d.x, d.y, 1.4, 0, Math.PI * 2); ctx.fill();
+    }
+    raf = requestAnimationFrame(frame);
+  }
+
+  function start() { if (!raf) frame(); }
+  function stop() { if (raf) { cancelAnimationFrame(raf); raf = null; } }
+
+  size();
+  window.addEventListener('resize', function () { stop(); size(); start(); });
+  // Only animate while the hero is actually on screen.
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (e) {
+      e[0].isIntersecting ? start() : stop();
+    }, { threshold: 0 }).observe(c.parentElement);
+  } else { start(); }
+  document.addEventListener('visibilitychange', function () {
+    document.hidden ? stop() : start();
+  });
+})();
+
 // Terminal typewriter: types out a short "session" once, then blinks a cursor.
 (function () {
   var body = document.getElementById('terminalBody');
@@ -941,8 +1585,8 @@
     { type: 'out', text: 'atakan — builder & sole operator, Team Gold' },
     { type: 'cmd', text: 'cat now.txt' },
     { type: 'out', text: 'Building an AI-operated cold-calling platform, end to end.' },
-    { type: 'cmd', text: './ship.sh --systems 21 --mode solo' },
-    { type: 'out', text: '✓ done. all 21 in production.', ok: true }
+    { type: 'cmd', text: './ship.sh --systems 22 --mode solo' },
+    { type: 'out', text: '✓ done. all 22 in production.', ok: true }
   ];
 
   function renderStatic() {
