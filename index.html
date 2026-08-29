@@ -825,10 +825,22 @@
         decoration.
       </p>
 
-      <div class="shot">
-        <div class="chrome"><i></i><i></i><i></i></div>
-        <img src="teamgold.jpg" width="1280" height="800" loading="lazy" decoding="async"
-             alt="teamgoldllc.de homepage: dark layout with gold serif headline reading Websites that load fast.">
+      <div class="snippet">
+        <span class="snippet-file">app/layout.tsx — hreflang + JSON-LD</span>
+        <pre><code><span class="tok-com">// x-default is what stops Google serving the DE page to a US searcher</span>
+<span class="tok-kw">export const</span> alternates = {
+  languages: {
+    <span class="tok-str">'en'</span>: <span class="tok-str">'https://teamgoldllc.de/en'</span>,
+    <span class="tok-str">'de'</span>: <span class="tok-str">'https://teamgoldllc.de'</span>,
+    <span class="tok-str">'x-default'</span>: <span class="tok-str">'https://teamgoldllc.de/en'</span>,
+  },
+};
+
+<span class="tok-kw">const</span> schema = [<span class="tok-str">'WebSite'</span>, <span class="tok-str">'Organization'</span>, <span class="tok-str">'Service'</span>, <span class="tok-str">'OfferCatalog'</span>];
+<span class="tok-fn">assert</span>(schema.every(isReadableByGoogle)); <span class="tok-com">// not keyword stuffing</span></code></pre>
+        <p class="snippet-caption">
+          <a href="https://teamgoldllc.de" target="_blank" rel="noopener noreferrer">→ Open teamgoldllc.de</a>
+        </p>
       </div>
 
       <div class="stat-row">
