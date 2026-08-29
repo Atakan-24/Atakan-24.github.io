@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atakan — Builder, Automation &amp; AI Systems</title>
+<meta name="description" content="Portfolio of Atakan: a cold-calling CRM platform, a lead-generation scraper at scale, and a multi-agent AI operations system that runs a real business.">
+<style>
+  :root {
+    --bg: #0b0d12;
+    --bg-card: #12151d;
+    --bg-card-hover: #171b25;
+    --text: #e7e9ee;
+    --text-dim: #9aa1b0;
+    --text-dimmer: #6b7280;
+    --accent: #7dd3c0;
+    --accent-strong: #a5e8db;
+    --border: #232734;
+    --tag-bg: #1a1f2b;
+    --tag-text: #b7c6ea;
+    --max-w: 880px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+    line-height: 1.6;
+  }
+  .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+  header.hero {
+    padding: 96px 0 64px;
+    border-bottom: 1px solid var(--border);
+  }
+  .kicker {
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.15;
+    margin: 0 0 20px;
+    letter-spacing: -0.02em;
+  }
+  .lede {
+    font-size: 1.15rem;
+    color: var(--text-dim);
+    max-width: 640px;
+    margin: 0 0 32px;
+  }
+  .links { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1px solid var(--border);
+    color: var(--text);
+    transition: border-color .15s, transform .15s;
+  }
+  .btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .btn.primary { background: var(--accent); color: #0b0d12; border-color: var(--accent); }
+  .btn.primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+
+  section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+  h2 {
+    font-size: 1.6rem;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .section-intro { color: var(--text-dim); margin: 0 0 40px; max-width: 640px; }
+
+  .project {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px;
+    margin-bottom: 24px;
+    transition: border-color .2s;
+  }
+  .project:hover { border-color: #2c3243; background: var(--bg-card-hover); }
+  .project-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+  .project h3 { margin: 0; font-size: 1.3rem; }
+  .project .role { color: var(--text-dimmer); font-size: 0.85rem; white-space: nowrap; }
+  .project p.summary { color: var(--text-dim); margin: 12px 0 20px; }
+  .stat-row { display: flex; gap: 28px; flex-wrap: wrap; margin: 20px 0; }
+  .stat { min-width: 110px; }
+  .stat .n { font-size: 1.5rem; font-weight: 700; color: var(--accent); display: block; }
+  .stat .l { font-size: 0.8rem; color: var(--text-dimmer); }
+  details { margin-top: 16px; }
+  summary {
+    cursor: pointer;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.9rem;
+    list-style: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "→ "; }
+  details[open] summary::before { content: "↓ "; }
+  .detail-body { padding-top: 14px; color: var(--text-dim); font-size: 0.95rem; }
+  .detail-body ul { padding-left: 20px; margin: 8px 0; }
+  .detail-body li { margin-bottom: 8px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    font-size: 0.78rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+
+  .code-sample {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .code-sample a.repo-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .code-sample a.repo-link:hover { text-decoration: underline; }
+
+  .note {
+    font-size: 0.9rem;
+    color: var(--text-dimmer);
+    border-left: 2px solid var(--border);
+    padding-left: 16px;
+    margin-top: 40px;
+  }
+
+  footer {
+    padding: 48px 0 80px;
+    color: var(--text-dimmer);
+    font-size: 0.9rem;
+  }
+  footer a { color: var(--text-dim); }
+
+  @media (max-width: 600px) {
+    header.hero { padding: 64px 0 48px; }
+    section { padding: 48px 0; }
+    .project { padding: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">Portfolio</p>
+    <h1>I build the systems that run the business,<br>not just the demo of one.</h1>
+    <p class="lede">
+      I design and ship production software end to end — a customer-facing
+      CRM used by a real sales team every day, a data pipeline that collects
+      and scores tens of thousands of leads, and a multi-agent AI operations
+      layer that keeps it all running with a human checking the important
+      decisions, not the routine ones.
+    </p>
+    <div class="links">
+      <a class="btn primary" href="mailto:atakanfisc@gmail.com">Get in touch</a>
+      <a class="btn" href="https://github.com/Atakan-24">GitHub</a>
+      <a class="btn" href="#projects">See the work</a>
+    </div>
+  </div>
+</header>
+
+<section id="projects">
+  <div class="wrap">
+    <h2>Selected work</h2>
+    <p class="section-intro">
+      The three systems below are in active, daily production use. Source
+      code stays private where it touches real customer data — what's shown
+      here is the architecture, the scale, and the specific engineering
+      problems each one solved.
+    </p>
+
+    <div class="project">
+      <div class="project-head">
+        <h3>Team Gold — Cold-Calling CRM &amp; AI Voice Platform</h3>
+        <span class="role">Sole builder &amp; operator</span>
+      </div>
+      <p class="summary">
+        A Next.js CRM built for a real cold-calling sales team: browser-based
+        softphone dialing over WebRTC/Telnyx, an outbound AI voice agent that
+        can run its own call shifts, live call recording and two-channel
+        transcription, and a lead-scoring engine that decides who gets called
+        next.
+      </p>
+      <div class="stat-row">
+        <div class="stat"><span class="n">100k+</span><span class="l">leads scored &amp; routed</span></div>
+        <div class="stat"><span class="n">7</span><span class="l">rotating outbound numbers, load-balanced</span></div>
+        <div class="stat"><span class="n">14+</span><span class="l">iterated call-script versions, A/B tested</span></div>
+      </div>
+      <details>
+        <summary>What made this hard</summary>
+        <div class="detail-body">
+          <ul>
+            <li><strong>Trustworthy scoring, not a vanity number.</strong>
+              Lead priority combines need, budget, and reachability with a
+              geometric mean instead of a raw product — a raw product looked
+              fine in a spreadsheet but pushed almost the entire dataset into
+              a handful of duplicate scores, which silently destroyed the
+              ranking the dialer relied on.</li>
+            <li><strong>Call outcomes you can actually trust.</strong> Rep-
+              entered call results turned out to be unreliable at scale, so
+              every claimed outcome is now cross-checked against the one
+              number a rep can't fake: measured call duration from the
+              telephony provider itself.</li>
+            <li><strong>Two-channel audio, correctly attributed.</strong> AI
+              call review needs to know who said what. Recordings are split
+              into separate agent/customer channels before transcription —
+              naive single-channel transcription let the model guess the
+              speaker from content alone, which was wrong far more often
+              than it looked.</li>
+            <li><strong>An AI agent with a hard leash.</strong> The outbound
+              voice agent has its own budget cap, a compliance-driven
+              call-window check, and a kill switch that a plain config
+              change can't accidentally re-enable — the safety property that
+              matters here is that "off" always means off, not "off unless
+              five different code paths all agree."</li>
+          </ul>
+        </div>
+      </details>
+      <div class="tags">
+        <span class="tag">Next.js</span><span class="tag">TypeScript</span>
+        <span class="tag">Supabase / Postgres</span><span class="tag">WebRTC</span>
+        <span class="tag">Telnyx voice API</span><span class="tag">LLM voice agents</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <h3>Lead Generation Pipeline — Google Maps at Scale</h3>
+        <span class="role">Sole builder &amp; operator</span>
+      </div>
+      <p class="summary">
+        A always-on scraping and enrichment pipeline that finds local
+        businesses, checks whether they still exist, reads their websites
+        for real signals (hiring activity, ad spend, tech stack), and turns
+        all of that into a single, explainable priority score — running
+        continuously, watched by its own health checks.
+      </p>
+      <div class="stat-row">
+        <div class="stat"><span class="n">24/7</span><span class="l">self-healing background process</span></div>
+        <div class="stat"><span class="n">2</span><span class="l">independent scrapers, cross-verified</span></div>
+        <div class="stat"><span class="n">30+</span><span class="l">extracted business signals per lead</span></div>
+      </div>
+      <details>
+        <summary>What made this hard</summary>
+        <div class="detail-body">
+          <ul>
+            <li><strong>"Still running" isn't a status you can assume.</strong>
+              A crashed browser sub-process looked identical to a healthy one
+              in the process list. The watchdog now checks actual CPU
+              activity over a time window, not just whether the PID exists —
+              the difference between those two once cost three days of
+              silent downtime.</li>
+            <li><strong>Pagination under concurrent writes is a trap.</strong>
+              Paging through a database with plain offsets while the table is
+              being written to at the same time silently duplicates and skips
+              rows — invisible until someone compares two "complete" scans
+              and gets two different totals. Every long-running scan here
+              pages by a stable cursor instead.</li>
+            <li><strong>A null is not a zero.</strong> "Never measured" and
+              "measured and it's zero" look the same in a spreadsheet but
+              mean opposite things for a scoring model — conflating them once
+              quietly threw out a third of a live dataset's worth of good
+              signal.</li>
+          </ul>
+        </div>
+      </details>
+      <div class="tags">
+        <span class="tag">Node.js</span><span class="tag">Playwright</span>
+        <span class="tag">Postgres / REST</span><span class="tag">Windows Task Scheduler</span>
+        <span class="tag">Data pipelines</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <h3>AI-OS — A Multi-Agent Operations Layer for a Real Business</h3>
+        <span class="role">Sole builder &amp; operator</span>
+      </div>
+      <p class="summary">
+        Instead of a single AI assistant, this is an operating layer: a
+        library of reusable agent "skills," a policy that routes each task
+        to the right model and effort level, scheduled autonomous work,
+        and a Telegram-based approval channel so a human makes the handful
+        of decisions that actually matter — money, access, and direction —
+        while everything routine runs unattended.
+      </p>
+      <div class="stat-row">
+        <div class="stat"><span class="n">40+</span><span class="l">purpose-built agent skills</span></div>
+        <div class="stat"><span class="n">8</span><span class="l">tiered escalation signals for model routing</span></div>
+        <div class="stat"><span class="n">24/7</span><span class="l">daemon with human-in-the-loop approval gates</span></div>
+      </div>
+      <details>
+        <summary>What made this hard</summary>
+        <div class="detail-body">
+          <ul>
+            <li><strong>Autonomy needs a real off switch, not just a
+              polite one.</strong> Every action with a cost — a paid API
+              call, an outbound message, a purchase — routes through an
+              explicit money/access/direction gate that pauses the agent
+              and asks a human via a structured, button-based approval
+              flow, not free text to a shell.</li>
+            <li><strong>"It ran" isn't "it worked."</strong> A background
+              daemon can die silently for days while every scheduled job
+              still shows as configured. The fix wasn't a bigger try/catch —
+              it was a separate watchdog that checks the checker.</li>
+            <li><strong>Model routing as policy, not vibes.</strong> Which
+              model and how much reasoning effort a task gets is decided by
+              an explicit, versioned scoring policy across six dimensions
+              (ambiguity, blast radius, architectural weight, and so on) —
+              not re-guessed every time from scratch.</li>
+          </ul>
+        </div>
+      </details>
+      <div class="tags">
+        <span class="tag">Claude Agent SDK</span><span class="tag">Multi-agent orchestration</span>
+        <span class="tag">Python</span><span class="tag">Telegram Bot API</span>
+        <span class="tag">Task scheduling</span><span class="tag">System design</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="code">
+  <div class="wrap">
+    <h2>Open source</h2>
+    <p class="section-intro">Small, self-contained tools — the parts that don't depend on a private business context.</p>
+
+    <div class="project">
+      <div class="code-sample">
+        <div>
+          <h3 style="margin-bottom:8px;">git-secret-scan</h3>
+          <p class="summary" style="margin:0;">
+            A dependency-free pre-commit hook that stops API keys and tokens
+            from ever reaching a commit — written after a real incident where
+            five live credentials sat exposed in a repo for months, unnoticed
+            until a backup was being prepared.
+          </p>
+        </div>
+        <a class="repo-link" href="https://github.com/Atakan-24/git-secret-scan">View on GitHub →</a>
+      </div>
+      <div class="tags">
+        <span class="tag">Python</span><span class="tag">Git hooks</span><span class="tag">Security tooling</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <h2>How I work</h2>
+    <p class="section-intro" style="margin-bottom: 20px;">
+      I build fast by directing AI coding agents deliberately — writing the
+      specification, setting the guardrails, and verifying the result —
+      rather than typing every line by hand. That's a real, current skill:
+      the systems above aren't demos, they run a real business every day,
+      and treating "the agent said it's done" as a claim to verify rather
+      than a fact was the single habit that mattered most in building them.
+    </p>
+    <p class="note">
+      No customer data, phone numbers, or business metrics appear anywhere
+      on this page or in the linked repositories — the projects above are
+      described by their architecture and the problems they solved, not by
+      their private source.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Atakan · <a href="mailto:atakanfisc@gmail.com">atakanfisc@gmail.com</a> · <a href="https://github.com/Atakan-24">github.com/Atakan-24</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
