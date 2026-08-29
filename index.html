@@ -125,6 +125,84 @@
     .stats-strip { grid-template-columns: repeat(2, 1fr); }
   }
 
+  /* Terminal */
+  .terminal {
+    background: #090b0f;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 0 32px;
+    max-width: 640px;
+    box-shadow: 0 20px 60px -20px rgba(0,0,0,0.6);
+  }
+  .terminal-bar {
+    display: flex;
+    gap: 7px;
+    padding: 11px 14px;
+    background: #10131a;
+    border-bottom: 1px solid var(--border);
+  }
+  .terminal-bar .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .terminal-bar .dot.red { background: #ff5f57; }
+  .terminal-bar .dot.yellow { background: #febc2e; }
+  .terminal-bar .dot.green { background: #28c840; }
+  .terminal-body {
+    padding: 18px 20px 22px;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 0.86rem;
+    line-height: 1.7;
+    min-height: 168px;
+  }
+  .terminal-body .line { color: var(--text); }
+  .terminal-body .prompt { color: var(--accent); font-weight: 700; }
+  .terminal-body .out { color: var(--text-dim); padding-left: 2px; }
+  .terminal-body .out.ok { color: var(--accent-strong); }
+  .terminal-body .cursor {
+    display: inline-block;
+    color: var(--accent);
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Code snippets */
+  .snippet { margin-bottom: 22px; }
+  .snippet-file {
+    display: inline-block;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-bottom: none;
+    color: var(--text-dim);
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 0.78rem;
+    padding: 7px 14px;
+    border-radius: 8px 8px 0 0;
+  }
+  .snippet pre {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 0 10px 10px 10px;
+    margin: 0;
+    padding: 20px;
+    overflow-x: auto;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 0.82rem;
+    line-height: 1.65;
+  }
+  .snippet code { color: var(--text); white-space: pre; }
+  .tok-com { color: #6b7280; font-style: italic; }
+  .tok-kw  { color: #c792ea; }
+  .tok-str { color: var(--accent); }
+  .tok-fn  { color: #82aaff; }
+  .snippet-caption { color: var(--text-dimmer); font-size: 0.85rem; margin: 10px 0 0; }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .terminal-body .cursor { animation: none; }
+  }
+
   section { padding: 56px 0; border-bottom: 1px solid var(--border); }
   section:last-of-type { border-bottom: none; }
   h2 {
@@ -284,7 +362,7 @@
       <a href="#featured">Featured</a>
       <a href="#built">Everything else</a>
       <a href="#skills">Skills</a>
-      <a href="#code">Code sample</a>
+      <a href="#code">Code</a>
     </div>
   </div>
 </nav>
@@ -300,6 +378,14 @@
       and self-healing infrastructure that keep it all running. Below is
       the full list, not just the highlight reel.
     </p>
+
+    <div class="terminal" id="terminal">
+      <div class="terminal-bar">
+        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+      </div>
+      <div class="terminal-body" id="terminalBody"></div>
+    </div>
+
     <div class="links">
       <a class="btn primary" href="mailto:atakanfisc@gmail.com">Get in touch</a>
       <a class="btn" href="https://github.com/Atakan-24">GitHub</a>
@@ -324,7 +410,7 @@
       problems each one solved.
     </p>
 
-    <div class="project">
+    <div class="project reveal">
       <div class="project-head">
         <h3>Team Gold — Cold-Calling CRM &amp; AI Voice Platform</h3>
         <span class="role">Sole builder &amp; operator</span>
@@ -378,7 +464,7 @@
       </div>
     </div>
 
-    <div class="project">
+    <div class="project reveal">
       <div class="project-head">
         <h3>Lead Generation Pipeline — Google Maps at Scale</h3>
         <span class="role">Sole builder &amp; operator</span>
@@ -426,7 +512,7 @@
       </div>
     </div>
 
-    <div class="project">
+    <div class="project reveal">
       <div class="project-head">
         <h3>AI-OS — A Multi-Agent Operations Layer for a Real Business</h3>
         <span class="role">Sole builder &amp; operator</span>
@@ -495,7 +581,7 @@
 
     <div class="grid" id="cardgrid">
 
-      <div class="card" data-cat="crm data">
+      <div class="card reveal" data-cat="crm data">
         <h4>Lead Scoring &amp; ICP Engine</h4>
         <p>Two deliberately independent scoring layers — a geometric-mean
           need/budget/reachability score, and a separate ICP-fit score with
@@ -504,7 +590,7 @@
         <div class="tags"><span class="tag">TypeScript</span><span class="tag">Scoring models</span></div>
       </div>
 
-      <div class="card" data-cat="data ai">
+      <div class="card reveal" data-cat="data ai">
         <h4>Multi-Source Data Fusion Layer</h4>
         <p>Merges signals from several independent observation sources into
           one profile per contact — and reports "how much do we know"
@@ -513,7 +599,7 @@
         <div class="tags"><span class="tag">Data engineering</span><span class="tag">Node.js</span></div>
       </div>
 
-      <div class="card" data-cat="data ai">
+      <div class="card reveal" data-cat="data ai">
         <h4>Hiring-Signal Detection</h4>
         <p>Parses a business's own website for hiring activity, ad-spend
           evidence, tech stack, and multi-location signals — extracting more
@@ -522,7 +608,7 @@
         <div class="tags"><span class="tag">Web scraping</span><span class="tag">Signal extraction</span></div>
       </div>
 
-      <div class="card" data-cat="ai crm">
+      <div class="card reveal" data-cat="ai crm">
         <h4>Two-Channel Call Audio Pipeline</h4>
         <p>Splits recorded calls into separate customer/agent audio channels
           before transcription. Single-channel transcription let the model
@@ -531,7 +617,7 @@
         <div class="tags"><span class="tag">Audio processing</span><span class="tag">Whisper</span></div>
       </div>
 
-      <div class="card" data-cat="ai crm">
+      <div class="card reveal" data-cat="ai crm">
         <h4>AI Call Review &amp; Coaching Loop</h4>
         <p>LLM-generated feedback for sales reps, gated behind a human
           approve/edit/reject workflow before a rep ever sees it — plus a
@@ -540,7 +626,7 @@
         <div class="tags"><span class="tag">LLM evaluation</span><span class="tag">Workflow design</span></div>
       </div>
 
-      <div class="card" data-cat="crm">
+      <div class="card reveal" data-cat="crm">
         <h4>Multi-Channel Outreach Orchestration</h4>
         <p>Coordinates email (mailbox warm-up ramp across a rotating pool),
           a queued/human-sent LinkedIn channel, and a channel-comparison
@@ -549,7 +635,7 @@
         <div class="tags"><span class="tag">Email deliverability</span><span class="tag">Growth engineering</span></div>
       </div>
 
-      <div class="card" data-cat="crm data">
+      <div class="card reveal" data-cat="crm data">
         <h4>Controlled Experiment Framework</h4>
         <p>A test-cohort system with independent locks that keep test leads
           out of every production automation, plus a self-releasing batch
@@ -558,7 +644,7 @@
         <div class="tags"><span class="tag">Experimentation</span><span class="tag">Feature flags</span></div>
       </div>
 
-      <div class="card" data-cat="ai security">
+      <div class="card reveal" data-cat="ai security">
         <h4>Custom MCP Tooling</h4>
         <p>Built Model Context Protocol servers exposing read-only business
           data and a security-testing toolkit to an LLM agent, with
@@ -567,7 +653,7 @@
         <div class="tags"><span class="tag">MCP</span><span class="tag">Tool design</span></div>
       </div>
 
-      <div class="card" data-cat="ai">
+      <div class="card reveal" data-cat="ai">
         <h4>Human-in-the-Loop Agent Control</h4>
         <p>A Telegram-based approval bridge that lets a long-running
           autonomous agent pause and ask a real human before any money-,
@@ -576,7 +662,7 @@
         <div class="tags"><span class="tag">Telegram Bot API</span><span class="tag">Agent safety</span></div>
       </div>
 
-      <div class="card" data-cat="ai">
+      <div class="card reveal" data-cat="ai">
         <h4>Model / Effort Routing Policy</h4>
         <p>A scored, versioned policy deciding which LLM and how much
           reasoning effort a task should get, across eight escalation
@@ -585,7 +671,7 @@
         <div class="tags"><span class="tag">LLM ops</span><span class="tag">Policy design</span></div>
       </div>
 
-      <div class="card" data-cat="data ai">
+      <div class="card reveal" data-cat="data ai">
         <h4>Self-Healing Task Watchdog</h4>
         <p>A separate monitor that checks whether the checker is still
           alive — built after a background daemon died silently for three
@@ -593,7 +679,7 @@
         <div class="tags"><span class="tag">Reliability engineering</span><span class="tag">Windows Task Scheduler</span></div>
       </div>
 
-      <div class="card" data-cat="security">
+      <div class="card reveal" data-cat="security">
         <h4>Authorized Security-Testing Toolkit</h4>
         <p>Wraps industry-standard recon tools (nmap, nikto, sqlmap,
           whatweb) behind a scope-gated safety layer that defaults to
@@ -602,7 +688,7 @@
         <div class="tags"><span class="tag">Security tooling</span><span class="tag">Python</span></div>
       </div>
 
-      <div class="card" data-cat="crm">
+      <div class="card reveal" data-cat="crm">
         <h4>Compliance-Aware Call Windowing</h4>
         <p>A legal calling-hours check, kept strictly separate from
           reachability scoring — the two answer different questions, and
@@ -611,7 +697,7 @@
         <div class="tags"><span class="tag">Compliance engineering</span></div>
       </div>
 
-      <div class="card" data-cat="crm data">
+      <div class="card reveal" data-cat="crm data">
         <h4>Inbound Call Routing with a Hard Fallback</h4>
         <p>A rep pool rings first on every inbound call, with a
           server-enforced lock that forces a voicemail fallback regardless
@@ -620,7 +706,7 @@
         <div class="tags"><span class="tag">Telephony</span><span class="tag">Fail-safe design</span></div>
       </div>
 
-      <div class="card" data-cat="ai crm">
+      <div class="card reveal" data-cat="ai crm">
         <h4>Weekly Niche-Focus Controller</h4>
         <p>Rotates which market segment the whole calling operation focuses
           on each week, driven by measured rep success rates instead of a
@@ -629,7 +715,7 @@
         <div class="tags"><span class="tag">Data-driven ops</span></div>
       </div>
 
-      <div class="card" data-cat="ai personal">
+      <div class="card reveal" data-cat="ai personal">
         <h4>YouTube Research Pipeline</h4>
         <p>RSS-based channel monitoring with no paid API, feeding an LLM
           pipeline that automatically extracts business and engineering
@@ -637,7 +723,7 @@
         <div class="tags"><span class="tag">RSS</span><span class="tag">LLM summarization</span></div>
       </div>
 
-      <div class="card" data-cat="personal">
+      <div class="card reveal" data-cat="personal">
         <h4>Fahm — Arabic Vocabulary App</h4>
         <p>A single-file, build-free web app for learning Quranic Arabic
           vocabulary: 500+ words, word-by-word sentence breakdowns, and
@@ -645,7 +731,7 @@
         <div class="tags"><span class="tag">Vanilla JS</span><span class="tag">Shipped product</span></div>
       </div>
 
-      <div class="card" data-cat="personal">
+      <div class="card reveal" data-cat="personal">
         <h4>Early projects — where it started</h4>
         <p>A chess engine, a crypto-trading backtester, and a handful of
           classic learn-to-code exercises (calculator, Hangman, a text
@@ -663,7 +749,7 @@
     <h2>Skills &amp; stack</h2>
     <p class="section-intro">What actually shipped the systems above — not an aspirational list.</p>
 
-    <div class="skill-group">
+    <div class="skill-group reveal">
       <h4>Languages</h4>
       <div class="skill-chips">
         <span class="skill-chip">TypeScript</span><span class="skill-chip">JavaScript</span>
@@ -671,7 +757,7 @@
         <span class="skill-chip">Bash / PowerShell</span>
       </div>
     </div>
-    <div class="skill-group">
+    <div class="skill-group reveal">
       <h4>Application &amp; Data</h4>
       <div class="skill-chips">
         <span class="skill-chip">Next.js</span><span class="skill-chip">React</span>
@@ -679,7 +765,7 @@
         <span class="skill-chip">REST API design</span><span class="skill-chip">Playwright</span>
       </div>
     </div>
-    <div class="skill-group">
+    <div class="skill-group reveal">
       <h4>AI &amp; Agents</h4>
       <div class="skill-chips">
         <span class="skill-chip">Claude Agent SDK</span><span class="skill-chip">MCP (Model Context Protocol)</span>
@@ -687,14 +773,14 @@
         <span class="skill-chip">Prompt &amp; policy design</span><span class="skill-chip">Whisper / audio pipelines</span>
       </div>
     </div>
-    <div class="skill-group">
+    <div class="skill-group reveal">
       <h4>Voice &amp; Messaging</h4>
       <div class="skill-chips">
         <span class="skill-chip">Telnyx voice API</span><span class="skill-chip">WebRTC</span>
         <span class="skill-chip">Telegram Bot API</span><span class="skill-chip">Resend (email)</span>
       </div>
     </div>
-    <div class="skill-group">
+    <div class="skill-group reveal">
       <h4>Infra &amp; Ops</h4>
       <div class="skill-chips">
         <span class="skill-chip">Windows Task Scheduler</span><span class="skill-chip">Git / GitHub</span>
@@ -707,10 +793,53 @@
 
 <section id="code">
   <div class="wrap-narrow">
-    <h2>Code sample</h2>
-    <p class="section-intro">A small, self-contained tool — the part that doesn't depend on a private business context.</p>
+    <h2>Code</h2>
+    <p class="section-intro">Three real patterns from the systems above (renamed, generalized — no business data), and one small tool you can actually run.</p>
 
-    <div class="project">
+    <div class="snippet reveal">
+      <div class="snippet-file">scoring.ts</div>
+      <pre><code><span class="tok-com">// Priority score: geometric mean, not a raw product.</span>
+<span class="tok-com">// A raw product crushed almost the whole dataset toward zero;</span>
+<span class="tok-com">// reachability acts as a multiplier band, not a third equal factor.</span>
+<span class="tok-kw">const</span> core   = Math.sqrt((need / <span class="tok-fn">100</span>) * (budget / <span class="tok-fn">100</span>));
+<span class="tok-kw">const</span> factor = <span class="tok-fn">0.5</span> + (reachability / <span class="tok-fn">100</span>) * <span class="tok-fn">0.8</span>;
+<span class="tok-kw">const</span> priority = Math.<span class="tok-fn">min</span>(<span class="tok-fn">1000</span>, <span class="tok-fn">1000</span> * core * factor);</code></pre>
+      <p class="snippet-caption">Fixed a bug where thousands of leads landed on the exact same score — the dialer's "best next call" was silently random.</p>
+    </div>
+
+    <div class="snippet reveal">
+      <div class="snippet-file">paginate.ts</div>
+      <pre><code><span class="tok-com">// Offset pagination breaks under concurrent writes: rows get</span>
+<span class="tok-com">// skipped or duplicated mid-scan. A cursor doesn't care what</span>
+<span class="tok-com">// happened before it — it only knows the last id it saw.</span>
+<span class="tok-kw">let</span> lastId = <span class="tok-fn">0</span>;
+<span class="tok-kw">while</span> (<span class="tok-kw">true</span>) {
+  <span class="tok-kw">const</span> rows = <span class="tok-kw">await</span> db.<span class="tok-fn">query</span>(
+    <span class="tok-str">`select * from contacts where id &gt; $1 order by id asc limit $2`</span>,
+    [lastId, PAGE_SIZE]
+  );
+  <span class="tok-kw">if</span> (rows.length === <span class="tok-fn">0</span>) <span class="tok-kw">break</span>;
+  <span class="tok-fn">process</span>(rows);
+  lastId = rows[rows.length - <span class="tok-fn">1</span>].id;
+}</code></pre>
+      <p class="snippet-caption">Two "complete" scans of the same table were quietly returning different totals until this replaced a plain offset loop.</p>
+    </div>
+
+    <div class="snippet reveal">
+      <div class="snippet-file">safety-lock.ts</div>
+      <pre><code><span class="tok-com">// "Off" always means off — not "off unless five different</span>
+<span class="tok-com">// code paths all happen to agree." Every response is rewritten</span>
+<span class="tok-com">// through one choke point before it's ever sent.</span>
+<span class="tok-kw">function</span> <span class="tok-fn">sendInboundResponse</span>(xml: string): string {
+  <span class="tok-kw">if</span> (INBOUND_AI_LOCKED &amp;&amp; <span class="tok-fn">containsAiAssistant</span>(xml)) {
+    <span class="tok-kw">return</span> VOICEMAIL_FALLBACK_XML; <span class="tok-com">// hard override, not a suggestion</span>
+  }
+  <span class="tok-kw">return</span> xml;
+}</code></pre>
+      <p class="snippet-caption">The safety property lives in code, at a single choke point — not spread across a dashboard toggle, a database row, and a config flag that all have to agree.</p>
+    </div>
+
+    <div class="project reveal">
       <div class="code-sample">
         <div>
           <h3 style="margin-bottom:8px;">git-secret-scan</h3>
@@ -776,6 +905,116 @@
       card.classList.toggle('hidden', !show);
     });
   });
+})();
+
+// Scroll-reveal: fade/slide elements in as they enter the viewport.
+(function () {
+  var els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced || !('IntersectionObserver' in window)) {
+    els.forEach(function (el) { el.classList.add('visible'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(function (el, i) {
+    el.style.transitionDelay = (Math.min(i % 6, 5) * 0.06) + 's';
+    io.observe(el);
+  });
+})();
+
+// Terminal typewriter: types out a short "session" once, then blinks a cursor.
+(function () {
+  var body = document.getElementById('terminalBody');
+  if (!body) return;
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var script = [
+    { type: 'cmd', text: 'whoami' },
+    { type: 'out', text: 'atakan — builder & sole operator, Team Gold' },
+    { type: 'cmd', text: 'cat now.txt' },
+    { type: 'out', text: 'Building an AI-operated cold-calling platform, end to end.' },
+    { type: 'cmd', text: './ship.sh --systems 21 --mode solo' },
+    { type: 'out', text: '✓ done. all 21 in production.', ok: true }
+  ];
+
+  function renderStatic() {
+    script.forEach(function (step) {
+      var row = document.createElement('div');
+      if (step.type === 'cmd') {
+        row.className = 'line';
+        row.innerHTML = '<span class="prompt">$</span> ' + step.text;
+      } else {
+        row.className = 'out' + (step.ok ? ' ok' : '');
+        row.textContent = step.text;
+      }
+      body.appendChild(row);
+    });
+    var cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    cursor.textContent = '▍';
+    body.appendChild(cursor);
+  }
+
+  if (reduced) { renderStatic(); return; }
+
+  var i = 0;
+  function typeStep() {
+    if (i >= script.length) {
+      var cursor = document.createElement('span');
+      cursor.className = 'cursor';
+      cursor.textContent = '▍';
+      body.appendChild(cursor);
+      return;
+    }
+    var step = script[i];
+    var row = document.createElement('div');
+    if (step.type === 'cmd') {
+      row.className = 'line';
+      row.innerHTML = '<span class="prompt">$</span> <span class="typed"></span>';
+    } else {
+      row.className = 'out' + (step.ok ? ' ok' : '');
+    }
+    body.appendChild(row);
+    var target = step.type === 'cmd' ? row.querySelector('.typed') : row;
+    var chars = step.text.split('');
+    var c = 0;
+    var speed = step.type === 'cmd' ? 38 : 14;
+    (function typeChar() {
+      if (c < chars.length) {
+        target.textContent += chars[c];
+        c++;
+        setTimeout(typeChar, speed);
+      } else {
+        i++;
+        setTimeout(typeStep, step.type === 'cmd' ? 220 : 380);
+      }
+    })();
+  }
+
+  // Only run once the terminal actually scrolls into view.
+  if ('IntersectionObserver' in window) {
+    var started = false;
+    var termIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !started) {
+          started = true;
+          typeStep();
+          termIo.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+    termIo.observe(document.getElementById('terminal'));
+  } else {
+    typeStep();
+  }
 })();
 </script>
 
