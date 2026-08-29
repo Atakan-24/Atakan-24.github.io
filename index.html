@@ -4,12 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Atakan — Builder, Automation &amp; AI Systems</title>
-<meta name="description" content="Portfolio of Atakan: a cold-calling CRM platform, a lead-generation scraper at scale, and a multi-agent AI operations system that runs a real business.">
+<meta name="description" content="Portfolio of Atakan: 21 production systems — a cold-calling CRM platform, a lead-generation data pipeline, and a multi-agent AI operations layer that runs a real business.">
 <style>
   :root {
     --bg: #0b0d12;
     --bg-card: #12151d;
     --bg-card-hover: #171b25;
+    --bg-nav: rgba(11,13,18,0.85);
     --text: #e7e9ee;
     --text-dim: #9aa1b0;
     --text-dimmer: #6b7280;
@@ -18,7 +19,9 @@
     --border: #232734;
     --tag-bg: #1a1f2b;
     --tag-text: #b7c6ea;
-    --max-w: 880px;
+    --chip-active-bg: #7dd3c0;
+    --chip-active-text: #0b0d12;
+    --max-w: 1040px;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -30,9 +33,37 @@
     line-height: 1.6;
   }
   .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+  .wrap-narrow { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  nav.topnav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--bg-nav);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav.topnav .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+  }
+  nav.topnav .brand { font-weight: 700; color: var(--text); text-decoration: none; font-size: 0.95rem; }
+  nav.topnav .navlinks { display: flex; gap: 22px; }
+  nav.topnav .navlinks a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+  nav.topnav .navlinks a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    nav.topnav .navlinks { display: none; }
+  }
 
   header.hero {
-    padding: 96px 0 64px;
+    padding: 72px 0 48px;
     border-bottom: 1px solid var(--border);
   }
   .kicker {
@@ -44,18 +75,19 @@
     margin: 0 0 16px;
   }
   h1 {
-    font-size: clamp(2rem, 5vw, 3rem);
+    font-size: clamp(1.9rem, 4.6vw, 2.9rem);
     line-height: 1.15;
     margin: 0 0 20px;
     letter-spacing: -0.02em;
+    max-width: 760px;
   }
   .lede {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     color: var(--text-dim);
-    max-width: 640px;
+    max-width: 680px;
     margin: 0 0 32px;
   }
-  .links { display: flex; gap: 12px; flex-wrap: wrap; }
+  .links { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
   .btn {
     display: inline-flex;
     align-items: center;
@@ -73,15 +105,36 @@
   .btn.primary { background: var(--accent); color: #0b0d12; border-color: var(--accent); }
   .btn.primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
 
-  section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+  .stats-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .stats-strip .cell {
+    background: var(--bg-card);
+    padding: 20px 16px;
+    text-align: center;
+  }
+  .stats-strip .cell .n { display: block; font-size: 1.7rem; font-weight: 700; color: var(--accent); }
+  .stats-strip .cell .l { font-size: 0.78rem; color: var(--text-dimmer); margin-top: 4px; }
+  @media (max-width: 640px) {
+    .stats-strip { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  section { padding: 56px 0; border-bottom: 1px solid var(--border); }
   section:last-of-type { border-bottom: none; }
   h2 {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     margin: 0 0 8px;
     letter-spacing: -0.01em;
   }
-  .section-intro { color: var(--text-dim); margin: 0 0 40px; max-width: 640px; }
+  .section-intro { color: var(--text-dim); margin: 0 0 36px; max-width: 680px; }
 
+  /* Featured deep-dive cards */
   .project {
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -99,35 +152,89 @@
     flex-wrap: wrap;
     margin-bottom: 6px;
   }
-  .project h3 { margin: 0; font-size: 1.3rem; }
-  .project .role { color: var(--text-dimmer); font-size: 0.85rem; white-space: nowrap; }
-  .project p.summary { color: var(--text-dim); margin: 12px 0 20px; }
-  .stat-row { display: flex; gap: 28px; flex-wrap: wrap; margin: 20px 0; }
-  .stat { min-width: 110px; }
-  .stat .n { font-size: 1.5rem; font-weight: 700; color: var(--accent); display: block; }
-  .stat .l { font-size: 0.8rem; color: var(--text-dimmer); }
-  details { margin-top: 16px; }
+  .project h3 { margin: 0; font-size: 1.25rem; }
+  .project .role { color: var(--text-dimmer); font-size: 0.82rem; white-space: nowrap; }
+  .project p.summary { color: var(--text-dim); margin: 12px 0 18px; }
+  .stat-row { display: flex; gap: 26px; flex-wrap: wrap; margin: 18px 0; }
+  .stat { min-width: 100px; }
+  .stat .n { font-size: 1.4rem; font-weight: 700; color: var(--accent); display: block; }
+  .stat .l { font-size: 0.78rem; color: var(--text-dimmer); }
+  details { margin-top: 14px; }
   summary {
     cursor: pointer;
     color: var(--accent);
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     list-style: none;
   }
   summary::-webkit-details-marker { display: none; }
   summary::before { content: "→ "; }
   details[open] summary::before { content: "↓ "; }
-  .detail-body { padding-top: 14px; color: var(--text-dim); font-size: 0.95rem; }
+  .detail-body { padding-top: 14px; color: var(--text-dim); font-size: 0.93rem; }
   .detail-body ul { padding-left: 20px; margin: 8px 0; }
   .detail-body li { margin-bottom: 8px; }
-  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
   .tag {
     background: var(--tag-bg);
     color: var(--tag-text);
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     padding: 4px 10px;
     border-radius: 999px;
     font-weight: 500;
+  }
+
+  /* "Also built" grid */
+  .filterbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+  .chip {
+    background: var(--tag-bg);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    font-size: 0.8rem;
+    padding: 6px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  .chip:hover { border-color: var(--accent); }
+  .chip.active { background: var(--chip-active-bg); color: var(--chip-active-text); border-color: var(--chip-active-bg); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+  }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    transition: border-color .2s, transform .15s;
+  }
+  .card:hover { border-color: #2c3243; transform: translateY(-2px); }
+  .card h4 { margin: 0 0 8px; font-size: 1.02rem; }
+  .card p { margin: 0 0 14px; color: var(--text-dim); font-size: 0.88rem; }
+  .card .tags { margin-top: 0; }
+  .card.hidden { display: none; }
+
+  /* Skills */
+  .skill-group { margin-bottom: 22px; }
+  .skill-group h4 {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-dimmer);
+    margin: 0 0 10px;
+    font-weight: 600;
+  }
+  .skill-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-chip {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.85rem;
+    padding: 6px 14px;
+    border-radius: 8px;
   }
 
   .code-sample {
@@ -142,6 +249,7 @@
     text-decoration: none;
     font-weight: 600;
     font-size: 0.9rem;
+    white-space: nowrap;
   }
   .code-sample a.repo-link:hover { text-decoration: underline; }
 
@@ -150,49 +258,67 @@
     color: var(--text-dimmer);
     border-left: 2px solid var(--border);
     padding-left: 16px;
-    margin-top: 40px;
+    margin-top: 32px;
   }
 
   footer {
-    padding: 48px 0 80px;
+    padding: 40px 0 72px;
     color: var(--text-dimmer);
     font-size: 0.9rem;
   }
   footer a { color: var(--text-dim); }
 
   @media (max-width: 600px) {
-    header.hero { padding: 64px 0 48px; }
-    section { padding: 48px 0; }
-    .project { padding: 22px; }
+    header.hero { padding: 48px 0 36px; }
+    section { padding: 40px 0; }
+    .project { padding: 20px; }
   }
 </style>
 </head>
 <body>
 
-<header class="hero">
+<nav class="topnav">
+  <div class="wrap">
+    <a class="brand" href="#top">Atakan</a>
+    <div class="navlinks">
+      <a href="#featured">Featured</a>
+      <a href="#built">Everything else</a>
+      <a href="#skills">Skills</a>
+      <a href="#code">Code sample</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
   <div class="wrap">
     <p class="kicker">Portfolio</p>
     <h1>I build the systems that run the business,<br>not just the demo of one.</h1>
     <p class="lede">
-      I design and ship production software end to end — a customer-facing
-      CRM used by a real sales team every day, a data pipeline that collects
-      and scores tens of thousands of leads, and a multi-agent AI operations
-      layer that keeps it all running with a human checking the important
-      decisions, not the routine ones.
+      Over the past months I designed, built, and now personally operate a
+      full stack of production software for a real cold-calling sales
+      business — from the CRM the reps use every day down to the AI agents
+      and self-healing infrastructure that keep it all running. Below is
+      the full list, not just the highlight reel.
     </p>
     <div class="links">
       <a class="btn primary" href="mailto:atakanfisc@gmail.com">Get in touch</a>
       <a class="btn" href="https://github.com/Atakan-24">GitHub</a>
-      <a class="btn" href="#projects">See the work</a>
+      <a class="btn" href="#built">See everything I've built</a>
+    </div>
+    <div class="stats-strip">
+      <div class="cell"><span class="n">21</span><span class="l">systems shipped, solo</span></div>
+      <div class="cell"><span class="n">100k+</span><span class="l">records processed in production</span></div>
+      <div class="cell"><span class="n">24/7</span><span class="l">self-healing, unattended infra</span></div>
+      <div class="cell"><span class="n">0→1</span><span class="l">every one, sole builder &amp; operator</span></div>
     </div>
   </div>
 </header>
 
-<section id="projects">
-  <div class="wrap">
-    <h2>Selected work</h2>
+<section id="featured">
+  <div class="wrap-narrow">
+    <h2>Featured</h2>
     <p class="section-intro">
-      The three systems below are in active, daily production use. Source
+      The three largest systems, in active daily production use. Source
       code stays private where it touches real customer data — what's shown
       here is the architecture, the scale, and the specific engineering
       problems each one solved.
@@ -314,7 +440,7 @@
         while everything routine runs unattended.
       </p>
       <div class="stat-row">
-        <div class="stat"><span class="n">40+</span><span class="l">purpose-built agent skills</span></div>
+        <div class="stat"><span class="n">20+</span><span class="l">purpose-built agent skills</span></div>
         <div class="stat"><span class="n">8</span><span class="l">tiered escalation signals for model routing</span></div>
         <div class="stat"><span class="n">24/7</span><span class="l">daemon with human-in-the-loop approval gates</span></div>
       </div>
@@ -334,7 +460,7 @@
               it was a separate watchdog that checks the checker.</li>
             <li><strong>Model routing as policy, not vibes.</strong> Which
               model and how much reasoning effort a task gets is decided by
-              an explicit, versioned scoring policy across six dimensions
+              an explicit, versioned scoring policy across eight dimensions
               (ambiguity, blast radius, architectural weight, and so on) —
               not re-guessed every time from scratch.</li>
           </ul>
@@ -346,12 +472,241 @@
         <span class="tag">Task scheduling</span><span class="tag">System design</span>
       </div>
     </div>
+  </div>
+</section>
 
+<section id="built">
+  <div class="wrap">
+    <h2>Everything else I've built</h2>
+    <p class="section-intro">
+      Smaller in scope than the three above, but each one is a real,
+      independently working subsystem — not a stub. Filter by category, or
+      just scroll.
+    </p>
+
+    <div class="filterbar" id="filterbar">
+      <button class="chip active" data-filter="all">All (18)</button>
+      <button class="chip" data-filter="crm">CRM &amp; Sales</button>
+      <button class="chip" data-filter="ai">AI / LLM</button>
+      <button class="chip" data-filter="data">Data &amp; Infra</button>
+      <button class="chip" data-filter="security">Security</button>
+      <button class="chip" data-filter="personal">Personal</button>
+    </div>
+
+    <div class="grid" id="cardgrid">
+
+      <div class="card" data-cat="crm data">
+        <h4>Lead Scoring &amp; ICP Engine</h4>
+        <p>Two deliberately independent scoring layers — a geometric-mean
+          need/budget/reachability score, and a separate ICP-fit score with
+          its own confidence metric — so one can never silently overwrite
+          the other's meaning.</p>
+        <div class="tags"><span class="tag">TypeScript</span><span class="tag">Scoring models</span></div>
+      </div>
+
+      <div class="card" data-cat="data ai">
+        <h4>Multi-Source Data Fusion Layer</h4>
+        <p>Merges signals from several independent observation sources into
+          one profile per contact — and reports "how much do we know"
+          (confidence) separately from "how fresh and complete is it"
+          (quality) instead of blending them into one misleading number.</p>
+        <div class="tags"><span class="tag">Data engineering</span><span class="tag">Node.js</span></div>
+      </div>
+
+      <div class="card" data-cat="data ai">
+        <h4>Hiring-Signal Detection</h4>
+        <p>Parses a business's own website for hiring activity, ad-spend
+          evidence, tech stack, and multi-location signals — extracting more
+          from data already being fetched instead of paying for a new
+          third-party source.</p>
+        <div class="tags"><span class="tag">Web scraping</span><span class="tag">Signal extraction</span></div>
+      </div>
+
+      <div class="card" data-cat="ai crm">
+        <h4>Two-Channel Call Audio Pipeline</h4>
+        <p>Splits recorded calls into separate customer/agent audio channels
+          before transcription. Single-channel transcription let the model
+          guess who was speaking from context alone — measurably less
+          accurate once compared side by side.</p>
+        <div class="tags"><span class="tag">Audio processing</span><span class="tag">Whisper</span></div>
+      </div>
+
+      <div class="card" data-cat="ai crm">
+        <h4>AI Call Review &amp; Coaching Loop</h4>
+        <p>LLM-generated feedback for sales reps, gated behind a human
+          approve/edit/reject workflow before a rep ever sees it — plus a
+          deliberately "blind" grading mode so a review isn't biased by
+          seeing the AI's verdict too early.</p>
+        <div class="tags"><span class="tag">LLM evaluation</span><span class="tag">Workflow design</span></div>
+      </div>
+
+      <div class="card" data-cat="crm">
+        <h4>Multi-Channel Outreach Orchestration</h4>
+        <p>Coordinates email (mailbox warm-up ramp across a rotating pool),
+          a queued/human-sent LinkedIn channel, and a channel-comparison
+          layer that explicitly labels which numbers are measured vs.
+          self-reported.</p>
+        <div class="tags"><span class="tag">Email deliverability</span><span class="tag">Growth engineering</span></div>
+      </div>
+
+      <div class="card" data-cat="crm data">
+        <h4>Controlled Experiment Framework</h4>
+        <p>A test-cohort system with independent locks that keep test leads
+          out of every production automation, plus a self-releasing batch
+          mechanism that scales exposure with real call volume — no one has
+          to click a button to advance it.</p>
+        <div class="tags"><span class="tag">Experimentation</span><span class="tag">Feature flags</span></div>
+      </div>
+
+      <div class="card" data-cat="ai security">
+        <h4>Custom MCP Tooling</h4>
+        <p>Built Model Context Protocol servers exposing read-only business
+          data and a security-testing toolkit to an LLM agent, with
+          scope-gated safety defaults that stay off by default until
+          explicitly widened.</p>
+        <div class="tags"><span class="tag">MCP</span><span class="tag">Tool design</span></div>
+      </div>
+
+      <div class="card" data-cat="ai">
+        <h4>Human-in-the-Loop Agent Control</h4>
+        <p>A Telegram-based approval bridge that lets a long-running
+          autonomous agent pause and ask a real human before any money-,
+          access-, or direction-level decision, then resumes automatically
+          once answered.</p>
+        <div class="tags"><span class="tag">Telegram Bot API</span><span class="tag">Agent safety</span></div>
+      </div>
+
+      <div class="card" data-cat="ai">
+        <h4>Model / Effort Routing Policy</h4>
+        <p>A scored, versioned policy deciding which LLM and how much
+          reasoning effort a task should get, across eight escalation
+          signals — instead of re-guessing per task or defaulting to the
+          most expensive model every time.</p>
+        <div class="tags"><span class="tag">LLM ops</span><span class="tag">Policy design</span></div>
+      </div>
+
+      <div class="card" data-cat="data ai">
+        <h4>Self-Healing Task Watchdog</h4>
+        <p>A separate monitor that checks whether the checker is still
+          alive — built after a background daemon died silently for three
+          days while every scheduled job still displayed as "configured."</p>
+        <div class="tags"><span class="tag">Reliability engineering</span><span class="tag">Windows Task Scheduler</span></div>
+      </div>
+
+      <div class="card" data-cat="security">
+        <h4>Authorized Security-Testing Toolkit</h4>
+        <p>Wraps industry-standard recon tools (nmap, nikto, sqlmap,
+          whatweb) behind a scope-gated safety layer that defaults to
+          local/private targets only — used for personal bug-bounty and
+          pentesting practice.</p>
+        <div class="tags"><span class="tag">Security tooling</span><span class="tag">Python</span></div>
+      </div>
+
+      <div class="card" data-cat="crm">
+        <h4>Compliance-Aware Call Windowing</h4>
+        <p>A legal calling-hours check, kept strictly separate from
+          reachability scoring — the two answer different questions, and
+          conflating "unlikely to answer" with "not allowed to call" would
+          quietly throw away good leads.</p>
+        <div class="tags"><span class="tag">Compliance engineering</span></div>
+      </div>
+
+      <div class="card" data-cat="crm data">
+        <h4>Inbound Call Routing with a Hard Fallback</h4>
+        <p>A rep pool rings first on every inbound call, with a
+          server-enforced lock that forces a voicemail fallback regardless
+          of what any dashboard toggle or database row says — the safety
+          property lives in code, not in configuration.</p>
+        <div class="tags"><span class="tag">Telephony</span><span class="tag">Fail-safe design</span></div>
+      </div>
+
+      <div class="card" data-cat="ai crm">
+        <h4>Weekly Niche-Focus Controller</h4>
+        <p>Rotates which market segment the whole calling operation focuses
+          on each week, driven by measured rep success rates instead of a
+          self-assigned fit score that turned out to reward its own
+          assumptions.</p>
+        <div class="tags"><span class="tag">Data-driven ops</span></div>
+      </div>
+
+      <div class="card" data-cat="ai personal">
+        <h4>YouTube Research Pipeline</h4>
+        <p>RSS-based channel monitoring with no paid API, feeding an LLM
+          pipeline that automatically extracts business and engineering
+          lessons from long-form video content.</p>
+        <div class="tags"><span class="tag">RSS</span><span class="tag">LLM summarization</span></div>
+      </div>
+
+      <div class="card" data-cat="personal">
+        <h4>Fahm — Arabic Vocabulary App</h4>
+        <p>A single-file, build-free web app for learning Quranic Arabic
+          vocabulary: 500+ words, word-by-word sentence breakdowns, and
+          custom vocabulary import. Shipped and live at a public URL.</p>
+        <div class="tags"><span class="tag">Vanilla JS</span><span class="tag">Shipped product</span></div>
+      </div>
+
+      <div class="card" data-cat="personal">
+        <h4>Early projects — where it started</h4>
+        <p>A chess engine, a crypto-trading backtester, and a handful of
+          classic learn-to-code exercises (calculator, Hangman, a text
+          adventure). Kept private now, but this is the actual starting
+          point for everything above.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Learning journey</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap-narrow">
+    <h2>Skills &amp; stack</h2>
+    <p class="section-intro">What actually shipped the systems above — not an aspirational list.</p>
+
+    <div class="skill-group">
+      <h4>Languages</h4>
+      <div class="skill-chips">
+        <span class="skill-chip">TypeScript</span><span class="skill-chip">JavaScript</span>
+        <span class="skill-chip">Python</span><span class="skill-chip">SQL</span>
+        <span class="skill-chip">Bash / PowerShell</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h4>Application &amp; Data</h4>
+      <div class="skill-chips">
+        <span class="skill-chip">Next.js</span><span class="skill-chip">React</span>
+        <span class="skill-chip">Node.js</span><span class="skill-chip">Supabase / Postgres</span>
+        <span class="skill-chip">REST API design</span><span class="skill-chip">Playwright</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h4>AI &amp; Agents</h4>
+      <div class="skill-chips">
+        <span class="skill-chip">Claude Agent SDK</span><span class="skill-chip">MCP (Model Context Protocol)</span>
+        <span class="skill-chip">Multi-agent orchestration</span><span class="skill-chip">LLM voice agents</span>
+        <span class="skill-chip">Prompt &amp; policy design</span><span class="skill-chip">Whisper / audio pipelines</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h4>Voice &amp; Messaging</h4>
+      <div class="skill-chips">
+        <span class="skill-chip">Telnyx voice API</span><span class="skill-chip">WebRTC</span>
+        <span class="skill-chip">Telegram Bot API</span><span class="skill-chip">Resend (email)</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h4>Infra &amp; Ops</h4>
+      <div class="skill-chips">
+        <span class="skill-chip">Windows Task Scheduler</span><span class="skill-chip">Git / GitHub</span>
+        <span class="skill-chip">Vercel</span><span class="skill-chip">Reliability &amp; watchdog design</span>
+        <span class="skill-chip">Security tooling (nmap, sqlmap, nikto)</span>
+      </div>
+    </div>
   </div>
 </section>
 
 <section id="code">
-  <div class="wrap">
+  <div class="wrap-narrow">
     <h2>Code sample</h2>
     <p class="section-intro">A small, self-contained tool — the part that doesn't depend on a private business context.</p>
 
@@ -376,7 +731,7 @@
 </section>
 
 <section id="how">
-  <div class="wrap">
+  <div class="wrap-narrow">
     <h2>How I work</h2>
     <p class="section-intro" style="margin-bottom: 20px;">
       I build fast by directing AI coding agents deliberately — writing the
@@ -390,7 +745,7 @@
       No customer data, phone numbers, or business metrics appear anywhere
       on this page or in the linked repositories — the projects above are
       described by their architecture and the problems they solved, not by
-      their private source.
+      their private source. Numbers are rounded, not exact.
     </p>
   </div>
 </section>
@@ -401,6 +756,28 @@
     <p style="margin-top:8px;">© 2026 Atakan. All rights reserved.</p>
   </div>
 </footer>
+
+<script>
+(function () {
+  var bar = document.getElementById('filterbar');
+  var grid = document.getElementById('cardgrid');
+  if (!bar || !grid) return;
+  var chips = bar.querySelectorAll('.chip');
+  var cards = grid.querySelectorAll('.card');
+  bar.addEventListener('click', function (e) {
+    var chip = e.target.closest('.chip');
+    if (!chip) return;
+    chips.forEach(function (c) { c.classList.remove('active'); });
+    chip.classList.add('active');
+    var filter = chip.getAttribute('data-filter');
+    cards.forEach(function (card) {
+      var cats = (card.getAttribute('data-cat') || '').split(' ');
+      var show = filter === 'all' || cats.indexOf(filter) !== -1;
+      card.classList.toggle('hidden', !show);
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
