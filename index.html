@@ -461,6 +461,9 @@
     letter-spacing: 0.04em; color: var(--accent); font-weight: 700;
   }
   .proof-item p { margin: 0; font-size: 0.88rem; color: var(--text-dim); line-height: 1.55; }
+  .proof-item a { color: var(--accent); font-weight: 600; }
+  .proof-item a:visited { color: var(--accent); }
+  .proof-item a:hover { color: var(--accent-strong); }
   .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
   .tag {
     background: var(--tag-bg);
@@ -590,6 +593,7 @@
       <a href="#index">Projects</a>
       <a href="#featured">Featured</a>
       <a href="#built">All 25</a>
+      <a href="#infra">Security</a>
       <a href="#code">Code</a>
       <a href="#contact">Contact</a>
     </div>
@@ -680,6 +684,8 @@
         <h4>Security</h4>
         <ul>
           <li><a href="#featured">git-secret-scan <span class="pub">public</span></a></li>
+          <li><a href="#infra">Server hardening — 2 production servers</a></li>
+          <li><a href="#infra">SSH / firewall / secrets management</a></li>
           <li><a href="#built">Authorized security-testing toolkit</a></li>
         </ul>
       </div>
@@ -1217,6 +1223,87 @@
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<section id="infra">
+  <div class="wrap-narrow">
+    <h2>Security &amp; infrastructure</h2>
+    <p class="section-intro">
+      Everything above runs on two servers I administer myself — a Windows
+      box and an Ubuntu ARM instance in Oracle Cloud. Not a managed
+      platform where hardening is somebody else's job.
+    </p>
+
+    <div class="proof-grid reveal">
+      <div class="proof-item">
+        <h4>Least privilege, enforced by the OS</h4>
+        <p>The agent service runs as its own unprivileged user with no
+          sudo, inside a systemd sandbox: home directory read-only, and an
+          explicit allowlist of the few paths it may write to. A compromised
+          agent process cannot reach anything it was not handed.</p>
+      </div>
+      <div class="proof-item">
+        <h4>Reduced attack surface</h4>
+        <p>SSH password authentication disabled entirely — keys only, one
+          per machine so access can be revoked per device rather than all
+          at once. Host firewall and <code>fail2ban</code> in front of it.
+          Debug and automation ports bind to loopback, never
+          <code>0.0.0.0</code> — the difference between a local tool and an
+          open service.</p>
+      </div>
+      <div class="proof-item">
+        <h4>Secrets never live in the repo</h4>
+        <p>Credentials sit in the OS keystore, not in files. That rule is
+          enforced by a tool rather than by discipline:
+          <a href="#featured">git-secret-scan</a> blocks the commit, and
+          the same check runs again in CI for anyone who skipped the hook.</p>
+      </div>
+      <div class="proof-item">
+        <h4>Scanning tools with a scope gate</h4>
+        <p>The security tooling (nmap, nikto, sqlmap and friends) is wired
+          up behind a target check that refuses anything outside localhost
+          and private ranges unless it is deliberately unlocked. An
+          LLM-driven scanner without that gate is one bad prompt away from
+          scanning a stranger.</p>
+      </div>
+    </div>
+
+    <details class="reveal">
+      <summary>What locking myself out actually taught me</summary>
+      <div class="detail-body">
+        <p>
+          The sandbox allowlist above was, at first, <strong>too
+          tight</strong>. A legitimate tool started failing with a
+          permission error, and the obvious reading was "the tool is
+          broken" — it wasn't. My own hardening was denying a write path
+          the tool genuinely needed.
+        </p>
+        <p>
+          The fix was to point the tool at a directory inside the sandbox
+          rather than to widen the sandbox, so the restriction stayed
+          intact. That is the part worth keeping: <strong>the failure mode
+          of good hardening is that it breaks your own things first</strong>,
+          and the temptation every time is to loosen the rule instead of
+          moving the thing. I have done this to myself more than once —
+          port changes, firewall rules, key-only SSH — and each time the
+          useful question was "what exactly is being denied, and why",
+          never "how do I turn this off".
+        </p>
+        <p>
+          None of this is a certification. It is two servers I keep running
+          in production, where the blast radius of getting it wrong is my
+          own business.
+        </p>
+      </div>
+    </details>
+
+    <div class="tags" style="margin-top:18px;">
+      <span class="tag">systemd hardening</span><span class="tag">SSH key-only auth</span>
+      <span class="tag">ufw / fail2ban</span><span class="tag">Least privilege</span>
+      <span class="tag">Secrets management</span><span class="tag">nmap / nikto / sqlmap</span>
+      <span class="tag">Linux (Ubuntu ARM)</span><span class="tag">Windows Server</span>
     </div>
   </div>
 </section>
