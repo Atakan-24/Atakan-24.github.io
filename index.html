@@ -60,6 +60,8 @@
     --text-dimmer: #6b7280;
     --accent: #7dd3c0;
     --accent-strong: #a5e8db;
+    --warn: #d9a566;
+    --danger: #d97a6e;
     --border: #232734;
     --tag-bg: #1a1f2b;
     --tag-text: #b7c6ea;
@@ -352,6 +354,45 @@
     font-family: "SFMono-Regular", Consolas, monospace; font-size: .8rem; color: var(--text-dim);
   }
   .local-note { font-size: .78rem; color: var(--text-dimmer); margin-top: 10px; }
+
+  .pager-demo-grid { display: grid; gap: 22px; margin: 4px 0 4px; }
+  .pager-lane h4 {
+    font-size: .78rem; text-transform: uppercase; letter-spacing: .06em;
+    color: var(--text-dimmer); margin: 0 0 10px; font-weight: 600;
+    display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  }
+  .pager-lane h4 code { text-transform: none; letter-spacing: 0; font-size: .78rem; }
+  .pager-lane h4 .tally {
+    font-variant-numeric: tabular-nums; font-weight: 400; text-transform: none; letter-spacing: 0;
+    color: var(--text-dim);
+  }
+  .pager-lane.bad h4 .tally { color: var(--danger); }
+  .pager-lane.good h4 .tally { color: var(--accent); }
+  .pager-track { display: flex; flex-wrap: wrap; gap: 6px; min-height: 38px; }
+  .pager-item {
+    width: 32px; height: 32px; border-radius: 7px; display: flex; align-items: center; justify-content: center;
+    font-size: .76rem; font-variant-numeric: tabular-nums; border: 1px solid var(--border);
+    background: #0f121a; color: var(--text-dimmer); position: relative; flex-shrink: 0;
+  }
+  .pager-item.seen { color: var(--text); background: #171b25; }
+  .pager-item.hit { border-color: var(--accent); color: var(--text); background: rgba(125,211,192,0.14); }
+  .pager-item.dup { border-color: var(--warn); background: rgba(217,165,102,0.16); color: var(--warn); }
+  .pager-item.dup::after {
+    /* Two adjacent string literals, not one escaped one -- \00d72 was
+       parsed as a single 5-digit hex escape (U+00D72, a Malayalam digit)
+       instead of "x2", found by screenshotting the actual render. */
+    content: '\00d7' '2'; position: absolute; top: -8px; right: -7px; background: var(--warn); color: #0b0d12;
+    font-size: .58rem; font-weight: 700; border-radius: 6px; padding: 0 4px; line-height: 1.4;
+  }
+  .pager-item.skip { border-style: dashed; border-color: var(--danger); color: var(--danger); background: transparent; }
+  .pager-controls { display: flex; gap: 10px; align-items: center; margin: 18px 0 8px; flex-wrap: wrap; }
+  .pager-controls button {
+    background: var(--accent); color: #0b0d12; border: none; border-radius: 8px;
+    padding: 9px 16px; font-size: .84rem; font-weight: 600; cursor: pointer;
+  }
+  .pager-controls button:disabled { opacity: .45; cursor: default; }
+  .pager-controls button.ghost { background: transparent; border: 1px solid var(--border); color: var(--text-dim); }
+  .pager-step-note { font-size: .82rem; color: var(--text-dim); min-height: 1.4em; }
 
   /* Case-study screenshot */
   .shot {
@@ -1359,9 +1400,9 @@
   <div class="wrap-narrow">
     <h2>Try it yourself</h2>
     <p class="section-intro">
-      Two pieces of the real logic above, ported to run in this page —
-      collapsed so they stay out of the way. Open one if you would rather
-      poke at something than read about it.
+      Three pieces of the real logic above, ported to run in this page —
+      open by default. Collapse one if you'd rather scroll past it than
+      poke at it.
     </p>
 
     <details class="demo reveal" open>
@@ -1438,6 +1479,47 @@
       <p class="local-note">
         Runs entirely in your browser. This page makes no network requests
         of any kind — nothing you type leaves it.
+      </p>
+    </details>
+
+    <details class="demo reveal" open>
+      <summary><strong>3 · Offset vs. cursor pagination — the Lead Generation Pipeline's real bug</strong></summary>
+      <p class="why">
+        Paging through a list ordered "newest first" with a plain
+        <code>OFFSET</code> while the table keeps changing underneath the
+        scan. Press play — both lanes read the same 11 rows, the same two
+        writes happen mid-scan (a row inserted, then a row deleted), and only
+        one lane gets it right.
+      </p>
+
+      <div class="pager-demo-grid">
+        <div class="pager-lane bad">
+          <h4><span><code>OFFSET n LIMIT 3</code></span><span class="tally" id="pg-off-tally">0 duplicates · 0 skipped</span></h4>
+          <div class="pager-track" id="pg-off-track"></div>
+        </div>
+        <div class="pager-lane good">
+          <h4><span><code>WHERE id &lt; last_seen LIMIT 3</code></span><span class="tally" id="pg-cur-tally">0 duplicates · 0 skipped</span></h4>
+          <div class="pager-track" id="pg-cur-track"></div>
+        </div>
+      </div>
+
+      <div class="pager-controls">
+        <button id="pg-play" type="button">▶ Play the scan</button>
+        <button id="pg-reset" class="ghost" type="button" disabled>Replay</button>
+      </div>
+      <p class="pager-step-note" id="pg-note">Row 11 gets inserted, then row 6 gets deleted — both mid-scan, exactly the timing that broke this in production.</p>
+
+      <p class="caption">
+        This is the real mechanism, run live — not a recorded outcome. On the
+        actual dataset it was measured directly: a 20-minute scan with 43
+        concurrent inserts produced exactly <strong>20 duplicate reads</strong>
+        under offset pagination. The skip direction shown above is the same
+        mechanism in reverse, reproduced separately — it wasn't caught in
+        that specific measurement window, which is itself the point: a
+        silently skipped row doesn't show up as an error, only as a gap you'd
+        have to already know to look for. Every long-running scan in that
+        codebase now pages by a stable cursor instead
+        (<code>scripts/lib/blaettern.mjs</code>).
       </p>
     </details>
   </div>
@@ -1805,6 +1887,134 @@
     t = setTimeout(render, 120);
   });
   render();
+})();
+
+// ---------------------------------------------------------------------
+// Demo 3 — offset vs. cursor pagination. A real, live simulation, not a
+// scripted recording: the same slice()/filter() a query would run,
+// against a mutable array that two real writes land in mid-scan. The
+// "skipped" verdict is computed by diffing what each lane actually
+// delivered — the same way the real skip direction can only be found by
+// comparing against a source of truth, not by watching one scan alone.
+// ---------------------------------------------------------------------
+(function () {
+  var offTrack = document.getElementById('pg-off-track');
+  if (!offTrack) return;
+  var curTrack = document.getElementById('pg-cur-track');
+  var offTally = document.getElementById('pg-off-tally');
+  var curTally = document.getElementById('pg-cur-tally');
+  var playBtn  = document.getElementById('pg-play');
+  var resetBtn = document.getElementById('pg-reset');
+  var note     = document.getElementById('pg-note');
+
+  var PAGE = 3;
+  // WRITES[i] is applied immediately before the (i+1)-th fetch of both
+  // lanes. null = no write this round.
+  var WRITES = [null, { type: 'insert', id: 11 }, { type: 'delete', id: 6 }];
+  var NOTES = [
+    'Row 11 gets inserted, then row 6 gets deleted — both mid-scan, exactly the timing that broke this in production.',
+    'Page 1, before either write. Both lanes agree — this is the case a one-off test always runs.',
+    'Row 11 (the newest row) was inserted. Offset’s next page slides over row 8 a second time.',
+    'Done. Row 6 was deleted, so offset silently drops row 5 — its own bookkeeping still says "3 pages, done." Both faults are only visible now, by comparing against the cursor lane as a source of truth.'
+  ];
+
+  function initialRows() {
+    var r = [];
+    for (var i = 10; i >= 1; i--) r.push(i);
+    return r; // ids, newest (10) first
+  }
+
+  function fmtTally(dup, skip) {
+    return dup + ' duplicate' + (dup === 1 ? '' : 's') + ' · '
+         + skip + ' skipped' + (skip === 1 ? '' : '');
+  }
+
+  function renderTrack(el, rowsNow, hitSet, dupEverSet, skipSet) {
+    el.innerHTML = '';
+    rowsNow.forEach(function (id) {
+      var span = document.createElement('span');
+      span.className = 'pager-item';
+      span.textContent = id;
+      if (skipSet.has(id)) span.className += ' skip';
+      else if (dupEverSet.has(id)) span.className += ' dup';
+      else if (hitSet.has(id)) span.className += ' hit';
+      el.appendChild(span);
+    });
+  }
+
+  function resetView() {
+    var rows = initialRows();
+    renderTrack(offTrack, rows, new Set(), new Set(), new Set());
+    renderTrack(curTrack, rows, new Set(), new Set(), new Set());
+    offTally.textContent = fmtTally(0, 0);
+    curTally.textContent = fmtTally(0, 0);
+    note.textContent = NOTES[0];
+  }
+
+  function run() {
+    playBtn.disabled = true;
+    resetBtn.disabled = true;
+
+    var rows = initialRows();
+    var offOffset = 0, curLast = Infinity;
+    var offSeen = new Set(), curSeen = new Set();
+    var offDupEver = new Set(), offDupCount = 0;
+    var stepIdx = 0;
+
+    function doStep() {
+      var write = WRITES[stepIdx];
+      if (write) {
+        if (write.type === 'insert') rows.unshift(write.id);
+        else if (write.type === 'delete') {
+          var at = rows.indexOf(write.id);
+          if (at > -1) rows.splice(at, 1);
+        }
+      }
+
+      // Offset lane: a plain positional window into whatever the array
+      // looks like right now.
+      var offPage = rows.slice(offOffset, offOffset + PAGE);
+      offOffset += PAGE;
+      var offHit = new Set(offPage);
+      offPage.forEach(function (id) {
+        if (offSeen.has(id)) { offDupEver.add(id); offDupCount++; }
+        offSeen.add(id);
+      });
+
+      // Cursor lane: keyed by the last id actually delivered, not by a
+      // position — a write anywhere else in the array cannot shift it.
+      var candidates = rows.filter(function (id) { return id < curLast; })
+                            .sort(function (a, b) { return b - a; });
+      var curPage = candidates.slice(0, PAGE);
+      curPage.forEach(function (id) { curSeen.add(id); });
+      if (curPage.length) curLast = curPage[curPage.length - 1];
+
+      stepIdx++;
+
+      var offSkip = new Set();
+      var isLast = stepIdx === WRITES.length;
+      if (isLast) {
+        curSeen.forEach(function (id) { if (!offSeen.has(id)) offSkip.add(id); });
+      }
+
+      renderTrack(offTrack, rows, offHit, offDupEver, offSkip);
+      renderTrack(curTrack, rows, new Set(curPage), new Set(), new Set());
+      offTally.textContent = fmtTally(offDupCount, offSkip.size);
+      curTally.textContent = fmtTally(0, 0);
+      note.textContent = NOTES[stepIdx] || '';
+
+      if (!isLast) {
+        setTimeout(doStep, 1700);
+      } else {
+        resetBtn.disabled = false;
+      }
+    }
+    doStep();
+  }
+
+  playBtn.addEventListener('click', run);
+  resetBtn.addEventListener('click', function () { resetView(); run(); });
+  resetView();
 })();
 
 // ---------------------------------------------------------------------
