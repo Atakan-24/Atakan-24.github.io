@@ -436,6 +436,19 @@
   .detail-body { padding-top: 14px; color: var(--text-dim); font-size: 0.93rem; }
   .detail-body ul { padding-left: 20px; margin: 8px 0; }
   .detail-body li { margin-bottom: 8px; }
+  .proof-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px; margin: 18px 0;
+  }
+  .proof-item {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 16px;
+  }
+  .proof-item h4 {
+    margin: 0 0 6px; font-size: 0.76rem; text-transform: uppercase;
+    letter-spacing: 0.04em; color: var(--accent); font-weight: 700;
+  }
+  .proof-item p { margin: 0; font-size: 0.88rem; color: var(--text-dim); line-height: 1.55; }
   .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
   .tag {
     background: var(--tag-bg);
@@ -636,7 +649,7 @@
       <div class="index-col reveal">
         <h4>Security</h4>
         <ul>
-          <li><a href="https://github.com/Atakan-24/git-secret-scan" rel="noopener noreferrer">git-secret-scan <span class="pub">public</span></a></li>
+          <li><a href="#featured">git-secret-scan <span class="pub">public</span></a></li>
           <li><a href="#built">Authorized security-testing toolkit</a></li>
         </ul>
       </div>
@@ -644,7 +657,7 @@
       <div class="index-col reveal">
         <h4>Own projects</h4>
         <ul>
-          <li><a href="#featured">teamgoldllc.de — bilingual site &amp; SEO</a></li>
+          <li><a href="#built">teamgoldllc.de — bilingual site &amp; SEO</a></li>
           <li><a href="https://github.com/Atakan-24/fahm" rel="noopener noreferrer">Fahm — Arabic vocabulary app <span class="pub">public</span></a></li>
           <li><a href="https://github.com/Atakan-24/yt-transcript" rel="noopener noreferrer">yt-transcript — 4-tier fallback <span class="pub">public</span></a></li>
           <li><a href="https://github.com/Atakan-24/gitingest" rel="noopener noreferrer">gitingest — repo to one file <span class="pub">public</span></a></li>
@@ -660,10 +673,11 @@
   <div class="wrap-narrow">
     <h2>Featured</h2>
     <p class="section-intro">
-      The four largest systems, in active daily production use. Source
-      code stays private where it touches real customer data — what's shown
-      here is the architecture, the scale, and the specific engineering
-      problems each one solved.
+      Four systems, in active daily production use. Source code stays
+      private where it touches real customer data — one of the four is
+      fully public and linked below. What's shown for the rest is the
+      architecture, the scale, and the specific engineering problems each
+      one solved.
     </p>
 
     <div class="project reveal">
@@ -682,6 +696,25 @@
         <div class="stat"><span class="n">100k+</span><span class="l">leads scored &amp; routed</span></div>
         <div class="stat"><span class="n">7</span><span class="l">rotating outbound numbers, load-balanced</span></div>
         <div class="stat"><span class="n">14+</span><span class="l">iterated call-script versions, A/B tested</span></div>
+      </div>
+      <div class="proof-grid">
+        <div class="proof-item">
+          <h4>Architecture</h4>
+          <p>Next.js talks to Postgres through Supabase — row-level
+            security policies enforce who can see which contacts at the
+            database layer, not just in application code, so a bug in a
+            page component can't leak another rep's leads. The call script
+            itself is versioned rows in the database rather than code, so a
+            wording change ships without a deploy.</p>
+        </div>
+        <div class="proof-item">
+          <h4>Security &amp; reliability</h4>
+          <p>Every schema change ships with an explicit fallback path — a
+            missing column degrades a feature instead of crashing the page.
+            The outbound AI voice agent carries its own spend cap, a
+            compliance-driven call-window check, and a kill switch that no
+            single misconfigured toggle can override.</p>
+        </div>
       </div>
       <details>
         <summary>What made this hard</summary>
@@ -737,6 +770,24 @@
         <div class="stat"><span class="n">2</span><span class="l">independent scrapers, cross-verified</span></div>
         <div class="stat"><span class="n">30+</span><span class="l">extracted business signals per lead</span></div>
       </div>
+      <div class="proof-grid">
+        <div class="proof-item">
+          <h4>Architecture</h4>
+          <p>Two independently-built scrapers cross-verify each other's
+            output before a lead is scored. Every long scan pages through
+            the database by a stable cursor rather than a plain offset —
+            offset pagination silently drops or duplicates rows the moment
+            something else writes to the table mid-scan, which a one-off
+            scan will never catch.</p>
+        </div>
+        <div class="proof-item">
+          <h4>Security &amp; reliability</h4>
+          <p>A background watchdog restarts the scraper process, but only
+            after confirming actual CPU activity over a time window — a
+            crashed browser sub-process looks identical to a healthy one if
+            you only check whether the PID still exists.</p>
+        </div>
+      </div>
       <details>
         <summary>What made this hard</summary>
         <div class="detail-body">
@@ -786,6 +837,25 @@
         <div class="stat"><span class="n">8</span><span class="l">tiered escalation signals for model routing</span></div>
         <div class="stat"><span class="n">24/7</span><span class="l">daemon with human-in-the-loop approval gates</span></div>
       </div>
+      <div class="proof-grid">
+        <div class="proof-item">
+          <h4>Architecture</h4>
+          <p>Tasks route through an explicit, versioned scoring policy
+            across model and reasoning-effort tiers instead of picking a
+            model by feel — the same policy a human can read and audit. A
+            background daemon runs the scheduled work; it's watched by a
+            second, independent process whose only job is noticing when the
+            first one goes silent.</p>
+        </div>
+        <div class="proof-item">
+          <h4>Security &amp; reliability</h4>
+          <p>Anything with a cost — a paid API call, an outbound message —
+            routes through a structured approval gate to a human before it
+            executes. The kill switch is checked at the one place every
+            path funnels through, not duplicated across call sites that
+            could disagree.</p>
+        </div>
+      </div>
       <details>
         <summary>What made this hard</summary>
         <div class="detail-body">
@@ -817,76 +887,89 @@
 
     <div class="project reveal">
       <div class="project-head">
-        <h3>teamgoldllc.de — Bilingual Marketing Site &amp; SEO Engineering</h3>
-        <span class="role">Built &amp; shipped</span>
+        <h3>git-secret-scan — Pre-Commit Hook Against Leaked Credentials</h3>
+        <span class="role">Open source, public repository</span>
       </div>
       <p class="summary">
-        The public site for the business the systems above serve. A React
-        single-page app in two languages, with the structured-data and
-        loading work that decides whether a small business is findable at
-        all — the part of "a website" that is engineering rather than
-        decoration.
+        A dependency-free pre-commit hook and GitHub Action that stops API
+        keys from reaching a commit — written after a real incident where
+        five live credentials sat exposed in a repo for months, unnoticed
+        until a backup was being prepared.
       </p>
 
-      <div class="snippet">
-        <span class="snippet-file">app/layout.tsx — hreflang + JSON-LD</span>
-        <pre><code><span class="tok-com">// x-default is what stops Google serving the DE page to a US searcher</span>
-<span class="tok-kw">export const</span> alternates = {
-  languages: {
-    <span class="tok-str">'en'</span>: <span class="tok-str">'https://teamgoldllc.de/en'</span>,
-    <span class="tok-str">'de'</span>: <span class="tok-str">'https://teamgoldllc.de'</span>,
-    <span class="tok-str">'x-default'</span>: <span class="tok-str">'https://teamgoldllc.de/en'</span>,
-  },
-};
-
-<span class="tok-kw">const</span> schema = [<span class="tok-str">'WebSite'</span>, <span class="tok-str">'Organization'</span>, <span class="tok-str">'Service'</span>, <span class="tok-str">'OfferCatalog'</span>];
-<span class="tok-fn">assert</span>(schema.every(isReadableByGoogle)); <span class="tok-com">// not keyword stuffing</span></code></pre>
-        <p class="snippet-caption snippet-link">
-          <a href="https://teamgoldllc.de" target="_blank" rel="noopener noreferrer">→ Open teamgoldllc.de</a>
-        </p>
+      <div class="stat-row">
+        <div class="stat"><span class="n">98</span><span class="l">tests, 98 % coverage</span></div>
+        <div class="stat"><span class="n">11</span><span class="l">CI jobs — 3 OS × 3 Python versions</span></div>
+        <div class="stat"><span class="n">80→100 %</span><span class="l">recall, after measuring it</span></div>
       </div>
 
-      <div class="stat-row">
-        <div class="stat"><span class="n">2</span><span class="l">languages, full translations</span></div>
-        <div class="stat"><span class="n">4</span><span class="l">JSON-LD schema types</span></div>
-        <div class="stat"><span class="n">live</span><span class="l">at teamgoldllc.de</span></div>
+      <div class="proof-grid">
+        <div class="proof-item">
+          <h4>Architecture</h4>
+          <p>Detection is pattern-based, scored against a hand-labelled
+            corpus of 61 real and synthetic cases rather than tuned by eye
+            — the benchmark gates CI, so a regression in a security tool
+            fails the build instead of going unnoticed.</p>
+        </div>
+        <div class="proof-item">
+          <h4>Security &amp; reliability</h4>
+          <p>Runs entirely locally as a git hook — a secret never has to
+            leave the machine to be checked. Findings are always masked in
+            output; a scanner that prints the full credential into a
+            terminal and a CI log has made the problem worse, not better.</p>
+        </div>
       </div>
 
       <details>
-        <summary>What made this hard</summary>
+        <summary>The part worth reading: I measured it and found it broken</summary>
         <div class="detail-body">
+          <p>
+            The tool had never been measured. Building a labelled corpus of
+            61 cases surfaced <strong>three bugs, all false negatives</strong> —
+            the failure mode that matters in security work, because it looks
+            exactly like success.
+          </p>
           <ul>
-            <li><strong>Two languages, not a language switcher.</strong>
-              Full EN and DE translation files with correct
-              <code>hreflang</code> including <code>x-default</code> —
-              which is what stops Google serving the German page to a US
-              searcher and treating the pair as duplicate content.</li>
-            <li><strong>Structured data as a first-class output.</strong>
-              Four JSON-LD types (WebSite, Organization, Service and an
-              OfferCatalog of the individual services). Search engines can
-              read what the business sells without parsing the prose —
-              which is the entire point of doing SEO as markup rather than
-              keyword stuffing.</li>
-            <li><strong>Fonts that do not block the first paint.</strong>
-              Preloaded as a stylesheet with an <code>onload</code> swap
-              and a <code>&lt;noscript&gt;</code> fallback, plus a
-              <code>preconnect</code> for the booking widget. Every one of
-              these is verifiable in the page source — which is exactly
-              where a technical reviewer will look.</li>
+            <li><strong>The false-positive guard was eating real tokens.</strong>
+              It demanded an uppercase letter <em>and</em> a digit in every
+              match. Slack and GitHub tokens are routinely
+              lowercase-plus-digits, so <strong>2 of 10 credential types were
+              undetectable</strong>. Worse, it no longer did the job it was
+              written for — the patterns had since gained a word boundary
+              that handled that case anyway.</li>
+            <li><strong>A placeholder anywhere on the line disabled the
+              line.</strong> A real key with <code>// see EXAMPLE</code> in a
+              trailing comment went through silently.</li>
+            <li><strong>A broken git environment reported "clean".</strong>
+              Run outside a repository it printed clean and exited 0. A hook
+              that passes when it cannot see anything is worse than no hook,
+              because it is trusted.</li>
           </ul>
-          <p style="margin-top:14px;">
-            Honest scope: this was assembled fast on React with a component
-            library, not hand-written from zero. What I own here are the
-            decisions — the bilingual structure, the schema modelling, and
-            the loading strategy.
+          <p>
+            Recall went from <strong>80 % to 100 %</strong>, precision from
+            91.4 % to 100 %, measured — and the benchmark now gates CI, so a
+            regression fails the build instead of going unnoticed.
+          </p>
+          <p>
+            Two more things only real delivery teaches: GitHub's own push
+            protection <strong>blocked the first push</strong>, because its
+            scanner could not tell my synthetic test token from a live one —
+            fixed by assembling fixtures from parts rather than weakening the
+            check. And the CI matrix caught a genuine Python 3.9
+            incompatibility that a machine running 3.12 could never have
+            surfaced.
           </p>
         </div>
       </details>
+
       <div class="tags">
-        <span class="tag">React</span><span class="tag">Vite</span>
-        <span class="tag">TypeScript</span><span class="tag">i18n</span>
-        <span class="tag">JSON-LD / Schema.org</span><span class="tag">Core Web Vitals</span>
+        <span class="tag">Python</span><span class="tag">Git hooks</span>
+        <span class="tag">GitHub Actions</span><span class="tag">Hypothesis</span>
+        <span class="tag">Security tooling</span>
       </div>
+      <p class="snippet-caption snippet-link" style="margin-top:14px;">
+        <a href="https://github.com/Atakan-24/git-secret-scan" target="_blank" rel="noopener noreferrer">→ View on GitHub</a>
+      </p>
     </div>
   </div>
 </section>
@@ -901,7 +984,7 @@
     </p>
 
     <div class="filterbar" id="filterbar">
-      <button class="chip active" data-filter="all">All (18)</button>
+      <button class="chip active" data-filter="all">All (19)</button>
       <button class="chip" data-filter="crm">CRM &amp; Sales</button>
       <button class="chip" data-filter="ai">AI / LLM</button>
       <button class="chip" data-filter="data">Data &amp; Infra</button>
@@ -1051,6 +1134,15 @@
           pipeline that automatically extracts business and engineering
           lessons from long-form video content.</p>
         <div class="tags"><span class="tag">RSS</span><span class="tag">LLM summarization</span></div>
+      </div>
+
+      <div class="card reveal" data-cat="crm">
+        <h4>teamgoldllc.de — Bilingual Marketing Site</h4>
+        <p>The public site for the business the systems above serve —
+          full EN/DE translations with correct <code>hreflang</code>,
+          four JSON-LD schema types, and a font-loading strategy that
+          doesn't block first paint. <a href="https://teamgoldllc.de" target="_blank" rel="noopener noreferrer">Live at teamgoldllc.de →</a></p>
+        <div class="tags"><span class="tag">React</span><span class="tag">i18n</span><span class="tag">JSON-LD</span></div>
       </div>
 
       <div class="card reveal" data-cat="personal">
@@ -1259,80 +1351,18 @@
 
     <p class="section-intro" style="margin-top:-18px;">
       Four repositories are public, each with tests, CI and a README that
-      explains the trade-offs:
-      <a href="https://github.com/Atakan-24/git-secret-scan" rel="noopener noreferrer">git-secret-scan</a> ·
+      explains the trade-offs — <strong>git-secret-scan</strong> is a
+      <a href="#featured">Featured system above</a>, measured recall
+      80 %→100 %.
       <a href="https://github.com/Atakan-24/yt-transcript" rel="noopener noreferrer">yt-transcript</a> ·
       <a href="https://github.com/Atakan-24/gitingest" rel="noopener noreferrer">gitingest</a> ·
       <a href="https://github.com/Atakan-24/fahm" rel="noopener noreferrer">fahm</a>
     </p>
 
-    <div class="project reveal">
-      <div class="code-sample">
-        <div>
-          <h3 style="margin-bottom:8px;">git-secret-scan</h3>
-          <p class="summary" style="margin:0;">
-            A dependency-free pre-commit hook and GitHub Action that stops
-            API keys from reaching a commit — written after a real incident
-            where five live credentials sat exposed in a repo for months,
-            unnoticed until a backup was being prepared.
-          </p>
-        </div>
-        <a class="repo-link" href="https://github.com/Atakan-24/git-secret-scan" rel="noopener noreferrer">View on GitHub →</a>
-      </div>
-
-      <div class="stat-row">
-        <div class="stat"><span class="n">98</span><span class="l">tests, 98 % coverage</span></div>
-        <div class="stat"><span class="n">11</span><span class="l">CI jobs — 3 OS × 3 Python versions</span></div>
-        <div class="stat"><span class="n">80→100 %</span><span class="l">recall, after measuring it</span></div>
-      </div>
-
-      <details>
-        <summary>The part worth reading: I measured it and found it broken</summary>
-        <div class="detail-body">
-          <p>
-            The tool had never been measured. Building a labelled corpus of
-            61 cases surfaced <strong>three bugs, all false negatives</strong> —
-            the failure mode that matters in security work, because it looks
-            exactly like success.
-          </p>
-          <ul>
-            <li><strong>The false-positive guard was eating real tokens.</strong>
-              It demanded an uppercase letter <em>and</em> a digit in every
-              match. Slack and GitHub tokens are routinely
-              lowercase-plus-digits, so <strong>2 of 10 credential types were
-              undetectable</strong>. Worse, it no longer did the job it was
-              written for — the patterns had since gained a word boundary
-              that handled that case anyway.</li>
-            <li><strong>A placeholder anywhere on the line disabled the
-              line.</strong> A real key with <code>// see EXAMPLE</code> in a
-              trailing comment went through silently.</li>
-            <li><strong>A broken git environment reported "clean".</strong>
-              Run outside a repository it printed clean and exited 0. A hook
-              that passes when it cannot see anything is worse than no hook,
-              because it is trusted.</li>
-          </ul>
-          <p>
-            Recall went from <strong>80 % to 100 %</strong>, precision from
-            91.4 % to 100 %, measured — and the benchmark now gates CI, so a
-            regression fails the build instead of going unnoticed.
-          </p>
-          <p>
-            Two more things only real delivery teaches: GitHub's own push
-            protection <strong>blocked the first push</strong>, because its
-            scanner could not tell my synthetic test token from a live one —
-            fixed by assembling fixtures from parts rather than weakening the
-            check. And the CI matrix caught a genuine Python 3.9
-            incompatibility that a machine running 3.12 could never have
-            surfaced.
-          </p>
-        </div>
-      </details>
-
-      <div class="tags">
-        <span class="tag">Python</span><span class="tag">Git hooks</span>
-        <span class="tag">GitHub Actions</span><span class="tag">Hypothesis</span>
-        <span class="tag">Security tooling</span>
-      </div>
+    <div class="stat-row" style="margin-top:6px;">
+      <div class="stat"><span class="n">147</span><span class="l">tests across the 4 public repos, real CI runs</span></div>
+      <div class="stat"><span class="n">98%</span><span class="l">line coverage on git-secret-scan</span></div>
+      <div class="stat"><span class="n">3×3</span><span class="l">OS × Python-version CI matrix</span></div>
     </div>
   </div>
 </section>
