@@ -503,13 +503,18 @@
     transition: border-color .2s, transform .15s;
   }
   .card:hover { border-color: #2c3243; transform: translateY(-2px); }
+  /* A card carrying a screenshot cannot sit in a grid of compact text
+     cards — it ends up ~200px taller than its neighbours and tears a hole
+     in the row. It spans the full row instead, image beside the text. */
+  .card.card--wide { grid-column: 1 / -1; display: grid; gap: 24px; align-items: center; }
+  @media (min-width: 720px) { .card.card--wide { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); } }
   .card .card-shot {
-    display: block; width: calc(100% + 44px); margin: -22px -22px 16px;
+    display: block; width: 100%;
     /* height:auto is load-bearing: without it the HTML height attribute
        wins over the CSS width and the shot renders stretched upright. */
-    height: auto; max-height: 190px; object-fit: cover; object-position: top;
-    border-bottom: 1px solid var(--border); border-radius: 12px 12px 0 0;
+    height: auto; border: 1px solid var(--border); border-radius: 8px;
   }
+  .card.card--wide h4 { font-size: 1.12rem; }
   .card h4 { margin: 0 0 8px; font-size: 1.02rem; }
   .card p { margin: 0 0 14px; color: var(--text-dim); font-size: 0.88rem; }
   .card p a { color: var(--accent); font-weight: 600; white-space: nowrap; }
@@ -1178,17 +1183,6 @@
         <div class="tags"><span class="tag">RSS</span><span class="tag">LLM summarization</span></div>
       </div>
 
-      <div class="card reveal" data-cat="crm">
-        <img class="card-shot" src="teamgold.jpg" width="1280" height="800" loading="lazy" decoding="async"
-             alt="teamgoldllc.de homepage: dark layout with gold headline reading Websites that rank.">
-        <h4>teamgoldllc.de — Bilingual Marketing Site</h4>
-        <p>The public site for the business the systems above serve —
-          full EN/DE translations with correct <code>hreflang</code>,
-          four JSON-LD schema types, and a font-loading strategy that
-          doesn't block first paint. <a href="https://teamgoldllc.de" target="_blank" rel="noopener noreferrer">Live at teamgoldllc.de →</a></p>
-        <div class="tags"><span class="tag">React</span><span class="tag">i18n</span><span class="tag">JSON-LD</span></div>
-      </div>
-
       <div class="card reveal" data-cat="personal">
         <h4>Fahm — Arabic Vocabulary App</h4>
         <p>A single-file, build-free web app for learning Quranic Arabic
@@ -1204,6 +1198,23 @@
           adventure). Kept private now, but this is the actual starting
           point for everything above.</p>
         <div class="tags"><span class="tag">Python</span><span class="tag">Learning journey</span></div>
+      </div>
+
+      <!-- Full-row banner, kept last so the 18 compact cards fill whole
+           rows above it instead of being split by a wide item. -->
+      <div class="card card--wide reveal" data-cat="crm">
+        <a href="https://teamgoldllc.de" target="_blank" rel="noopener noreferrer" aria-label="Open teamgoldllc.de">
+          <img class="card-shot" src="teamgold.jpg" width="1280" height="800" loading="lazy" decoding="async"
+               alt="teamgoldllc.de homepage: dark layout with a gold headline reading Websites that rank.">
+        </a>
+        <div>
+          <h4>teamgoldllc.de — Bilingual Marketing Site</h4>
+          <p>The public site for the business the systems above serve —
+            full EN/DE translations with correct <code>hreflang</code>,
+            four JSON-LD schema types, and a font-loading strategy that
+            doesn't block first paint. <a href="https://teamgoldllc.de" target="_blank" rel="noopener noreferrer">Live at teamgoldllc.de →</a></p>
+          <div class="tags"><span class="tag">React</span><span class="tag">i18n</span><span class="tag">JSON-LD</span></div>
+        </div>
       </div>
 
     </div>
