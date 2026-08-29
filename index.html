@@ -363,6 +363,18 @@
     background: #141821; border-bottom: 1px solid var(--border);
   }
   .shot .chrome i { width: 9px; height: 9px; border-radius: 50%; background: #3a352c; display: block; }
+  .shot-pair {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 18px 0 6px;
+  }
+  @media (max-width: 640px) { .shot-pair { grid-template-columns: 1fr; } }
+  .shot-pair figure { margin: 0; }
+  .shot-pair img {
+    display: block; width: 100%; height: auto;
+    border: 1px solid var(--border); border-radius: 10px; background: #0f121a;
+  }
+  .shot-pair figcaption {
+    font-size: 0.78rem; color: var(--text-dimmer); margin-top: 8px;
+  }
   .shot img { display: block; width: 100%; height: auto; }
 
   /* Contact */
@@ -696,6 +708,23 @@
         transcription, and a lead-scoring engine that decides who gets called
         next.
       </p>
+
+      <div class="shot-pair">
+        <figure>
+          <img src="crm-sprint.jpg" width="1400" height="859" loading="lazy" decoding="async"
+               alt="CRM niche-sprint view: the active trade, remaining callable leads per trade, and how many days of calling each pool covers.">
+          <figcaption>Niche sprint — which trade the whole operation
+            focuses on this week, with the measured runway of each lead
+            pool.</figcaption>
+        </figure>
+        <figure>
+          <img src="crm-scripts.jpg" width="1400" height="859" loading="lazy" decoding="async"
+               alt="CRM call-script management: versioned call scripts, which one is live, per-rep assignment, and an archive of older versions.">
+          <figcaption>Call scripts — versioned in the database, one live at
+            a time, per-rep assignment, nothing ever deleted.</figcaption>
+        </figure>
+      </div>
+
       <div class="stat-row">
         <div class="stat"><span class="n">100k+</span><span class="l">leads scored &amp; routed</span></div>
         <div class="stat"><span class="n">7</span><span class="l">rotating outbound numbers, load-balanced</span></div>
