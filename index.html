@@ -240,6 +240,9 @@
   .tok-str { color: var(--accent); }
   .tok-fn  { color: #82aaff; }
   .snippet-caption { color: var(--text-dimmer); font-size: 0.85rem; margin: 10px 0 0; }
+  .snippet-link a { color: var(--accent); font-weight: 600; }
+  .snippet-link a:visited { color: var(--accent); }
+  .snippet-link a:hover { color: var(--accent-strong); }
 
   /* Hero particle field — hand-written canvas, no library.
      Importing three.js would be ~600 KB of somebody else's code on a page
@@ -838,7 +841,7 @@
 
 <span class="tok-kw">const</span> schema = [<span class="tok-str">'WebSite'</span>, <span class="tok-str">'Organization'</span>, <span class="tok-str">'Service'</span>, <span class="tok-str">'OfferCatalog'</span>];
 <span class="tok-fn">assert</span>(schema.every(isReadableByGoogle)); <span class="tok-com">// not keyword stuffing</span></code></pre>
-        <p class="snippet-caption">
+        <p class="snippet-caption snippet-link">
           <a href="https://teamgoldllc.de" target="_blank" rel="noopener noreferrer">→ Open teamgoldllc.de</a>
         </p>
       </div>
@@ -1127,7 +1130,7 @@
       poke at something than read about it.
     </p>
 
-    <details class="demo reveal">
+    <details class="demo reveal" open>
       <summary><strong>1 · The lead-scoring bug that made a ranking useless</strong></summary>
       <p class="why">
         The CRM decides who gets called next. The first version multiplied
@@ -1186,7 +1189,7 @@
       </div>
     </details>
 
-    <details class="demo scanner reveal">
+    <details class="demo scanner reveal" open>
       <summary><strong>2 · The secret scanner — paste something and watch</strong></summary>
       <p class="why">
         The real patterns from
