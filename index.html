@@ -2209,5 +2209,30 @@
 })();
 </script>
 
+<script>
+// Anonymer Besucher-Zaehler: Land, Referrer, geklickte Links.
+// Speichert nie eine IP oder einen Namen -- siehe portfolio-tracker im Repo.
+(function () {
+  var ENDPOINT = 'https://kglqsnltlokyiocvugbo.supabase.co/functions/v1/track';
+  function send(data) {
+    try {
+      navigator.sendBeacon(ENDPOINT, JSON.stringify(data));
+    } catch (e) {
+      // beacon nicht verfuegbar (sehr alter Browser) -> einfach nichts tun
+    }
+  }
+  send({ type: 'pageview', path: location.pathname, referrer: document.referrer });
+
+  document.addEventListener('click', function (ev) {
+    var link = ev.target.closest('a[href]');
+    if (!link) return;
+    var href = link.getAttribute('href') || '';
+    if (!/^https?:\/\//i.test(href)) return; // nur ausgehende Links
+    if (href.indexOf(location.hostname) !== -1) return; // eigene Seite nicht mitzaehlen
+    send({ type: 'click', path: location.pathname, referrer: document.referrer, target: href });
+  }, true);
+})();
+</script>
+
 </body>
 </html>
