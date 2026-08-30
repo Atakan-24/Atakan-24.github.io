@@ -2317,10 +2317,58 @@
   var input = document.getElementById('askInput');
   if (!log || !form || !input) return;
 
+  var REPO_LINKS = {
+    'git-secret-scan': 'https://github.com/Atakan-24/git-secret-scan',
+    'gh-radar': 'https://github.com/Atakan-24/gh-radar',
+    'postgrest-keyset-page': 'https://github.com/Atakan-24/postgrest-keyset-page',
+    'yt-transcript': 'https://github.com/Atakan-24/yt-transcript',
+    'gitingest': 'https://github.com/Atakan-24/gitingest',
+    'fahm': 'https://github.com/Atakan-24/fahm'
+  };
+
   function escapeHtml(s) {
     var d = document.createElement('div');
     d.textContent = s;
     return d.innerHTML;
+  }
+
+  // Macht E-Mails, URLs und bekannte Projektnamen in einer bereits escapten
+  // Antwort klickbar. Arbeitet mit Platzhaltern, damit ein Treffer (z.B. eine
+  // volle github.com/.../git-secret-scan-URL) nicht ein zweites Mal von der
+  // Projektnamen-Regel verlinkt wird.
+  function linkify(escaped) {
+    var stash = [];
+    function keep(html) {
+      stash.push(html);
+      return ' ' + (stash.length - 1) + ' ';
+    }
+
+    var text = escaped;
+
+    text = text.replace(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g, function (m) {
+      return keep('<a href="mailto:' + m + '">' + m + '</a>');
+    });
+
+    text = text.replace(/https?:\/\/[^\s)]+/g, function (m) {
+      var clean = m.replace(/[.,;:]+$/, '');
+      var trail = m.slice(clean.length);
+      return keep('<a href="' + clean + '" target="_blank" rel="noopener noreferrer">' + clean + '</a>') + trail;
+    });
+
+    text = text.replace(/\b(?:cal\.com|teamgoldllc\.de|fahm-web\.vercel\.app|github\.com)\/?[^\s),]*/g, function (m) {
+      var clean = m.replace(/[.,;:]+$/, '');
+      var trail = m.slice(clean.length);
+      return keep('<a href="https://' + clean + '" target="_blank" rel="noopener noreferrer">' + clean + '</a>') + trail;
+    });
+
+    Object.keys(REPO_LINKS).forEach(function (name) {
+      var re = new RegExp('\\b' + name.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&') + '\\b', 'gi');
+      text = text.replace(re, function (m) {
+        return keep('<a href="' + REPO_LINKS[name] + '" target="_blank" rel="noopener noreferrer">' + m + '</a>');
+      });
+    });
+
+    return text.replace(/ (\d+) /g, function (_, i) { return stash[Number(i)]; });
   }
 
   function addMsg(text, kind) {
@@ -2332,14 +2380,19 @@
     return el;
   }
 
+  function resolveMsg(el, text) {
+    el.classList.remove('pending');
+    el.innerHTML = linkify(escapeHtml(text));
+    log.scrollTop = log.scrollHeight;
+  }
+
   document.querySelectorAll('.ask-chip').forEach(function (chip) {
     chip.addEventListener('click', function () {
       addMsg(chip.textContent, 'user');
       var pending = addMsg('…', 'bot pending');
       var wartezeit = 350 + Math.random() * 350; // kurze, echt wirkende Denkpause
       setTimeout(function () {
-        pending.classList.remove('pending');
-        pending.textContent = chip.getAttribute('data-a');
+        resolveMsg(pending, chip.getAttribute('data-a'));
       }, wartezeit);
     });
   });
@@ -2359,12 +2412,10 @@
     })
       .then(function (res) { return res.json(); })
       .then(function (data) {
-        pending.classList.remove('pending');
-        pending.textContent = data.answer || 'Keine Antwort erhalten -- versuch es nochmal.';
+        resolveMsg(pending, data.answer || 'No answer received -- try again.');
       })
       .catch(function () {
-        pending.classList.remove('pending');
-        pending.textContent = 'Da ist etwas schiefgelaufen -- versuch es gleich nochmal oder schreib atakanfisc@gmail.com.';
+        resolveMsg(pending, 'Something went wrong just now -- try again in a moment, or email atakanfisc@gmail.com.');
       });
   });
 })();
