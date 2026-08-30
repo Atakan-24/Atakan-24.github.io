@@ -684,10 +684,82 @@
     <div class="links">
       <a class="btn primary" href="https://cal.com/atakanoztunc/30min" rel="noopener noreferrer">Book a 30-min call</a>
       <a class="btn" href="#index">See all 25 projects</a>
+      <a class="btn" href="#frag-mich">Ask me directly</a>
       <a class="btn" href="https://github.com/Atakan-24" rel="noopener noreferrer">GitHub</a>
     </div>
   </div>
 </header>
+
+<style>
+  .ask-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 720px;
+  }
+  .ask-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .ask-chip {
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: border-color .15s;
+  }
+  .ask-chip:hover { border-color: var(--accent); }
+  .ask-log { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; max-height: 360px; overflow-y: auto; }
+  .ask-log:empty { display: none; }
+  .ask-msg { padding: 10px 14px; border-radius: 10px; font-size: 0.92rem; line-height: 1.5; max-width: 90%; }
+  .ask-msg.user { align-self: flex-end; background: var(--accent); color: #0b0d12; }
+  .ask-msg.bot { align-self: flex-start; background: var(--bg-card-hover); border: 1px solid var(--border); color: var(--text); }
+  .ask-msg.bot.pending { color: var(--text-dimmer); font-style: italic; }
+  .ask-form { display: flex; gap: 8px; }
+  .ask-form input {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-size: 0.92rem;
+  }
+  .ask-form input:focus { outline: none; border-color: var(--accent); }
+  .ask-note { margin: 12px 0 0; font-size: 0.8rem; color: var(--text-dimmer); }
+</style>
+
+<section id="frag-mich">
+  <div class="wrap">
+    <h2>Ask me directly</h2>
+    <p class="section-intro">
+      Don't want to read through all 25 projects? Ask — it answers from my
+      real CV, goals and project write-ups, and says "I don't know" instead
+      of guessing.
+    </p>
+    <div class="ask-box">
+      <div class="ask-chips">
+        <button type="button" class="ask-chip" data-a="Day to day: an AI-driven cold-calling platform for Team Gold (Next.js, Supabase, Telnyx Voice/WebRTC, LLM voice agents), plus the multi-agent automation layer that runs it. Alongside that, six public repos with real tests and CI.">What does he build?</button>
+        <button type="button" class="ask-chip" data-a="He considered a Fachinformatiker apprenticeship, but it didn't become his path. Instead: about 3 years of self-directed learning by building, breaking, testing and shipping real systems. The open gap he's actively closing is external validation — clients, production use, references.">Why no degree?</button>
+        <button type="button" class="ask-chip" data-a="A pre-commit hook + GitHub Action that stops API keys from reaching a commit. 98 tests, and measured precision/recall improved from 80% to 100% on a labelled benchmark.">What's git-secret-scan?</button>
+        <button type="button" class="ask-chip" data-a="Yes — he's actively looking for paying clients and contract/freelance engineering work alongside his own business. Book a 30-min call or email him.">Open to contract work?</button>
+        <button type="button" class="ask-chip" data-a="Email atakanfisc@gmail.com, book a 30-min call at cal.com/atakanoztunc/30min, or message via WhatsApp/Telegram (links at the bottom of this page).">How to contact him?</button>
+      </div>
+      <div class="ask-log" id="askLog"></div>
+      <form id="askForm" class="ask-form">
+        <input id="askInput" type="text" maxlength="300" placeholder="Ask something else…" autocomplete="off">
+        <button type="submit" class="btn primary">Ask</button>
+      </form>
+      <p class="ask-note">
+        The quick buttons above answer instantly, for free, from fixed text.
+        Typed questions go to a small AI (Groq, free tier) that only answers
+        from my real CV/portfolio — limited to a few questions per visitor
+        per day to keep it available for everyone.
+      </p>
+    </div>
+  </div>
+</section>
 
 <section id="index">
   <div class="wrap">
@@ -2231,6 +2303,65 @@
     if (href.indexOf(location.hostname) !== -1) return; // eigene Seite nicht mitzaehlen
     send({ type: 'click', path: location.pathname, referrer: document.referrer, target: href });
   }, true);
+})();
+</script>
+
+<script>
+// "Frag mich"-Chat: FAQ-Buttons antworten sofort und lokal (kein API-Aufruf,
+// $0). Freitext geht an eine Supabase-Edge-Function, die Groq (kostenlos)
+// aufruft, streng an den echten CV/Goals-Text gebunden.
+(function () {
+  var ASK_ENDPOINT = 'https://kglqsnltlokyiocvugbo.supabase.co/functions/v1/ask';
+  var log = document.getElementById('askLog');
+  var form = document.getElementById('askForm');
+  var input = document.getElementById('askInput');
+  if (!log || !form || !input) return;
+
+  function escapeHtml(s) {
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  function addMsg(text, kind) {
+    var el = document.createElement('div');
+    el.className = 'ask-msg ' + kind;
+    el.innerHTML = escapeHtml(text);
+    log.appendChild(el);
+    log.scrollTop = log.scrollHeight;
+    return el;
+  }
+
+  document.querySelectorAll('.ask-chip').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      addMsg(chip.textContent, 'user');
+      addMsg(chip.getAttribute('data-a'), 'bot');
+    });
+  });
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var frage = input.value.trim();
+    if (!frage) return;
+    input.value = '';
+    addMsg(frage, 'user');
+    var pending = addMsg('…', 'bot pending');
+
+    fetch(ASK_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ question: frage }),
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        pending.classList.remove('pending');
+        pending.textContent = data.answer || 'Keine Antwort erhalten -- versuch es nochmal.';
+      })
+      .catch(function () {
+        pending.classList.remove('pending');
+        pending.textContent = 'Da ist etwas schiefgelaufen -- versuch es gleich nochmal oder schreib atakanfisc@gmail.com.';
+      });
+  });
 })();
 </script>
 
