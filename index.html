@@ -611,6 +611,26 @@
     margin-top: 32px;
   }
 
+  .journey-list {
+    list-style: none;
+    margin: 24px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .journey-list li {
+    padding-left: 20px;
+    border-left: 2px solid var(--border);
+  }
+  .journey-list .yr {
+    display: block;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+  }
+
   footer {
     padding: 40px 0 72px;
     color: var(--text-dimmer);
@@ -1607,6 +1627,27 @@
       on this page or in the linked repositories — the projects above are
       described by their architecture and the problems they solved, not by
       their private source. Numbers are rounded, not exact.
+    </p>
+  </div>
+</section>
+
+<section id="journey">
+  <div class="wrap-narrow">
+    <h2>Background</h2>
+    <p class="section-intro">
+      I didn't come to this through a computer science degree. The short
+      version:
+    </p>
+    <ul class="journey-list">
+      <li><span class="yr">~19&ndash;21</span>Ran online businesses &mdash; e-commerce, affiliate marketing, a YouTube channel. Learned how to get someone's attention and turn it into a customer, long before I could write a line of code.</li>
+      <li><span class="yr">~20</span>Started learning to code, at first alongside the business work.</li>
+      <li><span class="yr">22</span>Moved to Egypt and shifted focus fully to software.</li>
+      <li><span class="yr">22&ndash;23</span>Freelance client work, then building my own acquisition infrastructure &mdash; cold calling, AI voice calling, email and outreach &mdash; for Team Gold, the business behind most of the systems on this page.</li>
+      <li><span class="yr">23</span>Today: designing, building, and operating the systems above.</li>
+    </ul>
+    <p class="note">
+      No university degree &mdash; what replaced it was building real
+      systems, operating them, and fixing what broke.
     </p>
   </div>
 </section>
