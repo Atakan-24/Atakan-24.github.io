@@ -2335,7 +2335,12 @@
   document.querySelectorAll('.ask-chip').forEach(function (chip) {
     chip.addEventListener('click', function () {
       addMsg(chip.textContent, 'user');
-      addMsg(chip.getAttribute('data-a'), 'bot');
+      var pending = addMsg('…', 'bot pending');
+      var wartezeit = 350 + Math.random() * 350; // kurze, echt wirkende Denkpause
+      setTimeout(function () {
+        pending.classList.remove('pending');
+        pending.textContent = chip.getAttribute('data-a');
+      }, wartezeit);
     });
   });
 
