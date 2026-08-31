@@ -746,7 +746,7 @@
         <button type="button" class="ask-chip" data-a="He considered a Fachinformatiker apprenticeship, but it didn't become his path. Instead: about 3 years of self-directed learning by building, breaking, testing and shipping real systems. The open gap he's actively closing is external validation — clients, production use, references.">Why no degree?</button>
         <button type="button" class="ask-chip" data-a="A pre-commit hook + GitHub Action that stops API keys from reaching a commit. 98 tests, and measured precision/recall improved from 80% to 100% on a labelled benchmark.">What's git-secret-scan?</button>
         <button type="button" class="ask-chip" data-a="Yes — he's actively looking for paying clients and contract/freelance engineering work alongside his own business. Book a 30-min call or email him.">Open to contract work?</button>
-        <button type="button" class="ask-chip" data-a="Email atakanfisc@gmail.com, book a 30-min call at cal.com/atakanoztunc/30min, or message via WhatsApp/Telegram (links at the bottom of this page).">How to contact him?</button>
+        <button type="button" class="ask-chip" data-a="Email atakanfisc@gmail.com, book a 30-min call at cal.com/atakanoztunc/30min, message on WhatsApp at wa.me/201069564012, or on Telegram at t.me/Akioatakan.">How to contact him?</button>
       </div>
       <div class="ask-log" id="askLog"></div>
       <form id="askForm" class="ask-form">
@@ -2363,7 +2363,7 @@
       return keep('<a href="' + clean + '" target="_blank" rel="noopener noreferrer">' + clean + '</a>') + trail;
     });
 
-    text = text.replace(/\b(?:cal\.com|teamgoldllc\.de|fahm-web\.vercel\.app|github\.com)\/?[^\s),]*/g, function (m) {
+    text = text.replace(/\b(?:cal\.com|teamgoldllc\.de|fahm-web\.vercel\.app|github\.com|wa\.me|t\.me)\/?[^\s),]*/g, function (m) {
       var clean = m.replace(/[.,;:]+$/, '');
       var trail = m.slice(clean.length);
       return keep('<a href="https://' + clean + '" target="_blank" rel="noopener noreferrer">' + clean + '</a>') + trail;
