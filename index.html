@@ -395,6 +395,84 @@ img { display: block; max-width: 100%; }
 .v4-split { display: grid; gap: clamp(2rem, 4vw, 4.5rem); align-items: center;
             grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
 .v4-split--rev > :first-child { order: 2; }
+/* ---- #about: the person, as a rail. Cards like the demos; the timeline's
+   stations light up one by one as the act's --sc-p passes their --t. ---- */
+.v4-about-card { background: var(--sc-surface); border-radius: 22px; padding: clamp(1.4rem, 2.4vw, 2.2rem);
+  box-shadow: var(--sc-e2), inset 0 0 0 1px var(--v4-hair-soft); }
+.v4-rail__item.v4-about-card--skills { width: min(54rem, 88vw); }   /* .v4-rail__item sets 46rem later in the sheet; needs the extra class to win */
+.v4-rail__item.v4-about-card--how { width: min(68rem, 90vw); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.2rem, 2.5vw, 2.5rem); align-items: center; }
+.v4-howfig { max-width: 30rem; margin-inline: auto; width: 100%; }
+.v4-how__dot { fill: var(--sc-accent); opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  [data-sc-in].sc-in .v4-how__dot { animation: v4-travel 5s linear 1.4s infinite; }
+}
+@media (max-width: 760px) { .v4-rail__item.v4-about-card--how { grid-template-columns: minmax(0, 1fr); } }
+.v4-about__h { font-size: var(--sc-t-xl); font-weight: 600; letter-spacing: -0.02em; margin: 0 0 var(--sc-3); }
+.v4-about__p { font-size: var(--sc-t-base); line-height: 1.55; color: var(--sc-ink-soft); max-width: 62ch; }
+.v4-about-card .v4-about__p + .v4-note { margin-top: var(--sc-3); }
+.v4-timeline { list-style: none; position: relative; display: grid; gap: var(--sc-2); margin: var(--sc-3) 0; padding-left: 1.4rem; }
+.v4-timeline::before { content: ""; position: absolute; left: 0; top: 0.4rem; bottom: 0.4rem; width: 2px; border-radius: 1px;
+  background: color-mix(in oklab, var(--sc-accent) 45%, transparent); transform-origin: top;
+  transform: scaleY(min(1, max(0, calc((var(--sc-p, 0) - 0.1) * 2.2)))); }
+.v4-timeline li { display: grid; gap: 0.15rem; font-size: var(--sc-t-base); color: var(--sc-ink-soft); line-height: 1.5;
+  /* fully hidden until the rail reaches its --t, then it steps in (2026-09-05: "step by step, text off until then") */
+  opacity: min(1, max(0, calc((var(--sc-p, 0) - var(--t, 0)) * 7)));
+  transform: translate3d(calc((1 - min(1, max(0, calc((var(--sc-p, 0) - var(--t, 0)) * 7)))) * 1.2rem), 0, 0); }
+.v4-timeline .yr { font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); font-weight: 500; color: var(--sc-accent); }
+.v4-skillsec .v4-claim { margin-bottom: var(--sc-2); }
+.v4-skillsec > .v4-sub { margin-bottom: var(--sc-5); max-width: 48ch; }
+.v4-skillsec > .v4-sub b { color: var(--sc-ink); font-weight: 600; }
+.v4-skills { display: grid; gap: var(--sc-4); }
+/* 2026-09-05: "man soll merken, dass es anklickbar ist" — every chip wears a
+   round ? badge that turns into × while its explanation is open, the whole
+   chip is accent-tinted rather than a flat tag, and it lifts on hover. */
+#skills .v4-skill { cursor: pointer; font-family: var(--sc-font-text);
+  background: color-mix(in oklab, var(--sc-accent) 7%, var(--sc-surface));
+  border: 1px solid color-mix(in oklab, var(--sc-accent) 30%, transparent);   /* the base .v4-skill rule sits later in the sheet, so this needs #skills to win */
+  transition: background .2s, border-color .2s, box-shadow .2s, transform .5s var(--sc-ease-out), opacity .5s var(--sc-ease-out); }
+/* 2026-09-05: a "?" on all 26 chips was too much. The tint, the hover lift and
+   the hint pill carry the affordance; only the open chip shows a close mark. */
+#skills .v4-skill:hover { border-color: var(--sc-accent); box-shadow: var(--sc-e1); transform: translateY(-1px); }
+#skills .v4-skill[aria-expanded="true"] { background: color-mix(in oklab, var(--sc-accent) 14%, transparent); border-color: var(--sc-accent); color: var(--sc-accent); }
+#skills .v4-skill[aria-expanded="true"]::after { content: "×"; display: grid; place-items: center; flex: none; width: 22px; height: 22px; margin-left: 0.1rem; border-radius: 50%; font-family: var(--sc-font-mono); font-size: var(--sc-t-sm); font-weight: 600; line-height: 1; background: var(--sc-accent); color: var(--sc-accent-ink); }
+.v4-skill:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 2px; }
+.v4-skillhint { margin: 0 0 var(--sc-5); font-size: var(--sc-t-base); color: var(--sc-ink-soft); max-width: 52ch; }
+.v4-skillhint__pill { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.15rem 0.7rem 0.15rem 0.55rem;
+  border-radius: var(--sc-r-pill); background: color-mix(in oklab, var(--sc-accent) 13%, transparent);
+  color: var(--sc-accent); font-weight: 600; }
+.v4-skillhint__pill svg { width: 1.05rem; height: 1.05rem; }
+/* one gentle nudge on the first chips when the block arrives, so the badge is noticed */
+@media (prefers-reduced-motion: no-preference) {
+  .v4-skillsec.sc-in .v4-skills__group:first-child .v4-skill { animation: v4-nudge 1.8s ease-out 1.2s 2; }
+  @keyframes v4-nudge { 0%, 100% { box-shadow: 0 0 0 0 transparent; } 45% { box-shadow: 0 0 0 5px color-mix(in oklab, var(--sc-accent) 18%, transparent); } }
+}
+.v4-skill__why { margin: 0.6rem 0 0; padding: 0.8rem 1rem; border-radius: 12px; font-size: var(--sc-t-base); line-height: 1.5;
+  color: var(--sc-ink); background: color-mix(in oklab, var(--sc-accent) 7%, transparent); border-left: 3px solid var(--sc-accent); max-width: 70ch; }
+.v4-skill__why b { font-weight: 600; }
+@media (prefers-reduced-motion: no-preference) {
+  .v4-skillsec .v4-skill { opacity: 0; transform: translate3d(0, 10px, 0); }
+  .v4-skillsec.sc-in .v4-skill { opacity: 1; transform: none; }
+  .v4-skillsec.sc-in .v4-skill:nth-child(2) { transition-delay: 60ms; } .v4-skillsec.sc-in .v4-skill:nth-child(3) { transition-delay: 120ms; }
+  .v4-skillsec.sc-in .v4-skill:nth-child(4) { transition-delay: 180ms; } .v4-skillsec.sc-in .v4-skill:nth-child(5) { transition-delay: 240ms; }
+  .v4-skillsec.sc-in .v4-skill:nth-child(n+6) { transition-delay: 300ms; }
+  .v4-skillsec.sc-in .v4-skills__group:nth-child(2) .v4-skill { transition-delay: 350ms; } .v4-skillsec.sc-in .v4-skills__group:nth-child(3) .v4-skill { transition-delay: 500ms; }
+  .v4-skillsec.sc-in .v4-skills__group:nth-child(4) .v4-skill { transition-delay: 650ms; } .v4-skillsec.sc-in .v4-skills__group:nth-child(5) .v4-skill { transition-delay: 800ms; }
+}
+.v4-skills__group { display: grid; gap: 0.5rem; }
+.v4-skills__group .v4-eyebrow { display: inline-flex; align-items: center; gap: 0.45rem; }
+.v4-skills__group .v4-eyebrow svg { width: 1.1rem; height: 1.1rem; }
+.v4-skills__row { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.v4-skill { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0 0.95rem 0 0.75rem; border-radius: var(--sc-r-pill);
+  font-size: var(--sc-t-sm); font-weight: 500; color: var(--sc-ink); background: var(--sc-canvas);
+  border: 1px solid var(--v4-hair); }
+.v4-skill svg { width: 20px; height: 20px; flex: none; }
+.v4-skill:not(:has(svg)) { padding-left: 0.95rem; }
+@media (max-width: 760px) {
+  .v4-timeline::before { transform: none; }
+  .v4-timeline li { opacity: 1; transform: none; }
+  .v4-about-card--skills { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .v4-timeline::before { transform: none; } .v4-timeline li { opacity: 1; transform: none; } }
 @media (max-width: 900px) { .v4-split, .v4-split--rev { grid-template-columns: 1fr; }
                             .v4-split--rev > :first-child { order: 0; } }
 
@@ -596,6 +674,14 @@ img { display: block; max-width: 100%; }
 .v4-lane h5 code { font-family: var(--sc-font-mono); font-size: 1em; }
 .v4-lane .tally { color: var(--sc-ink-soft); font-variant-numeric: tabular-nums; }
 .v4-track { display: flex; flex-wrap: wrap; gap: 6px; }
+.v4-track .cat-pager-item { transition: background .35s, color .35s, transform .45s var(--sc-ease-out), opacity .4s, max-width .4s var(--sc-ease-out), padding .4s, margin .4s; }
+.v4-track .cat-pager-item.in { opacity: 0; transform: translate3d(0, -10px, 0) scale(.8); }
+.v4-track .cat-pager-item.out { opacity: 0; transform: scale(.6); min-width: 0; max-width: 0; padding-inline: 0; margin-right: -6px; overflow: hidden; }
+@media (prefers-reduced-motion: no-preference) {
+  .v4-track .cat-pager-item.hit { transform: translate3d(0, -2px, 0); }
+  .v4-track .cat-pager-item.pulse { animation: v4-pgpulse .9s ease-out 1; }
+  @keyframes v4-pgpulse { 0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--v4-bad) 55%, transparent); } 100% { box-shadow: 0 0 0 12px transparent; } }
+}
 .cat-pager-item { display: grid; place-items: center; min-width: 44px; height: 44px; padding: 0 0.4rem;
                   border-radius: 8px; font-family: var(--sc-font-mono); font-size: var(--sc-t-xs);
                   background: color-mix(in oklab, var(--sc-ink) 5%, transparent);
@@ -1336,10 +1422,123 @@ img { display: block; max-width: 100%; }
   </section>
 
   <!-- ============================================================= ACT 8
-       CLOSE · pin. The page has spent its length looking into a dark screen
-       inside a light frame. The last screen is that frame, and the contact
-       lines are inside it. The ask desk sits beside it so the visitor can
-       still ask instead of reading. -->
+       ABOUT · pan. The person behind the systems as a lateral rail, like the
+       pipeline and shipped acts: how he works, where he came from (the
+       stations light up as the rail travels), what actually shipped it.
+       Content word for word from v1. -->
+  <section id="about" data-sc-act="pan" data-sc-span="2.2" data-sc-drift="#FAFAF8">
+    <div data-sc-stage>
+      <div class="v4-rail" data-sc-pan="0.06">
+        <div class="v4-rail__lead">
+          <p class="v4-eyebrow">Who builds this</p>
+          <h2 class="v4-claim">Built by one person. Here is who.</h2>
+          <p class="v4-sub">How he works, and where he came from. The stack that shipped it all is right below.</p>
+        </div>
+
+        <div class="v4-rail__item v4-about-card v4-about-card--how" data-sc-in>
+          <div>
+          <h3 class="v4-about__h">How I work</h3>
+          <p class="v4-about__p">I build fast by directing AI coding agents deliberately — writing the specification, setting the guardrails, and verifying the result — rather than typing every line by hand. That's a real, current skill: the systems above aren't demos, they run a real business every day, and treating "the agent said it's done" as a claim to verify rather than a fact was the single habit that mattered most in building them.</p>
+          <p class="v4-note">No customer data, phone numbers, or business metrics appear anywhere on this page or in the linked repositories; numbers are rounded, not exact.</p>
+          </div>
+          <figure class="v4-fig v4-howfig">
+            <svg class="v4-draw" viewBox="-110 -30 580 420" role="img" aria-labelledby="how-t">
+              <title id="how-t">The loop: write the spec, set the guardrails, the agent builds, verify the result. "It's done" is a claim, and a failed check sends it back to build.</title>
+              <defs><marker id="how-a" markerWidth="10" markerHeight="10" refX="7" refY="4" orient="auto"><path d="M0,0 L7,4 L0,8 Z" style="fill:var(--sc-accent)"/></marker>
+                    <marker id="how-b" markerWidth="10" markerHeight="10" refX="7" refY="4" orient="auto"><path d="M0,0 L7,4 L0,8 Z" style="fill:var(--v4-bad)"/></marker></defs>
+              <!-- the loop -->
+              <path d="M180 62 A118 118 0 0 1 298 180" style="fill:none;stroke:var(--sc-accent);stroke-width:2.2;--len:190" marker-end="url(#how-a)"/>
+              <path d="M298 180 A118 118 0 0 1 180 298" style="fill:none;stroke:var(--sc-accent);stroke-width:2.2;--len:190" marker-end="url(#how-a)"/>
+              <path d="M180 298 A118 118 0 0 1 62 180" style="fill:none;stroke:var(--sc-accent);stroke-width:2.2;--len:190" marker-end="url(#how-a)"/>
+              <path d="M62 180 A118 118 0 0 1 180 62" style="fill:none;stroke:var(--sc-accent);stroke-width:2.2;--len:190" marker-end="url(#how-a)"/>
+              <!-- the rejection: verify sends it back to build -->
+              <path d="M92 202 C 120 250, 140 262, 158 276" style="fill:none;stroke:var(--v4-bad);stroke-width:1.8;stroke-dasharray:5 4;--len:120" marker-end="url(#how-b)"/>
+              <text x="180" y="160" text-anchor="middle" style="fill:var(--sc-ink);font-family:var(--sc-font-display);font-size:17px;font-weight:600">"It's done"</text>
+              <text x="180" y="184" text-anchor="middle" style="fill:var(--v4-bad);font-family:var(--sc-font-mono);font-size:16px">is a claim,</text>
+              <text x="180" y="206" text-anchor="middle" style="fill:var(--v4-bad);font-family:var(--sc-font-mono);font-size:16px">not a fact</text>
+              <!-- four stations -->
+              <g transform="translate(180 62)"><circle r="34" style="fill:var(--sc-accent)"/>
+                <g transform="translate(-11 -11)" style="fill:none;stroke:var(--sc-accent-ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M4 3h10l5 5v11H4z M14 3v5h5 M7 12h8M7 16h6"/></g>
+                <text y="-46" text-anchor="middle" style="fill:var(--sc-ink);font-family:var(--sc-font-display);font-size:17px;font-weight:600">Write the spec</text></g>
+              <g transform="translate(298 180)"><circle r="34" style="fill:var(--sc-surface);stroke:var(--sc-accent);stroke-width:2"/>
+                <g transform="translate(-11 -11)" style="fill:none;stroke:var(--sc-accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M11 3l8 3v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></g>
+                <text x="44" y="6" text-anchor="start" style="fill:var(--sc-ink);font-family:var(--sc-font-display);font-size:17px;font-weight:600">Set guardrails</text></g>
+              <g transform="translate(180 298)"><circle r="34" style="fill:var(--sc-surface);stroke:var(--sc-accent);stroke-width:2"/>
+                <g transform="translate(-11 -11)" style="fill:none;stroke:var(--sc-accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="7" width="16" height="12" rx="3"/><path d="M11 3v4M7 13h.01M15 13h.01"/></g>
+                <text y="52" text-anchor="middle" style="fill:var(--sc-ink);font-family:var(--sc-font-display);font-size:17px;font-weight:600">Agent builds</text></g>
+              <g transform="translate(62 180)"><circle r="34" style="fill:var(--sc-surface);stroke:var(--sc-accent);stroke-width:2"/>
+                <g transform="translate(-11 -11)" style="fill:none;stroke:var(--sc-accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M3 12l6 6L20 5"/></g>
+                <text x="-44" y="6" text-anchor="end" style="fill:var(--sc-ink);font-family:var(--sc-font-display);font-size:17px;font-weight:600">Verify</text></g>
+              <!-- the travelling dot -->
+              <circle class="v4-how__dot" r="5" style="offset-path: path('M180 62 A118 118 0 0 1 298 180 A118 118 0 0 1 180 298 A118 118 0 0 1 62 180 A118 118 0 0 1 180 62')"/>
+            </svg>
+          </figure>
+        </div>
+
+        <div class="v4-rail__item v4-about-card">
+          <h3 class="v4-about__h">Background</h3>
+          <p class="v4-note">I didn't come to this through a computer science degree. The short version:</p>
+          <ol class="v4-timeline">
+            <li style="--t: 0.16"><span class="yr">~19–21</span><span>Ran online businesses — e-commerce, affiliate marketing, a YouTube channel. Learned how to get someone's attention and turn it into a customer, long before I could write a line of code.</span></li>
+            <li style="--t: 0.26"><span class="yr">~20</span><span>Started learning to code, at first alongside the business work.</span></li>
+            <li style="--t: 0.36"><span class="yr">22</span><span>Moved to Egypt and shifted focus fully to software.</span></li>
+            <li style="--t: 0.46"><span class="yr">22–23</span><span>Freelance client work, then building my own acquisition infrastructure — cold calling, AI voice calling, email and outreach — for Team Gold, the business behind most of the systems on this page.</span></li>
+            <li style="--t: 0.56"><span class="yr">23</span><span>Today: designing, building, and operating the systems above.</span></li>
+          </ol>
+          <p class="v4-note">No university degree — what replaced it was building real systems, operating them, and fixing what broke.</p>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================= ACT 9
+       SKILLS · flow. Below the person, not beside him: a rail item was easy
+       to skip (2026-09-05). Chips settle in on scroll; each one opens a
+       plain-language line for non-technical readers. -->
+  <section class="v4-sec v4-sec--tight" id="skills" data-sc-act="flow" data-sc-drift="#F7F7F5">
+    <div class="v4-wrap">
+      <div class="v4-skillsec" data-sc-in data-sc-stagger="50">
+        
+          <h2 class="v4-claim">Skills &amp; stack</h2>
+          <p class="v4-sub">What actually shipped the systems above — not an aspirational list.</p>
+          <p class="v4-skillhint"><span class="v4-skillhint__pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V6a2 2 0 1 1 4 0v5m0-2a2 2 0 1 1 4 0v2m0-1a2 2 0 1 1 4 0v4a7 7 0 0 1-7 7h-2a6 6 0 0 1-5-2.7l-2.6-4a2 2 0 0 1 3.2-2.3L9 14"/></svg>
+            Tap any item</span> for what it means in plain words — no jargon.</p>
+          <div class="v4-skills">
+            <div class="v4-skills__group">
+              <h4 class="v4-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4l-5 8 5 8M16 4l5 8-5 8M14 3l-4 18"/></svg>Languages</h4>
+              <div class="v4-skills__row"><button type="button" class="v4-skill" data-why="JavaScript with a safety net: it checks the code for mistakes before it ever runs. Most of the CRM is written in it." aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#3178C6"/><text x="12" y="16.5" text-anchor="middle" font-family="Inter Tight, Arial, sans-serif" font-size="18" transform="translate(12 16.5) scale(0.61) translate(-12 -16.5)" font-weight="700" fill="#fff">TS</text></svg>TypeScript</button><button type="button" class="v4-skill" data-why="The language every browser understands. It makes this page move, and it runs the interactive demos you clicked above." aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#F7DF1E"/><text x="12" y="16.5" text-anchor="middle" font-family="Inter Tight, Arial, sans-serif" font-size="18" transform="translate(12 16.5) scale(0.61) translate(-12 -16.5)" font-weight="700" fill="#1B1F24">JS</text></svg>JavaScript</button><button type="button" class="v4-skill" data-why="A plain, readable language for scripts and automation. The daily reports, the task watchdog and most of the tooling run on it." aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.7 2c-4.8 0-4.5 2.1-4.5 2.1v2.2h4.6v.7H5.4S2.3 6.6 2.3 11.6s2.7 4.9 2.7 4.9h1.6v-2.3s-.1-2.7 2.7-2.7h4.5s2.6 0 2.6-2.5V4.6S16.8 2 11.7 2zm-2.5 1.5a.8.8 0 1 1 0 1.7.8.8 0 0 1 0-1.7z" fill="#3776AB"/><path d="M12.3 22c4.8 0 4.5-2.1 4.5-2.1v-2.2h-4.6V17h6.4s3.1.4 3.1-4.6-2.7-4.9-2.7-4.9h-1.6v2.3s.1 2.7-2.7 2.7H10.2s-2.6 0-2.6 2.5v4.4S7.2 22 12.3 22zm2.5-1.5a.8.8 0 1 1 0-1.7.8.8 0 0 1 0 1.7z" fill="#FFD43B"/></svg>Python</button><button type="button" class="v4-skill" data-why="The language you use to ask a database questions: which leads are callable right now, who was called yesterday, and so on." aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="#E8A23C" stroke-width="1.9" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>SQL</button><button type="button" class="v4-skill" data-why="The command line. Small scripts that glue tools together and run on a schedule without anyone watching." aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="18" rx="3" fill="#1B1F24"/><path d="M6 8l4 4-4 4" fill="none" stroke="#4EDE8A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 16h6" stroke="#E7E9EE" stroke-width="2" stroke-linecap="round"/></svg>Bash / PowerShell</button></div>
+              <p class="v4-skill__why" hidden></p>
+            </div>
+            <div class="v4-skills__group">
+              <h4 class="v4-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5M3 17l9 5 9-5"/></svg>Application &amp; Data</h4>
+              <div class="v4-skills__row"><button type="button" class="v4-skill" data-why="The framework the CRM&#x27;s web app is built with: pages, logins and the parts that run on the server, in one project." aria-expanded="false">Next.js</button><button type="button" class="v4-skill" data-why="The way the screens are built: small reusable pieces (a button, a table, a call panel) put together into one interface." aria-expanded="false">React</button><button type="button" class="v4-skill" data-why="Lets JavaScript run on a server, not only in a browser. The scraper server and several background jobs use it." aria-expanded="false">Node.js</button><button type="button" class="v4-skill" data-why="The database and the login system behind the CRM. Postgres stores the data; Supabase hosts it and adds accounts and access rules." aria-expanded="false">Supabase / Postgres</button><button type="button" class="v4-skill" data-why="Designing the doors through which programs talk to each other, so a phone system, a website and the CRM can exchange data cleanly." aria-expanded="false">REST API design</button><button type="button" class="v4-skill" data-why="A tool that drives a real browser automatically: it clicks, types and reads pages. Used for testing this site and for the scraper." aria-expanded="false">Playwright</button></div>
+              <p class="v4-skill__why" hidden></p>
+            </div>
+            <div class="v4-skills__group">
+              <h4 class="v4-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4v4M8 14h.01M16 14h.01M9 17h6"/></svg>AI &amp; Agents</h4>
+              <div class="v4-skills__row"><button type="button" class="v4-skill" data-why="The kit for building AI agents that can use tools: read files, run commands, call services, and report back with evidence." aria-expanded="false">Claude Agent SDK</button><button type="button" class="v4-skill" data-why="A standard plug that lets an AI model reach real tools and data (a database, a browser, an inbox) instead of only chatting." aria-expanded="false">MCP (Model Context Protocol)</button><button type="button" class="v4-skill" data-why="Splitting a big job across several AI agents with clear roles, and checking each one&#x27;s work before it counts as done." aria-expanded="false">Multi-agent orchestration</button><button type="button" class="v4-skill" data-why="An AI that talks on the phone: it listens, understands, answers in a natural voice and follows a script with guardrails." aria-expanded="false">LLM voice agents</button><button type="button" class="v4-skill" data-why="Writing the instructions and rules an AI works under: what it may do, when it must stop and ask a human, how it reports." aria-expanded="false">Prompt &amp; policy design</button><button type="button" class="v4-skill" data-why="Turning recorded calls into text automatically, with the two speakers kept apart, so calls can be reviewed and coached." aria-expanded="false">Whisper / audio pipelines</button></div>
+              <p class="v4-skill__why" hidden></p>
+            </div>
+            <div class="v4-skills__group">
+              <h4 class="v4-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3h5l2 5-3 2a12 12 0 0 0 6 6l2-3 5 2v5a2 2 0 0 1-2 2A17 17 0 0 1 2 5a2 2 0 0 1 2-2z"/></svg>Voice &amp; Messaging</h4>
+              <div class="v4-skills__row"><button type="button" class="v4-skill" data-why="The service that provides the phone lines: making and receiving calls, recording, and connecting the AI voice agent." aria-expanded="false">Telnyx voice API</button><button type="button" class="v4-skill" data-why="The browser technology behind a softphone: talking to a customer directly from the CRM tab, no separate phone needed." aria-expanded="false">WebRTC</button><button type="button" class="v4-skill" data-why="Sending alerts and status reports to a phone through a Telegram bot, and taking simple commands back." aria-expanded="false">Telegram Bot API</button><button type="button" class="v4-skill" data-why="The service that sends the outreach and notification emails, with delivery tracked so problems are seen, not guessed." aria-expanded="false">Resend (email)</button></div>
+              <p class="v4-skill__why" hidden></p>
+            </div>
+            <div class="v4-skills__group">
+              <h4 class="v4-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg>Infra &amp; Ops</h4>
+              <div class="v4-skills__row"><button type="button" class="v4-skill" data-why="The built-in Windows clock for jobs: the daily reports, backups and checks start on time without a person starting them." aria-expanded="false">Windows Task Scheduler</button><button type="button" class="v4-skill" data-why="Version control: every change to the code is recorded and reversible, and the public projects live on GitHub." aria-expanded="false">Git / GitHub</button><button type="button" class="v4-skill" data-why="The hosting that runs the CRM and the small apps on the web; a push to the code becomes the live site in about a minute." aria-expanded="false">Vercel</button><button type="button" class="v4-skill" data-why="Building the second process that watches the first one, so a system that dies quietly at 3am is restarted and reported." aria-expanded="false">Reliability &amp; watchdog design</button><button type="button" class="v4-skill" data-why="Standard tools for checking a system&#x27;s own doors and locks, used only on systems with permission to test." aria-expanded="false">Security tooling (nmap, sqlmap, nikto)</button></div>
+              <p class="v4-skill__why" hidden></p>
+            </div>
+          </div>
+
+      </div>
+    </div>
+  </section>
+
   <section id="contact" data-sc-act="pin" data-sc-span="1.6" data-sc-drift="#F4F4F2">
     <div data-sc-stage>
       <div class="v4-close">
@@ -1388,8 +1587,9 @@ img { display: block; max-width: 100%; }
               <span>WhatsApp<small>wa.me/201069564012</small></span></a>
             <a class="v4-big__btn v4-big__btn--ghost" href="v1/">
               <span>See the first version of this portfolio →<small>the page that was live before this one</small></span></a>
+            <a class="v4-big__btn v4-big__btn--ghost" href="https://teamgoldllc.de" rel="noopener noreferrer">
+              <span>Based in Germany · open to roles &amp; contract work<small>teamgoldllc.de ↗</small></span></a>
           </div>
-          <p class="v4-foot">Based in Germany, open to engineering roles and contract work · <a href="https://teamgoldllc.de" rel="noopener noreferrer">teamgoldllc.de</a></p>
         </div>
       </div>
     </div>
@@ -1432,7 +1632,7 @@ img { display: block; max-width: 100%; }
   var NAMES = { hero: 'The shelf', 'ai-os': 'AI-OS', crm: 'Team Gold CRM',
                 pipeline: 'Lead pipeline', secretscan: 'git-secret-scan',
                 shipped: 'Shipped and public', 'full-list': 'Nineteen more',
-                contact: 'Get in touch' };
+                about: 'Who builds this', skills: 'Skills & stack', contact: 'Get in touch' };
   var secs = Array.prototype.slice.call(document.querySelectorAll('main > section'));
   var phone = matchMedia('(max-width: 700px)');
   var lastY = 0;
@@ -1682,16 +1882,34 @@ img { display: block; max-width: 100%; }
   ];
   function initialRows() { var r = []; for (var i = 10; i >= 1; i--) r.push(i); return r; }
   function fmtTally(dup, skip) { return dup + ' duplicate' + (dup === 1 ? '' : 's') + ' · ' + skip + ' skipped'; }
-  function renderTrack(el, rowsNow, hitSet, dupEverSet, skipSet) {
-    el.innerHTML = '';
+  /* Diff-based: rows keep their element, so an insert slides in, a delete
+     folds away, a read window lights up and a duplicate pulses -- instead of
+     the whole strip re-rendering in one frame (2026-09-05: "the animation
+     could be better"). */
+  function renderTrack(el, rowsNow, hitSet, dupEverSet, skipSet, animate) {
+    var have = {};
+    Array.prototype.forEach.call(el.querySelectorAll('.cat-pager-item'), function (n) { have[n.dataset.id] = n; });
+    // remove rows that are gone
+    Object.keys(have).forEach(function (id) {
+      if (rowsNow.indexOf(+id) < 0) {
+        var n = have[id]; delete have[id];
+        if (animate) { n.classList.add('out'); setTimeout(function () { n.remove(); }, 420); } else n.remove();
+      }
+    });
+    var prev = null;
     rowsNow.forEach(function (id) {
-      var span = document.createElement('span');
-      span.className = 'cat-pager-item';
-      span.textContent = id;
-      if (skipSet.has(id)) span.className += ' skip';
-      else if (dupEverSet.has(id)) span.className += ' dup';
-      else if (hitSet.has(id)) span.className += ' hit';
-      el.appendChild(span);
+      var n = have[id];
+      if (!n) {
+        n = document.createElement('span'); n.className = 'cat-pager-item'; n.dataset.id = id; n.textContent = id;
+        if (animate) { n.classList.add('in'); setTimeout(function () { n.classList.remove('in'); }, 40); }
+        if (prev) prev.after(n); else el.prepend(n);
+      }
+      var wasDup = n.classList.contains('dup');
+      n.classList.remove('hit', 'dup', 'skip', 'pulse');
+      if (skipSet.has(id)) n.classList.add('skip');
+      else if (dupEverSet.has(id)) { n.classList.add('dup'); if (!wasDup && animate) n.classList.add('pulse'); }
+      else if (hitSet.has(id)) n.classList.add('hit');
+      prev = n;
     });
   }
   function resetView() {
@@ -1727,12 +1945,12 @@ img { display: block; max-width: 100%; }
       var offSkip = new Set();
       var isLast = stepIdx === WRITES.length;
       if (isLast) curSeen.forEach(function (id) { if (!offSeen.has(id)) offSkip.add(id); });
-      renderTrack(offTrack, rows, offHit, offDupEver, offSkip);
-      renderTrack(curTrack, rows, new Set(curPage), new Set(), new Set());
+      renderTrack(offTrack, rows, offHit, offDupEver, offSkip, true);
+      renderTrack(curTrack, rows, new Set(curPage), new Set(), new Set(), true);
       offTally.textContent = fmtTally(offDupCount, offSkip.size);
       curTally.textContent = fmtTally(0, 0);
       note.textContent = NOTES[stepIdx] || '';
-      if (!isLast) setTimeout(doStep, 1500); else resetBtn.disabled = false;
+      if (!isLast) setTimeout(doStep, 2100); else resetBtn.disabled = false;
     }
     doStep();
   }
@@ -1853,6 +2071,25 @@ img { display: block; max-width: 100%; }
       es.forEach(function (e) { if (e.isIntersecting && !started) { started = true; typeStep(); io.disconnect(); } });
     }, { threshold: 0.3 });
     io.observe(document.getElementById('cat-hero-term'));
+
+  /* ---- skills: tap a chip, read what it means ---------------------------- */
+  (function () {
+    var groups = document.querySelectorAll('.v4-skills__group');
+    Array.prototype.forEach.call(groups, function (g) {
+      var why = g.querySelector('.v4-skill__why'); if (!why) return;
+      g.addEventListener('click', function (e) {
+        var btn = e.target.closest('.v4-skill'); if (!btn) return;
+        var open = btn.getAttribute('aria-expanded') === 'true';
+        Array.prototype.forEach.call(g.querySelectorAll('.v4-skill'), function (b) { b.setAttribute('aria-expanded', 'false'); });
+        if (open) { why.hidden = true; return; }
+        btn.setAttribute('aria-expanded', 'true');
+        var label = Array.prototype.filter.call(btn.childNodes, function (n) { return n.nodeType === 3; })
+                      .map(function (n) { return n.textContent; }).join('').trim();   /* not the svg's own "JS"/"TS" lettering */
+        why.innerHTML = '<b>' + label + '</b> — ' + btn.getAttribute('data-why');
+        why.hidden = false;
+      });
+    });
+  })();
 
   /* ---- the exploding screenshot: moves on its own, and by hand ---------- */
   (function () {
