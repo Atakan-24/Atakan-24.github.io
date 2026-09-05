@@ -1,0 +1,2433 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atakan — Builder, Automation &amp; AI Systems</title>
+<meta name="description" content="Portfolio of Atakan: 25 production systems — a cold-calling CRM platform, a lead-generation data pipeline, a multi-agent AI operations layer, and a security tool with measured precision and recall.">
+<link rel="canonical" href="https://atakan-24.github.io/">
+<meta name="theme-color" content="#0b0d12">
+
+<!-- Open Graph / Twitter. This link gets sent to recruiters over WhatsApp,
+     LinkedIn and email; without these it arrives as a bare URL. -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://atakan-24.github.io/">
+<meta property="og:site_name" content="Atakan">
+<meta property="og:title" content="Atakan — Builder, Automation &amp; AI Systems">
+<meta property="og:description" content="25 production systems built and operated solo: a cold-calling CRM, a 24/7 lead pipeline, a multi-agent AI operations layer, and a security tool with measured 100% precision and recall.">
+<meta property="og:image" content="https://atakan-24.github.io/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Atakan — Builder, Automation and AI Systems">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Atakan — Builder, Automation &amp; AI Systems">
+<meta name="twitter:description" content="25 production systems built and operated solo. Two of them run live on this page.">
+<meta name="twitter:image" content="https://atakan-24.github.io/og.jpg">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0d12'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='38' font-weight='700' fill='%237dd3c0' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Atakan",
+  "url": "https://atakan-24.github.io/",
+  "jobTitle": "Software Engineer — Automation & AI Systems",
+  "email": "atakanfisc@gmail.com",
+  "address": { "@type": "PostalAddress", "addressCountry": "DE" },
+  "sameAs": [
+    "https://github.com/Atakan-24",
+    "https://teamgoldllc.de",
+    "https://t.me/Akioatakan"
+  ],
+  "knowsAbout": [
+    "TypeScript", "Python", "Next.js", "Node.js", "PostgreSQL",
+    "WebRTC", "LLM agents", "Model Context Protocol", "Data pipelines",
+    "Application security", "CI/CD"
+  ]
+}
+</script>
+<style>
+  :root {
+    /* Deliberately not the Team Gold brand palette: this page is about the
+       person, not the company. */
+    --bg: #0b0d12;
+    --bg-card: #12151d;
+    --bg-card-hover: #171b25;
+    --bg-nav: rgba(11,13,18,0.85);
+    --text: #e7e9ee;
+    --text-dim: #9aa1b0;
+    --text-dimmer: #6b7280;
+    --accent: #7dd3c0;
+    --accent-strong: #a5e8db;
+    --warn: #d9a566;
+    --danger: #d97a6e;
+    --border: #232734;
+    --tag-bg: #1a1f2b;
+    --tag-text: #b7c6ea;
+    --chip-active-bg: #7dd3c0;
+    --chip-active-text: #0b0d12;
+    --max-w: 1040px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+    line-height: 1.6;
+  }
+  .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+  .wrap-narrow { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  nav.topnav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--bg-nav);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav.topnav .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+  }
+  nav.topnav .brand { font-weight: 700; color: var(--text); text-decoration: none; font-size: 0.95rem; }
+  nav.topnav .navlinks { display: flex; gap: 22px; }
+  nav.topnav .navlinks a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+  nav.topnav .navlinks a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    nav.topnav .navlinks { display: none; }
+  }
+
+  header.hero {
+    padding: 44px 0 34px;
+    border-bottom: 1px solid var(--border);
+  }
+  .kicker {
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  h1 {
+    margin-top: 0;
+    font-size: clamp(1.75rem, 4vw, 2.45rem);
+    line-height: 1.15;
+    margin: 0 0 20px;
+    letter-spacing: -0.02em;
+    max-width: 760px;
+  }
+  .lede {
+    font-size: 1.05rem;
+    color: var(--text-dim);
+    max-width: 660px;
+    margin: 0 0 22px;
+  }
+  .links { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 26px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1px solid var(--border);
+    color: var(--text);
+    transition: border-color .15s, transform .15s;
+  }
+  .btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .btn.primary { background: var(--accent); color: #0b0d12; border-color: var(--accent); }
+  .btn.primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+
+  .stats-strip {
+    margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .stats-strip .cell {
+    background: var(--bg-card);
+    padding: 15px 14px;
+    text-align: center;
+  }
+  .stats-strip .cell .n { display: block; font-size: 1.7rem; font-weight: 700; color: var(--accent); }
+  .stats-strip .cell .l { font-size: 0.78rem; color: var(--text-dimmer); margin-top: 4px; }
+  @media (max-width: 640px) {
+    .stats-strip { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* Terminal */
+  .terminal {
+    background: #090b0f;
+    margin-bottom: 22px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 600px;
+    box-shadow: 0 20px 60px -20px rgba(0,0,0,0.6);
+  }
+  .terminal-bar {
+    display: flex;
+    gap: 7px;
+    padding: 11px 14px;
+    background: #10131a;
+    border-bottom: 1px solid var(--border);
+  }
+  .terminal-bar .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .terminal-bar .dot.red { background: #ff5f57; }
+  .terminal-bar .dot.yellow { background: #febc2e; }
+  .terminal-bar .dot.green { background: #28c840; }
+  .terminal-body {
+    padding: 18px 20px 22px;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 0.86rem;
+    line-height: 1.7;
+    min-height: 132px;
+  }
+  .terminal-body .line { color: var(--text); }
+  .terminal-body .prompt { color: var(--accent); font-weight: 700; }
+  .terminal-body .out { color: var(--text-dim); padding-left: 2px; }
+  .terminal-body .out.ok { color: var(--accent-strong); }
+  .terminal-body .cursor {
+    display: inline-block;
+    color: var(--accent);
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Code snippets */
+  .snippet { margin-bottom: 22px; }
+  .snippet-file {
+    display: inline-block;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-bottom: none;
+    color: var(--text-dim);
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 0.78rem;
+    padding: 7px 14px;
+    border-radius: 8px 8px 0 0;
+  }
+  .snippet pre {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 0 10px 10px 10px;
+    margin: 0;
+    padding: 20px;
+    overflow-x: auto;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 0.82rem;
+    line-height: 1.65;
+  }
+  .snippet code { color: var(--text); white-space: pre; }
+  .tok-com { color: #6b7280; font-style: italic; }
+  .tok-kw  { color: #c792ea; }
+  .tok-str { color: var(--accent); }
+  .tok-fn  { color: #82aaff; }
+  .snippet-caption { color: var(--text-dimmer); font-size: 0.85rem; margin: 10px 0 0; }
+  .snippet-link a { color: var(--accent); font-weight: 600; }
+  .snippet-link a:visited { color: var(--accent); }
+  .snippet-link a:hover { color: var(--accent-strong); }
+
+  /* Hero particle field — hand-written canvas, no library.
+     Importing three.js would be ~600 KB of somebody else's code on a page
+     whose whole argument is that the tools here have no dependencies. */
+  #particles {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 0; opacity: .55;
+  }
+  header.hero { position: relative; overflow: hidden; }
+  header.hero .wrap { position: relative; z-index: 1; }
+
+  /* Project index — the breadth has to register before any prose does. */
+  /* All five areas on one row where there is room: seeing the categories
+     side by side is the point — a wrapped fifth column reads as an
+     afterthought rather than a fifth area. */
+  #index .wrap { max-width: 1200px; }
+  .index-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 26px;
+  }
+  @media (max-width: 1180px) { .index-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 760px)  { .index-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 430px)  { .index-grid { grid-template-columns: 1fr; } }
+  .index-col h4 {
+    font-size: .74rem; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--accent); margin: 0 0 12px; font-weight: 700;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+  .index-col ul { list-style: none; margin: 0; padding: 0; }
+  .index-col li { margin-bottom: 8px; line-height: 1.4; }
+  .index-col a {
+    color: var(--text-dim); text-decoration: none; font-size: .875rem;
+    transition: color .15s;
+  }
+  .index-col a:hover { color: var(--text); }
+  .index-col .pub {
+    font-size: .65rem; text-transform: uppercase; letter-spacing: .05em;
+    background: var(--tag-bg); color: var(--accent);
+    padding: 1px 6px; border-radius: 4px; margin-left: 5px; vertical-align: 1px;
+  }
+
+  /* Interactive demos */
+  .demo {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 26px;
+    margin-bottom: 24px;
+  }
+  .demo h3 { margin: 0 0 6px; font-size: 1.12rem; }
+  .demo .why { color: var(--text-dim); font-size: .92rem; margin: 0 0 20px; }
+  .demo a, .detail-body a, .section-intro a { color: var(--accent); }
+  .demo .caption { color: var(--text-dimmer); font-size: .82rem; margin-top: 14px; line-height: 1.55; }
+
+  .sliders { display: grid; gap: 14px; margin-bottom: 20px; }
+  .slider-row { display: grid; grid-template-columns: 120px 1fr 46px; gap: 12px; align-items: center; }
+  .slider-row label { font-size: .86rem; color: var(--text-dim); }
+  .slider-row output {
+    font-variant-numeric: tabular-nums; text-align: right;
+    font-size: .9rem; color: var(--accent); font-weight: 600;
+  }
+  input[type=range] { width: 100%; accent-color: var(--accent); cursor: pointer; }
+
+  .verdicts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+  .verdict {
+    background: #0f121a; border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px; text-align: center;
+  }
+  .verdict.good { border-color: var(--accent); }
+  .verdict .lbl { font-size: .72rem; text-transform: uppercase; letter-spacing: .07em; color: var(--text-dimmer); }
+  .verdict .val {
+    font-size: 2rem; font-weight: 700; font-variant-numeric: tabular-nums;
+    display: block; margin: 6px 0 2px; color: var(--text);
+  }
+  .verdict.good .val { color: var(--accent); }
+  .verdict .sub { font-size: .78rem; color: var(--text-dimmer); }
+  @media (max-width: 560px) { .verdicts { grid-template-columns: 1fr; } }
+
+  .hist { margin-top: 6px; }
+  .hist h4 { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em;
+             color: var(--text-dimmer); margin: 0 0 8px; font-weight: 600; }
+  .hist-row { display: flex; align-items: flex-end; gap: 2px; height: 54px; margin-bottom: 6px; }
+  .hist-row .bar { flex: 1; background: var(--border); border-radius: 2px 2px 0 0; min-height: 1px; }
+  .hist-row.new .bar { background: var(--accent); }
+  .hist-legend { display: flex; justify-content: space-between; font-size: .72rem; color: var(--text-dimmer); }
+
+  .scanner textarea {
+    width: 100%; min-height: 132px; resize: vertical;
+    background: #0f121a; color: var(--text);
+    border: 1px solid var(--border); border-radius: 10px; padding: 14px;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: .82rem; line-height: 1.6;
+  }
+  .scanner textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .findings { margin-top: 14px; display: grid; gap: 8px; }
+  .finding {
+    display: flex; gap: 10px; align-items: baseline;
+    background: #0f121a; border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px; padding: 10px 14px; font-size: .84rem;
+  }
+  .finding.ok { border-left-color: #3f6b4a; color: var(--text-dim); }
+  .finding .ln { color: var(--text-dimmer); font-variant-numeric: tabular-nums; min-width: 46px; }
+  .finding .what { color: var(--accent); font-weight: 600; }
+  .finding code {
+    font-family: "SFMono-Regular", Consolas, monospace; font-size: .8rem; color: var(--text-dim);
+  }
+  .local-note { font-size: .78rem; color: var(--text-dimmer); margin-top: 10px; }
+
+  .pager-demo-grid { display: grid; gap: 22px; margin: 4px 0 4px; }
+  .pager-lane h4 {
+    font-size: .78rem; text-transform: uppercase; letter-spacing: .06em;
+    color: var(--text-dimmer); margin: 0 0 10px; font-weight: 600;
+    display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  }
+  .pager-lane h4 code { text-transform: none; letter-spacing: 0; font-size: .78rem; }
+  .pager-lane h4 .tally {
+    font-variant-numeric: tabular-nums; font-weight: 400; text-transform: none; letter-spacing: 0;
+    color: var(--text-dim);
+  }
+  .pager-lane.bad h4 .tally { color: var(--danger); }
+  .pager-lane.good h4 .tally { color: var(--accent); }
+  .pager-track { display: flex; flex-wrap: wrap; gap: 6px; min-height: 38px; }
+  .pager-item {
+    width: 32px; height: 32px; border-radius: 7px; display: flex; align-items: center; justify-content: center;
+    font-size: .76rem; font-variant-numeric: tabular-nums; border: 1px solid var(--border);
+    background: #0f121a; color: var(--text-dimmer); position: relative; flex-shrink: 0;
+  }
+  .pager-item.seen { color: var(--text); background: #171b25; }
+  .pager-item.hit { border-color: var(--accent); color: var(--text); background: rgba(125,211,192,0.14); }
+  .pager-item.dup { border-color: var(--warn); background: rgba(217,165,102,0.16); color: var(--warn); }
+  .pager-item.dup::after {
+    /* Two adjacent string literals, not one escaped one -- \00d72 was
+       parsed as a single 5-digit hex escape (U+00D72, a Malayalam digit)
+       instead of "x2", found by screenshotting the actual render. */
+    content: '\00d7' '2'; position: absolute; top: -8px; right: -7px; background: var(--warn); color: #0b0d12;
+    font-size: .58rem; font-weight: 700; border-radius: 6px; padding: 0 4px; line-height: 1.4;
+  }
+  .pager-item.skip { border-style: dashed; border-color: var(--danger); color: var(--danger); background: transparent; }
+  .pager-controls { display: flex; gap: 10px; align-items: center; margin: 18px 0 8px; flex-wrap: wrap; }
+  .pager-controls button {
+    background: var(--accent); color: #0b0d12; border: none; border-radius: 8px;
+    padding: 9px 16px; font-size: .84rem; font-weight: 600; cursor: pointer;
+  }
+  .pager-controls button:disabled { opacity: .45; cursor: default; }
+  .pager-controls button.ghost { background: transparent; border: 1px solid var(--border); color: var(--text-dim); }
+  .pager-step-note { font-size: .82rem; color: var(--text-dim); min-height: 1.4em; }
+
+  /* Case-study screenshot */
+  .shot {
+    margin: 18px 0 6px; border: 1px solid var(--border); border-radius: 10px;
+    overflow: hidden; background: #0f121a;
+  }
+  .shot .chrome {
+    display: flex; gap: 6px; padding: 9px 12px;
+    background: #141821; border-bottom: 1px solid var(--border);
+  }
+  .shot .chrome i { width: 9px; height: 9px; border-radius: 50%; background: #3a352c; display: block; }
+  .shot-pair {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 18px 0 6px;
+  }
+  @media (max-width: 640px) { .shot-pair { grid-template-columns: 1fr; } }
+  .shot-pair figure { margin: 0; }
+  .shot-pair img {
+    display: block; width: 100%; height: auto;
+    border: 1px solid var(--border); border-radius: 10px; background: #0f121a;
+  }
+  .shot-pair figcaption {
+    font-size: 0.78rem; color: var(--text-dimmer); margin-top: 8px;
+  }
+  .shot img { display: block; width: 100%; height: auto; }
+
+  /* Contact */
+  .channels { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+  .channel {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 15px 17px;
+    text-decoration: none; color: var(--text);
+    transition: border-color .15s, transform .15s;
+  }
+  .channel:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .channel.primary { border-color: var(--accent); background: #141821; }
+  .channel svg { width: 19px; height: 19px; flex: none; color: var(--accent); }
+  .channel .t { font-weight: 600; font-size: .93rem; display: block; }
+  .channel .s { font-size: .77rem; color: var(--text-dimmer); }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .terminal-body .cursor { animation: none; }
+  }
+
+  section { padding: 44px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+  h2 {
+    font-size: 1.5rem;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .section-intro { color: var(--text-dim); margin: 0 0 36px; max-width: 680px; }
+
+  /* Featured deep-dive cards */
+  .project {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px;
+    margin-bottom: 24px;
+    transition: border-color .2s;
+  }
+  .project:hover { border-color: #2c3243; background: var(--bg-card-hover); }
+  .project-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+  .project h3 { margin: 0; font-size: 1.25rem; }
+  .project .role { color: var(--text-dimmer); font-size: 0.82rem; white-space: nowrap; }
+  .project p.summary { color: var(--text-dim); margin: 12px 0 18px; }
+  .stat-row { display: flex; gap: 26px; flex-wrap: wrap; margin: 18px 0; }
+  .stat { min-width: 100px; }
+  .stat .n { font-size: 1.4rem; font-weight: 700; color: var(--accent); display: block; }
+  .stat .l { font-size: 0.78rem; color: var(--text-dimmer); }
+  details { margin-top: 14px; }
+  summary {
+    cursor: pointer;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.88rem;
+    list-style: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "→ "; }
+  details[open] summary::before { content: "↓ "; }
+  .detail-body { padding-top: 14px; color: var(--text-dim); font-size: 0.93rem; }
+  .detail-body ul { padding-left: 20px; margin: 8px 0; }
+  .detail-body li { margin-bottom: 8px; }
+  .proof-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px; margin: 18px 0;
+  }
+  .proof-item {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 16px;
+  }
+  .proof-item h4 {
+    margin: 0 0 6px; font-size: 0.76rem; text-transform: uppercase;
+    letter-spacing: 0.04em; color: var(--accent); font-weight: 700;
+  }
+  .proof-item p { margin: 0; font-size: 0.88rem; color: var(--text-dim); line-height: 1.55; }
+  .proof-item a { color: var(--accent); font-weight: 600; }
+  .proof-item a:visited { color: var(--accent); }
+  .proof-item a:hover { color: var(--accent-strong); }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    font-size: 0.76rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+
+  /* "Also built" grid */
+  .filterbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+  .chip {
+    background: var(--tag-bg);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    font-size: 0.8rem;
+    padding: 6px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  .chip:hover { border-color: var(--accent); }
+  .chip.active { background: var(--chip-active-bg); color: var(--chip-active-text); border-color: var(--chip-active-bg); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+    /* Cards keep their own height. Without this one card carrying a
+       screenshot stretches every neighbour in its row into dead space. */
+    align-items: start;
+  }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    transition: border-color .2s, transform .15s;
+  }
+  .card:hover { border-color: #2c3243; transform: translateY(-2px); }
+  /* A card carrying a screenshot cannot sit in a grid of compact text
+     cards — it ends up ~200px taller than its neighbours and tears a hole
+     in the row. It spans the full row instead, image beside the text. */
+  .card.card--wide { grid-column: 1 / -1; display: grid; gap: 24px; align-items: center; }
+  @media (min-width: 720px) { .card.card--wide { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); } }
+  .card .card-shot {
+    display: block; width: 100%;
+    /* height:auto is load-bearing: without it the HTML height attribute
+       wins over the CSS width and the shot renders stretched upright. */
+    height: auto; border: 1px solid var(--border); border-radius: 8px;
+  }
+  .card.card--wide h4 { font-size: 1.12rem; }
+  .card h4 { margin: 0 0 8px; font-size: 1.02rem; }
+  .card p { margin: 0 0 14px; color: var(--text-dim); font-size: 0.88rem; }
+  .card p a { color: var(--accent); font-weight: 600; white-space: nowrap; }
+  .card p a:visited { color: var(--accent); }
+  .card p a:hover { color: var(--accent-strong); }
+  .card .tags { margin-top: 0; }
+  .card.hidden { display: none; }
+
+  /* Skills */
+  .skill-group { margin-bottom: 22px; }
+  .skill-group h4 {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-dimmer);
+    margin: 0 0 10px;
+    font-weight: 600;
+  }
+  .skill-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-chip {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.85rem;
+    padding: 6px 14px;
+    border-radius: 8px;
+  }
+
+  .code-sample {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .code-sample a.repo-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+  .code-sample a.repo-link:hover { text-decoration: underline; }
+
+  .note {
+    font-size: 0.9rem;
+    color: var(--text-dimmer);
+    border-left: 2px solid var(--border);
+    padding-left: 16px;
+    margin-top: 32px;
+  }
+
+  .journey-list {
+    list-style: none;
+    margin: 24px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .journey-list li {
+    padding-left: 20px;
+    border-left: 2px solid var(--border);
+  }
+  .journey-list .yr {
+    display: block;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+  }
+
+  footer {
+    padding: 40px 0 72px;
+    color: var(--text-dimmer);
+    font-size: 0.9rem;
+  }
+  footer a { color: var(--text-dim); }
+
+  @media (max-width: 600px) {
+    header.hero { padding: 48px 0 36px; }
+    section { padding: 40px 0; }
+    .project { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a class="brand" href="#top">Atakan</a>
+    <div class="navlinks">
+      <a href="#index">Projects</a>
+      <a href="#featured">Featured</a>
+      <a href="#built">All 25</a>
+      <a href="#infra">Security</a>
+      <a href="#code">Code</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <p class="kicker">Portfolio</p>
+    <h1>I build the systems that run the business,<br>not just the demo of one.</h1>
+    <p class="lede">
+      Over the past months I designed, built, and now personally operate a
+      full stack of production software for a real cold-calling sales
+      business — from the CRM the reps use every day down to the AI agents
+      and self-healing infrastructure that keep it all running. Below is
+      the full list, not just the highlight reel.
+    </p>
+
+    <div class="terminal" id="terminal">
+      <div class="terminal-bar">
+        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+      </div>
+      <div class="terminal-body" id="terminalBody"></div>
+    </div>
+
+    <div class="links">
+      <a class="btn primary" href="https://cal.com/atakanoztunc/30min" rel="noopener noreferrer">Book a 30-min call</a>
+      <a class="btn" href="#index">See all 25 projects</a>
+      <a class="btn" href="#frag-mich">Ask me directly</a>
+      <a class="btn" href="https://github.com/Atakan-24" rel="noopener noreferrer">GitHub</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .ask-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 720px;
+  }
+  .ask-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .ask-chip {
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: border-color .15s;
+  }
+  .ask-chip:hover { border-color: var(--accent); }
+  .ask-log { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; max-height: 360px; overflow-y: auto; }
+  .ask-log:empty { display: none; }
+  .ask-msg { padding: 10px 14px; border-radius: 10px; font-size: 0.92rem; line-height: 1.5; max-width: 90%; }
+  .ask-msg.user { align-self: flex-end; background: var(--accent); color: #0b0d12; }
+  .ask-msg.bot { align-self: flex-start; background: var(--bg-card-hover); border: 1px solid var(--border); color: var(--text); }
+  .ask-msg.bot.pending { color: var(--text-dimmer); font-style: italic; }
+  .ask-msg.bot a, .ask-msg.bot a:visited { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  .ask-msg.bot a:hover { color: var(--text); }
+  .ask-form { display: flex; gap: 8px; }
+  .ask-form input {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-size: 0.92rem;
+  }
+  .ask-form input:focus { outline: none; border-color: var(--accent); }
+  .ask-note { margin: 12px 0 0; font-size: 0.8rem; color: var(--text-dimmer); }
+</style>
+
+<section id="frag-mich">
+  <div class="wrap">
+    <h2>Ask me directly</h2>
+    <p class="section-intro">
+      Don't want to read through all 25 projects? Ask — it answers from my
+      real CV, goals and project write-ups, and says "I don't know" instead
+      of guessing.
+    </p>
+    <div class="ask-box">
+      <div class="ask-chips">
+        <button type="button" class="ask-chip" data-a="Day to day: an AI-driven cold-calling platform for Team Gold (Next.js, Supabase, Telnyx Voice/WebRTC, LLM voice agents), plus the multi-agent automation layer that runs it. Alongside that, six public repos with real tests and CI.">What does he build?</button>
+        <button type="button" class="ask-chip" data-a="He considered a Fachinformatiker apprenticeship, but it didn't become his path. Instead: about 3 years of self-directed learning by building, breaking, testing and shipping real systems. The open gap he's actively closing is external validation — clients, production use, references.">Why no degree?</button>
+        <button type="button" class="ask-chip" data-a="A pre-commit hook + GitHub Action that stops API keys from reaching a commit. 98 tests, and measured precision/recall improved from 80% to 100% on a labelled benchmark.">What's git-secret-scan?</button>
+        <button type="button" class="ask-chip" data-a="Yes — he's actively looking for paying clients and contract/freelance engineering work alongside his own business. Book a 30-min call or email him.">Open to contract work?</button>
+        <button type="button" class="ask-chip" data-a="Email atakanfisc@gmail.com, book a 30-min call at cal.com/atakanoztunc/30min, message on WhatsApp at wa.me/201069564012, or on Telegram at t.me/Akioatakan.">How to contact him?</button>
+      </div>
+      <div class="ask-log" id="askLog"></div>
+      <form id="askForm" class="ask-form">
+        <input id="askInput" type="text" maxlength="300" placeholder="Ask something else…" autocomplete="off">
+        <button type="submit" class="btn primary">Ask</button>
+      </form>
+      <p class="ask-note">
+        The quick buttons above answer instantly, for free, from fixed text.
+        Typed questions go to a small AI (Groq, free tier) that only answers
+        from my real CV/portfolio — limited to a few questions per visitor
+        per day to keep it available for everyone.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="index">
+  <div class="wrap">
+    <h2>Everything, at a glance</h2>
+    <p class="section-intro">
+      25 systems across five areas — six of them public on GitHub,
+      linked below. The detailed write-ups follow; this is the map.
+    </p>
+
+    <div class="stats-strip">
+      <div class="cell"><span class="n">25</span><span class="l">systems shipped, solo</span></div>
+      <div class="cell"><span class="n">100k+</span><span class="l">records processed in production</span></div>
+      <div class="cell"><span class="n">24/7</span><span class="l">self-healing, unattended infra</span></div>
+      <div class="cell"><span class="n">100%</span><span class="l">precision &amp; recall, measured, on the security tool</span></div>
+    </div>
+
+    <div class="index-grid">
+      <div class="index-col reveal">
+        <h4>CRM &amp; Sales</h4>
+        <ul>
+          <li><a href="#featured">Cold-calling CRM &amp; AI voice platform</a></li>
+          <li><a href="#built">Lead scoring &amp; ICP engine</a></li>
+          <li><a href="#built">Multi-channel outreach orchestration</a></li>
+          <li><a href="#built">Controlled experiment framework</a></li>
+          <li><a href="#built">Compliance-aware call windowing</a></li>
+          <li><a href="#built">Inbound routing with a hard fallback</a></li>
+          <li><a href="#built">Weekly niche-focus controller</a></li>
+        </ul>
+      </div>
+
+      <div class="index-col reveal">
+        <h4>AI &amp; Agents</h4>
+        <ul>
+          <li><a href="#featured">AI-OS — multi-agent operations layer</a></li>
+          <li><a href="#built">AI call review &amp; coaching loop</a></li>
+          <li><a href="#built">Human-in-the-loop agent control</a></li>
+          <li><a href="#built">Model / effort routing policy</a></li>
+          <li><a href="#built">Custom MCP tooling</a></li>
+          <li><a href="#built">Two-channel call audio pipeline</a></li>
+        </ul>
+      </div>
+
+      <div class="index-col reveal">
+        <h4>Data &amp; Infrastructure</h4>
+        <ul>
+          <li><a href="#featured">Lead-generation pipeline at scale</a></li>
+          <li><a href="#built">Multi-source data fusion layer</a></li>
+          <li><a href="#built">Hiring-signal detection</a></li>
+          <li><a href="#built">Self-healing task watchdog</a></li>
+          <li><a href="https://github.com/Atakan-24/postgrest-keyset-page" rel="noopener noreferrer">postgrest-keyset-page — cursor pagination <span class="pub">public</span></a></li>
+        </ul>
+      </div>
+
+      <div class="index-col reveal">
+        <h4>Security</h4>
+        <ul>
+          <li><a href="#featured">git-secret-scan <span class="pub">public</span></a></li>
+          <li><a href="#infra">Server hardening — 2 production servers</a></li>
+          <li><a href="#infra">SSH / firewall / secrets management</a></li>
+          <li><a href="#built">Authorized security-testing toolkit</a></li>
+        </ul>
+      </div>
+
+      <div class="index-col reveal">
+        <h4>Own projects</h4>
+        <ul>
+          <li><a href="#built">teamgoldllc.de — bilingual site &amp; SEO</a></li>
+          <li><a href="https://github.com/Atakan-24/fahm" rel="noopener noreferrer">Fahm — Arabic vocabulary app <span class="pub">public</span></a></li>
+          <li><a href="https://github.com/Atakan-24/yt-transcript" rel="noopener noreferrer">yt-transcript — 4-tier fallback <span class="pub">public</span></a></li>
+          <li><a href="https://github.com/Atakan-24/gitingest" rel="noopener noreferrer">gitingest — repo to one file <span class="pub">public</span></a></li>
+          <li><a href="https://github.com/Atakan-24/gh-radar" rel="noopener noreferrer">gh-radar — daily GitHub digest <span class="pub">public</span></a></li>
+          <li><a href="#built">YouTube research pipeline</a></li>
+          <li><a href="#built">Chess AI, trading backtester, early work</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="featured">
+  <div class="wrap-narrow">
+    <h2>Featured</h2>
+    <p class="section-intro">
+      Four systems, in active daily production use. Source code stays
+      private where it touches real customer data — one of the four is
+      fully public and linked below. What's shown for the rest is the
+      architecture, the scale, and the specific engineering problems each
+      one solved.
+    </p>
+
+    <div class="project reveal">
+      <div class="project-head">
+        <h3>Team Gold — Cold-Calling CRM &amp; AI Voice Platform</h3>
+        <span class="role">Sole builder &amp; operator</span>
+      </div>
+      <p class="summary">
+        A Next.js CRM built for a real cold-calling sales team: browser-based
+        softphone dialing over WebRTC/Telnyx, an outbound AI voice agent that
+        can run its own call shifts, live call recording and two-channel
+        transcription, and a lead-scoring engine that decides who gets called
+        next.
+      </p>
+
+      <div class="shot-pair">
+        <figure>
+          <img src="crm-sprint.jpg" width="1400" height="859" loading="lazy" decoding="async"
+               alt="CRM niche-sprint view: the active trade, remaining callable leads per trade, and how many days of calling each pool covers.">
+          <figcaption>Niche sprint — which trade the whole operation
+            focuses on this week, with the measured runway of each lead
+            pool.</figcaption>
+        </figure>
+        <figure>
+          <img src="crm-scripts.jpg" width="1400" height="859" loading="lazy" decoding="async"
+               alt="CRM call-script management: versioned call scripts, which one is live, per-rep assignment, and an archive of older versions.">
+          <figcaption>Call scripts — versioned in the database, one live at
+            a time, per-rep assignment, nothing ever deleted.</figcaption>
+        </figure>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat"><span class="n">100k+</span><span class="l">leads scored &amp; routed</span></div>
+        <div class="stat"><span class="n">7</span><span class="l">rotating outbound numbers, load-balanced</span></div>
+        <div class="stat"><span class="n">14+</span><span class="l">iterated call-script versions, A/B tested</span></div>
+      </div>
+      <div class="proof-grid">
+        <div class="proof-item">
+          <h4>Architecture</h4>
+          <p>Next.js talks to Postgres through Supabase — row-level
+            security policies enforce who can see which contacts at the
+            database layer, not just in application code, so a bug in a
+            page component can't leak another rep's leads. The call script
+            itself is versioned rows in the database rather than code, so a
+            wording change ships without a deploy.</p>
+        </div>
+        <div class="proof-item">
+          <h4>Security &amp; reliability</h4>
+          <p>Every schema change ships with an explicit fallback path — a
+            missing column degrades a feature instead of crashing the page.
+            The outbound AI voice agent carries its own spend cap, a
+            compliance-driven call-window check, and a kill switch that no
+            single misconfigured toggle can override.</p>
+        </div>
+      </div>
+      <details>
+        <summary>What made this hard</summary>
+        <div class="detail-body">
+          <ul>
+            <li><strong>Trustworthy scoring, not a vanity number.</strong>
+              Lead priority combines need, budget, and reachability with a
+              geometric mean instead of a raw product — a raw product looked
+              fine in a spreadsheet but pushed almost the entire dataset into
+              a handful of duplicate scores, which silently destroyed the
+              ranking the dialer relied on.</li>
+            <li><strong>Call outcomes you can actually trust.</strong> Rep-
+              entered call results turned out to be unreliable at scale, so
+              every claimed outcome is now cross-checked against the one
+              number a rep can't fake: measured call duration from the
+              telephony provider itself.</li>
+            <li><strong>Two-channel audio, correctly attributed.</strong> AI
+              call review needs to know who said what. Recordings are split
+              into separate agent/customer channels before transcription —
+              naive single-channel transcription let the model guess the
+              speaker from content alone, which was wrong far more often
+              than it looked.</li>
+            <li><strong>An AI agent with a hard leash.</strong> The outbound
+              voice agent has its own budget cap, a compliance-driven
+              call-window check, and a kill switch that a plain config
+              change can't accidentally re-enable — the safety property that
+              matters here is that "off" always means off, not "off unless
+              five different code paths all agree."</li>
+          </ul>
+        </div>
+      </details>
+      <div class="tags">
+        <span class="tag">Next.js</span><span class="tag">TypeScript</span>
+        <span class="tag">Supabase / Postgres</span><span class="tag">WebRTC</span>
+        <span class="tag">Telnyx voice API</span><span class="tag">LLM voice agents</span>
+      </div>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-head">
+        <h3>Lead Generation Pipeline — Google Maps at Scale</h3>
+        <span class="role">Sole builder &amp; operator</span>
+      </div>
+      <p class="summary">
+        A always-on scraping and enrichment pipeline that finds local
+        businesses, checks whether they still exist, reads their websites
+        for real signals (hiring activity, ad spend, tech stack), and turns
+        all of that into a single, explainable priority score — running
+        continuously, watched by its own health checks.
+      </p>
+      <div class="stat-row">
+        <div class="stat"><span class="n">24/7</span><span class="l">self-healing background process</span></div>
+        <div class="stat"><span class="n">2</span><span class="l">independent scrapers, cross-verified</span></div>
+        <div class="stat"><span class="n">30+</span><span class="l">extracted business signals per lead</span></div>
+      </div>
+      <div class="proof-grid">
+        <div class="proof-item">
+          <h4>Architecture</h4>
+          <p>Two independently-built scrapers cross-verify each other's
+            output before a lead is scored. Every long scan pages through
+            the database by a stable cursor rather than a plain offset —
+            offset pagination silently drops or duplicates rows the moment
+            something else writes to the table mid-scan, which a one-off
+            scan will never catch.</p>
+        </div>
+        <div class="proof-item">
+          <h4>Security &amp; reliability</h4>
+          <p>A background watchdog restarts the scraper process, but only
+            after confirming actual CPU activity over a time window — a
+            crashed browser sub-process looks identical to a healthy one if
+            you only check whether the PID still exists.</p>
+        </div>
+      </div>
+      <details>
+        <summary>What made this hard</summary>
+        <div class="detail-body">
+          <ul>
+            <li><strong>"Still running" isn't a status you can assume.</strong>
+              A crashed browser sub-process looked identical to a healthy one
+              in the process list. The watchdog now checks actual CPU
+              activity over a time window, not just whether the PID exists —
+              the difference between those two once cost three days of
+              silent downtime.</li>
+            <li><strong>Pagination under concurrent writes is a trap.</strong>
+              Paging through a database with plain offsets while the table is
+              being written to at the same time silently duplicates and skips
+              rows — invisible until someone compares two "complete" scans
+              and gets two different totals. Every long-running scan here
+              pages by a stable cursor instead.</li>
+            <li><strong>A null is not a zero.</strong> "Never measured" and
+              "measured and it's zero" look the same in a spreadsheet but
+              mean opposite things for a scoring model — conflating them once
+              quietly threw out a third of a live dataset's worth of good
+              signal.</li>
+          </ul>
+        </div>
+      </details>
+      <div class="tags">
+        <span class="tag">Node.js</span><span class="tag">Playwright</span>
+        <span class="tag">Postgres / REST</span><span class="tag">Windows Task Scheduler</span>
+        <span class="tag">Data pipelines</span>
+      </div>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-head">
+        <h3>AI-OS — A Multi-Agent Operations Layer for a Real Business</h3>
+        <span class="role">Sole builder &amp; operator</span>
+      </div>
+      <p class="summary">
+        Instead of a single AI assistant, this is an operating layer: a
+        library of reusable agent "skills," a policy that routes each task
+        to the right model and effort level, scheduled autonomous work,
+        and a Telegram-based approval channel so a human makes the handful
+        of decisions that actually matter — money, access, and direction —
+        while everything routine runs unattended.
+      </p>
+      <div class="stat-row">
+        <div class="stat"><span class="n">20+</span><span class="l">purpose-built agent skills</span></div>
+        <div class="stat"><span class="n">8</span><span class="l">tiered escalation signals for model routing</span></div>
+        <div class="stat"><span class="n">24/7</span><span class="l">daemon with human-in-the-loop approval gates</span></div>
+      </div>
+      <div class="proof-grid">
+        <div class="proof-item">
+          <h4>Architecture</h4>
+          <p>Tasks route through an explicit, versioned scoring policy
+            across model and reasoning-effort tiers instead of picking a
+            model by feel — the same policy a human can read and audit. A
+            background daemon runs the scheduled work; it's watched by a
+            second, independent process whose only job is noticing when the
+            first one goes silent.</p>
+        </div>
+        <div class="proof-item">
+          <h4>Security &amp; reliability</h4>
+          <p>Anything with a cost — a paid API call, an outbound message —
+            routes through a structured approval gate to a human before it
+            executes. The kill switch is checked at the one place every
+            path funnels through, not duplicated across call sites that
+            could disagree.</p>
+        </div>
+      </div>
+      <details>
+        <summary>What made this hard</summary>
+        <div class="detail-body">
+          <ul>
+            <li><strong>Autonomy needs a real off switch, not just a
+              polite one.</strong> Every action with a cost — a paid API
+              call, an outbound message, a purchase — routes through an
+              explicit money/access/direction gate that pauses the agent
+              and asks a human via a structured, button-based approval
+              flow, not free text to a shell.</li>
+            <li><strong>"It ran" isn't "it worked."</strong> A background
+              daemon can die silently for days while every scheduled job
+              still shows as configured. The fix wasn't a bigger try/catch —
+              it was a separate watchdog that checks the checker.</li>
+            <li><strong>Model routing as policy, not vibes.</strong> Which
+              model and how much reasoning effort a task gets is decided by
+              an explicit, versioned scoring policy across eight dimensions
+              (ambiguity, blast radius, architectural weight, and so on) —
+              not re-guessed every time from scratch.</li>
+          </ul>
+        </div>
+      </details>
+      <div class="tags">
+        <span class="tag">Claude Agent SDK</span><span class="tag">Multi-agent orchestration</span>
+        <span class="tag">Python</span><span class="tag">Telegram Bot API</span>
+        <span class="tag">Task scheduling</span><span class="tag">System design</span>
+      </div>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-head">
+        <h3>git-secret-scan — Pre-Commit Hook Against Leaked Credentials</h3>
+        <span class="role">Open source, public repository</span>
+      </div>
+      <p class="summary">
+        A dependency-free pre-commit hook and GitHub Action that stops API
+        keys from reaching a commit — written after a real incident where
+        five live credentials sat exposed in a repo for months, unnoticed
+        until a backup was being prepared.
+      </p>
+
+      <div class="stat-row">
+        <div class="stat"><span class="n">98</span><span class="l">tests, 98 % coverage</span></div>
+        <div class="stat"><span class="n">11</span><span class="l">CI jobs — 3 OS × 3 Python versions</span></div>
+        <div class="stat"><span class="n">80→100 %</span><span class="l">recall, after measuring it</span></div>
+      </div>
+
+      <div class="proof-grid">
+        <div class="proof-item">
+          <h4>Architecture</h4>
+          <p>Detection is pattern-based, scored against a hand-labelled
+            corpus of 61 real and synthetic cases rather than tuned by eye
+            — the benchmark gates CI, so a regression in a security tool
+            fails the build instead of going unnoticed.</p>
+        </div>
+        <div class="proof-item">
+          <h4>Security &amp; reliability</h4>
+          <p>Runs entirely locally as a git hook — a secret never has to
+            leave the machine to be checked. Findings are always masked in
+            output; a scanner that prints the full credential into a
+            terminal and a CI log has made the problem worse, not better.</p>
+        </div>
+      </div>
+
+      <details>
+        <summary>The part worth reading: I measured it and found it broken</summary>
+        <div class="detail-body">
+          <p>
+            The tool had never been measured. Building a labelled corpus of
+            61 cases surfaced <strong>three bugs, all false negatives</strong> —
+            the failure mode that matters in security work, because it looks
+            exactly like success.
+          </p>
+          <ul>
+            <li><strong>The false-positive guard was eating real tokens.</strong>
+              It demanded an uppercase letter <em>and</em> a digit in every
+              match. Slack and GitHub tokens are routinely
+              lowercase-plus-digits, so <strong>2 of 10 credential types were
+              undetectable</strong>. Worse, it no longer did the job it was
+              written for — the patterns had since gained a word boundary
+              that handled that case anyway.</li>
+            <li><strong>A placeholder anywhere on the line disabled the
+              line.</strong> A real key with <code>// see EXAMPLE</code> in a
+              trailing comment went through silently.</li>
+            <li><strong>A broken git environment reported "clean".</strong>
+              Run outside a repository it printed clean and exited 0. A hook
+              that passes when it cannot see anything is worse than no hook,
+              because it is trusted.</li>
+          </ul>
+          <p>
+            Recall went from <strong>80 % to 100 %</strong>, precision from
+            91.4 % to 100 %, measured — and the benchmark now gates CI, so a
+            regression fails the build instead of going unnoticed.
+          </p>
+          <p>
+            Two more things only real delivery teaches: GitHub's own push
+            protection <strong>blocked the first push</strong>, because its
+            scanner could not tell my synthetic test token from a live one —
+            fixed by assembling fixtures from parts rather than weakening the
+            check. And the CI matrix caught a genuine Python 3.9
+            incompatibility that a machine running 3.12 could never have
+            surfaced.
+          </p>
+        </div>
+      </details>
+
+      <div class="tags">
+        <span class="tag">Python</span><span class="tag">Git hooks</span>
+        <span class="tag">GitHub Actions</span><span class="tag">Hypothesis</span>
+        <span class="tag">Security tooling</span>
+      </div>
+      <p class="snippet-caption snippet-link" style="margin-top:14px;">
+        <a href="https://github.com/Atakan-24/git-secret-scan" target="_blank" rel="noopener noreferrer">→ View on GitHub</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="built">
+  <div class="wrap">
+    <h2>The full list</h2>
+    <p class="section-intro">
+      Every system, filterable. Smaller in scope than the four case
+      studies above, but each one is a real, independently working
+      subsystem — not a stub.
+    </p>
+
+    <div class="filterbar" id="filterbar">
+      <button class="chip active" data-filter="all">All (19)</button>
+      <button class="chip" data-filter="crm">CRM &amp; Sales</button>
+      <button class="chip" data-filter="ai">AI / LLM</button>
+      <button class="chip" data-filter="data">Data &amp; Infra</button>
+      <button class="chip" data-filter="security">Security</button>
+      <button class="chip" data-filter="personal">Personal</button>
+    </div>
+
+    <div class="grid" id="cardgrid">
+
+      <div class="card reveal" data-cat="crm data">
+        <h4>Lead Scoring &amp; ICP Engine</h4>
+        <p>Two deliberately independent scoring layers — a geometric-mean
+          need/budget/reachability score, and a separate ICP-fit score with
+          its own confidence metric — so one can never silently overwrite
+          the other's meaning.</p>
+        <div class="tags"><span class="tag">TypeScript</span><span class="tag">Scoring models</span></div>
+      </div>
+
+      <div class="card reveal" data-cat="data ai">
+        <h4>Multi-Source Data Fusion Layer</h4>
+        <p>Merges signals from several independent observation sources into
+          one profile per contact — and reports "how much do we know"
+          (confidence) separately from "how fresh and complete is it"
+          (quality) instead of blending them into one misleading number.</p>
+        <div class="tags"><span class="tag">Data engineering</span><span class="tag">Node.js</span></div>
+      </div>
+
+      <div class="card reveal" data-cat="data ai">
+        <h4>Hiring-Signal Detection</h4>
+        <p>Parses a business's own website for hiring activity, ad-spend
+          evidence, tech stack, and multi-location signals — extracting more
+          from data already being fetched instead of paying for a new
+          third-party source.</p>
+        <div class="tags"><span class="tag">Web scraping</span><span class="tag">Signal extraction</span></div>
+      </div>
+
+      <div class="card reveal" data-cat="ai crm">
+        <h4>Two-Channel Call Audio Pipeline</h4>
+        <p>Splits recorded calls into separate customer/agent audio channels
+          before transcription. Single-channel transcription let the model
+          guess who was speaking from context alone — measurably less
+          accurate once compared side by side.</p>
+        <div class="tags"><span class="tag">Audio processing</span><span class="tag">Whisper</span></div>
+      </div>
+
+      <div class="card reveal" data-cat="ai crm">
+        <h4>AI Call Review &amp; Coaching Loop</h4>
+        <p>LLM-generated feedback for sales reps, gated behind a human
+          approve/edit/reject workflow before a rep ever sees it — plus a
+          deliberately "blind" grading mode so a review isn't biased by
+          seeing the AI's verdict too early.</p>
+        <div class="tags"><span class="tag">LLM evaluation</span><span class="tag">Workflow design</span></div>
+      </div>
+
+      <div class="card reveal" data-cat="crm">
+        <h4>Multi-Channel Outreach Orchestration</h4>
+        <p>Coordinates email (mailbox warm-up ramp across a rotating pool),
+          a queued/human-sent LinkedIn channel, and a channel-comparison
+          layer that explicitly labels which numbers are measured vs.
+          self-reported.</p>
+        <div class="tags"><span class="tag">Email deliverability</span><span class="tag">Growth engineering</span></div>
+      </div>
+
+      <div class="card reveal" data-cat="crm data">
+        <h4>Controlled Experiment Framework</h4>
+        <p>A test-cohort system with independent locks that keep test leads
+          out of every production automation, plus a self-releasing batch
+          mechanism that scales exposure with real call volume — no one has
+          to click a button to advance it.</p>
+        <div class="tags"><span class="tag">Experimentation</span><span class="tag">Feature flags</span></div>
+      </div>
+
+      <div class="card reveal" data-cat="ai security">
+        <h4>Custom MCP Tooling</h4>
+        <p>Built Model Context Protocol servers exposing read-only business
+          data and a security-testing toolkit to an LLM agent, with
+          scope-gated safety defaults that stay off by default until
+          explicitly widened.</p>
+        <div class="tags"><span class="tag">MCP</span><span class="tag">Tool design</span></div>
+      </div>
+
+      <div class="card reveal" data-cat="ai">
+        <h4>Human-in-the-Loop Agent Control</h4>
+        <p>A Telegram-based approval bridge that lets a long-running
+          autonomous agent pause and ask a real human before any money-,
+          access-, or direction-level decision, then resumes automatically
+          once answered.</p>
+        <div class="tags"><span class="tag">Telegram Bot API</span><span class="tag">Agent safety</span></div>
+      </div>
+
+      <div class="card reveal" data-cat="ai">
+        <h4>Model / Effort Routing Policy</h4>
+        <p>A scored, versioned policy deciding which LLM and how much
+          reasoning effort a task should get, across eight escalation
+          signals — instead of re-guessing per task or defaulting to the
+          most expensive model every time.</p>
+        <div class="tags"><span class="tag">LLM ops</span><span class="tag">Policy design</span></div>
+      </div>
+
+      <div class="card reveal" data-cat="data ai">
+        <h4>Self-Healing Task Watchdog</h4>
+        <p>A separate monitor that checks whether the checker is still
+          alive — built after a background daemon died silently for three
+          days while every scheduled job still displayed as "configured."</p>
+        <div class="tags"><span class="tag">Reliability engineering</span><span class="tag">Windows Task Scheduler</span></div>
+      </div>
+
+      <div class="card reveal" data-cat="security">
+        <h4>Authorized Security-Testing Toolkit</h4>
+        <p>Wraps industry-standard recon tools (nmap, nikto, sqlmap,
+          whatweb) behind a scope-gated safety layer that defaults to
+          local/private targets only — used for personal bug-bounty and
+          pentesting practice.</p>
+        <div class="tags"><span class="tag">Security tooling</span><span class="tag">Python</span></div>
+      </div>
+
+      <div class="card reveal" data-cat="crm">
+        <h4>Compliance-Aware Call Windowing</h4>
+        <p>A legal calling-hours check, kept strictly separate from
+          reachability scoring — the two answer different questions, and
+          conflating "unlikely to answer" with "not allowed to call" would
+          quietly throw away good leads.</p>
+        <div class="tags"><span class="tag">Compliance engineering</span></div>
+      </div>
+
+      <div class="card reveal" data-cat="crm data">
+        <h4>Inbound Call Routing with a Hard Fallback</h4>
+        <p>A rep pool rings first on every inbound call, with a
+          server-enforced lock that forces a voicemail fallback regardless
+          of what any dashboard toggle or database row says — the safety
+          property lives in code, not in configuration.</p>
+        <div class="tags"><span class="tag">Telephony</span><span class="tag">Fail-safe design</span></div>
+      </div>
+
+      <div class="card reveal" data-cat="ai crm">
+        <h4>Weekly Niche-Focus Controller</h4>
+        <p>Rotates which market segment the whole calling operation focuses
+          on each week, driven by measured rep success rates instead of a
+          self-assigned fit score that turned out to reward its own
+          assumptions.</p>
+        <div class="tags"><span class="tag">Data-driven ops</span></div>
+      </div>
+
+      <div class="card reveal" data-cat="ai personal">
+        <h4>YouTube Research Pipeline</h4>
+        <p>RSS-based channel monitoring with no paid API, feeding an LLM
+          pipeline that automatically extracts business and engineering
+          lessons from long-form video content.</p>
+        <div class="tags"><span class="tag">RSS</span><span class="tag">LLM summarization</span></div>
+      </div>
+
+      <div class="card reveal" data-cat="personal">
+        <h4>Fahm — Arabic Vocabulary App</h4>
+        <p>A single-file, build-free web app for learning Quranic Arabic
+          vocabulary: 500+ words, word-by-word sentence breakdowns, and
+          custom vocabulary import. Shipped and live at a public URL.</p>
+        <div class="tags"><span class="tag">Vanilla JS</span><span class="tag">Shipped product</span></div>
+      </div>
+
+      <div class="card reveal" data-cat="personal">
+        <h4>Early projects — where it started</h4>
+        <p>A chess engine, a crypto-trading backtester, and a handful of
+          classic learn-to-code exercises (calculator, Hangman, a text
+          adventure). Kept private now, but this is the actual starting
+          point for everything above.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Learning journey</span></div>
+      </div>
+
+      <!-- Full-row banner, kept last so the 18 compact cards fill whole
+           rows above it instead of being split by a wide item. -->
+      <div class="card card--wide reveal" data-cat="crm">
+        <a href="https://teamgoldllc.de" target="_blank" rel="noopener noreferrer" aria-label="Open teamgoldllc.de">
+          <img class="card-shot" src="teamgold.jpg" width="1280" height="800" loading="lazy" decoding="async"
+               alt="teamgoldllc.de homepage: dark layout with a gold headline reading Websites that rank.">
+        </a>
+        <div>
+          <h4>teamgoldllc.de — Bilingual Marketing Site</h4>
+          <p>The public site for the business the systems above serve —
+            full EN/DE translations with correct <code>hreflang</code>,
+            four JSON-LD schema types, and a font-loading strategy that
+            doesn't block first paint. <a href="https://teamgoldllc.de" target="_blank" rel="noopener noreferrer">Live at teamgoldllc.de →</a></p>
+          <div class="tags"><span class="tag">React</span><span class="tag">i18n</span><span class="tag">JSON-LD</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="infra">
+  <div class="wrap-narrow">
+    <h2>Security &amp; infrastructure</h2>
+    <p class="section-intro">
+      Everything above runs on two servers I administer myself — a Windows
+      box and an Ubuntu ARM instance in Oracle Cloud. Not a managed
+      platform where hardening is somebody else's job.
+    </p>
+
+    <div class="proof-grid reveal">
+      <div class="proof-item">
+        <h4>Least privilege, enforced by the OS</h4>
+        <p>The agent service runs as its own unprivileged user with no
+          sudo, inside a systemd sandbox: home directory read-only, and an
+          explicit allowlist of the few paths it may write to. A compromised
+          agent process cannot reach anything it was not handed.</p>
+      </div>
+      <div class="proof-item">
+        <h4>Reduced attack surface</h4>
+        <p>SSH password authentication disabled entirely — keys only, one
+          per machine so access can be revoked per device rather than all
+          at once. Host firewall and <code>fail2ban</code> in front of it.
+          Debug and automation ports bind to loopback, never
+          <code>0.0.0.0</code> — the difference between a local tool and an
+          open service.</p>
+      </div>
+      <div class="proof-item">
+        <h4>Secrets never live in the repo</h4>
+        <p>Credentials sit in the OS keystore, not in files. That rule is
+          enforced by a tool rather than by discipline:
+          <a href="#featured">git-secret-scan</a> blocks the commit, and
+          the same check runs again in CI for anyone who skipped the hook.</p>
+      </div>
+      <div class="proof-item">
+        <h4>Scanning tools with a scope gate</h4>
+        <p>The security tooling (nmap, nikto, sqlmap and friends) is wired
+          up behind a target check that refuses anything outside localhost
+          and private ranges unless it is deliberately unlocked. An
+          LLM-driven scanner without that gate is one bad prompt away from
+          scanning a stranger.</p>
+      </div>
+    </div>
+
+    <details class="reveal">
+      <summary>What locking myself out actually taught me</summary>
+      <div class="detail-body">
+        <p>
+          The sandbox allowlist above was, at first, <strong>too
+          tight</strong>. A legitimate tool started failing with a
+          permission error, and the obvious reading was "the tool is
+          broken" — it wasn't. My own hardening was denying a write path
+          the tool genuinely needed.
+        </p>
+        <p>
+          The fix was to point the tool at a directory inside the sandbox
+          rather than to widen the sandbox, so the restriction stayed
+          intact. That is the part worth keeping: <strong>the failure mode
+          of good hardening is that it breaks your own things first</strong>,
+          and the temptation every time is to loosen the rule instead of
+          moving the thing. I have done this to myself more than once —
+          port changes, firewall rules, key-only SSH — and each time the
+          useful question was "what exactly is being denied, and why",
+          never "how do I turn this off".
+        </p>
+        <p>
+          None of this is a certification. It is two servers I keep running
+          in production, where the blast radius of getting it wrong is my
+          own business.
+        </p>
+      </div>
+    </details>
+
+    <div class="tags" style="margin-top:18px;">
+      <span class="tag">systemd hardening</span><span class="tag">SSH key-only auth</span>
+      <span class="tag">ufw / fail2ban</span><span class="tag">Least privilege</span>
+      <span class="tag">Secrets management</span><span class="tag">nmap / nikto / sqlmap</span>
+      <span class="tag">Linux (Ubuntu ARM)</span><span class="tag">Windows Server</span>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap-narrow">
+    <h2>Skills &amp; stack</h2>
+    <p class="section-intro">What actually shipped the systems above — not an aspirational list.</p>
+
+    <div class="skill-group reveal">
+      <h4>Languages</h4>
+      <div class="skill-chips">
+        <span class="skill-chip">TypeScript</span><span class="skill-chip">JavaScript</span>
+        <span class="skill-chip">Python</span><span class="skill-chip">SQL</span>
+        <span class="skill-chip">Bash / PowerShell</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <h4>Application &amp; Data</h4>
+      <div class="skill-chips">
+        <span class="skill-chip">Next.js</span><span class="skill-chip">React</span>
+        <span class="skill-chip">Node.js</span><span class="skill-chip">Supabase / Postgres</span>
+        <span class="skill-chip">REST API design</span><span class="skill-chip">Playwright</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <h4>AI &amp; Agents</h4>
+      <div class="skill-chips">
+        <span class="skill-chip">Claude Agent SDK</span><span class="skill-chip">MCP (Model Context Protocol)</span>
+        <span class="skill-chip">Multi-agent orchestration</span><span class="skill-chip">LLM voice agents</span>
+        <span class="skill-chip">Prompt &amp; policy design</span><span class="skill-chip">Whisper / audio pipelines</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <h4>Voice &amp; Messaging</h4>
+      <div class="skill-chips">
+        <span class="skill-chip">Telnyx voice API</span><span class="skill-chip">WebRTC</span>
+        <span class="skill-chip">Telegram Bot API</span><span class="skill-chip">Resend (email)</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <h4>Infra &amp; Ops</h4>
+      <div class="skill-chips">
+        <span class="skill-chip">Windows Task Scheduler</span><span class="skill-chip">Git / GitHub</span>
+        <span class="skill-chip">Vercel</span><span class="skill-chip">Reliability &amp; watchdog design</span>
+        <span class="skill-chip">Security tooling (nmap, sqlmap, nikto)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="try">
+  <div class="wrap-narrow">
+    <h2>Try it yourself</h2>
+    <p class="section-intro">
+      Three pieces of the real logic above, ported to run in this page —
+      open by default. Collapse one if you'd rather scroll past it than
+      poke at it.
+    </p>
+
+    <details class="demo reveal" open>
+      <summary><strong>1 · The lead-scoring bug that made a ranking useless</strong></summary>
+      <p class="why">
+        The CRM decides who gets called next. The first version multiplied
+        need × budget × reachability — mathematically reasonable, and it
+        quietly destroyed the ranking. Drag the sliders.
+      </p>
+
+      <div class="sliders">
+        <div class="slider-row">
+          <label for="s-need">Need</label>
+          <input type="range" id="s-need" min="0" max="100" value="70" aria-describedby="o-need">
+          <output id="o-need">70</output>
+        </div>
+        <div class="slider-row">
+          <label for="s-budget">Budget</label>
+          <input type="range" id="s-budget" min="0" max="100" value="60" aria-describedby="o-budget">
+          <output id="o-budget">60</output>
+        </div>
+        <div class="slider-row">
+          <label for="s-reach">Reachability</label>
+          <input type="range" id="s-reach" min="0" max="100" value="45" aria-describedby="o-reach">
+          <output id="o-reach">45</output>
+        </div>
+      </div>
+
+      <div class="verdicts">
+        <div class="verdict">
+          <span class="lbl">Old — raw product</span>
+          <span class="val" id="v-old">0</span>
+          <span class="sub" id="t-old">tier —</span>
+        </div>
+        <div class="verdict good">
+          <span class="lbl">New — geometric mean</span>
+          <span class="val" id="v-new">0</span>
+          <span class="sub" id="t-new">tier —</span>
+        </div>
+      </div>
+
+      <p class="caption" id="reach-note"></p>
+
+      <div class="hist">
+        <h4>Every possible lead, both formulas</h4>
+        <div class="hist-row" id="h-old"></div>
+        <div class="hist-row new" id="h-new"></div>
+        <div class="hist-legend"><span>score 0</span><span>1000</span></div>
+        <p class="caption">
+          All 9,261 combinations of the three inputs in steps of 5, bucketed
+          into 20 bins. Grey is the old formula, gold the new one. This is a
+          property of the two formulas, not a claim about anyone's data.
+          <br><br>
+          On the real dataset the collapse was measured: <strong>9,400 of
+          59,725 leads landed on the identical score 35</strong>. A ranking
+          that puts thousands of leads on one point is not a ranking, and
+          the dialer only ever loads the first page of it.
+        </p>
+      </div>
+    </details>
+
+    <details class="demo scanner reveal" open>
+      <summary><strong>2 · The secret scanner — paste something and watch</strong></summary>
+      <p class="why">
+        The real patterns from
+        <a href="https://github.com/Atakan-24/git-secret-scan" rel="noopener noreferrer">git-secret-scan</a>,
+        ported to JavaScript for this page. Four lines are pre-filled, each
+        producing a different verdict — a catch, a placeholder, the prose
+        that caused a real false positive, and an explicit opt-out.
+      </p>
+      <label for="scan-in" style="position:absolute;left:-9999px;">Text to scan for credentials</label>
+      <textarea id="scan-in" spellcheck="false"></textarea>
+      <div class="findings" id="scan-out"></div>
+      <p class="local-note">
+        Runs entirely in your browser. This page makes no network requests
+        of any kind — nothing you type leaves it.
+      </p>
+    </details>
+
+    <details class="demo reveal" open>
+      <summary><strong>3 · Offset vs. cursor pagination — the Lead Generation Pipeline's real bug</strong></summary>
+      <p class="why">
+        Paging through a list ordered "newest first" with a plain
+        <code>OFFSET</code> while the table keeps changing underneath the
+        scan. Press play — both lanes read the same 11 rows, the same two
+        writes happen mid-scan (a row inserted, then a row deleted), and only
+        one lane gets it right. The general-purpose fix is on GitHub as
+        <a href="https://github.com/Atakan-24/postgrest-keyset-page" rel="noopener noreferrer">postgrest-keyset-page</a>
+        — cursor pagination for any PostgREST-style REST API, with the
+        failure reproduced live in its own test suite.
+      </p>
+
+      <div class="pager-demo-grid">
+        <div class="pager-lane bad">
+          <h4><span><code>OFFSET n LIMIT 3</code></span><span class="tally" id="pg-off-tally">0 duplicates · 0 skipped</span></h4>
+          <div class="pager-track" id="pg-off-track"></div>
+        </div>
+        <div class="pager-lane good">
+          <h4><span><code>WHERE id &lt; last_seen LIMIT 3</code></span><span class="tally" id="pg-cur-tally">0 duplicates · 0 skipped</span></h4>
+          <div class="pager-track" id="pg-cur-track"></div>
+        </div>
+      </div>
+
+      <div class="pager-controls">
+        <button id="pg-play" type="button">▶ Play the scan</button>
+        <button id="pg-reset" class="ghost" type="button" disabled>Replay</button>
+      </div>
+      <p class="pager-step-note" id="pg-note">Row 11 gets inserted, then row 6 gets deleted — both mid-scan, exactly the timing that broke this in production.</p>
+
+      <p class="caption">
+        This is the real mechanism, run live — not a recorded outcome. On the
+        actual dataset it was measured directly: a 20-minute scan with 43
+        concurrent inserts produced exactly <strong>20 duplicate reads</strong>
+        under offset pagination. The skip direction shown above is the same
+        mechanism in reverse, reproduced separately — it wasn't caught in
+        that specific measurement window, which is itself the point: a
+        silently skipped row doesn't show up as an error, only as a gap you'd
+        have to already know to look for. Every long-running scan in that
+        codebase now pages by a stable cursor instead
+        (<code>scripts/lib/blaettern.mjs</code>).
+      </p>
+    </details>
+  </div>
+</section>
+
+<section id="code">
+  <div class="wrap-narrow">
+    <h2>Code</h2>
+    <p class="section-intro">Three real patterns from the systems above (renamed, generalized — no business data), and one small tool you can actually run.</p>
+
+    <div class="snippet reveal">
+      <div class="snippet-file">scoring.ts</div>
+      <pre><code><span class="tok-com">// Priority score: geometric mean, not a raw product.</span>
+<span class="tok-com">// A raw product crushed almost the whole dataset toward zero;</span>
+<span class="tok-com">// reachability acts as a multiplier band, not a third equal factor.</span>
+<span class="tok-kw">const</span> core   = Math.sqrt((need / <span class="tok-fn">100</span>) * (budget / <span class="tok-fn">100</span>));
+<span class="tok-kw">const</span> factor = <span class="tok-fn">0.5</span> + (reachability / <span class="tok-fn">100</span>) * <span class="tok-fn">0.8</span>;
+<span class="tok-kw">const</span> priority = Math.<span class="tok-fn">min</span>(<span class="tok-fn">1000</span>, <span class="tok-fn">1000</span> * core * factor);</code></pre>
+      <p class="snippet-caption">Fixed a bug where thousands of leads landed on the exact same score — the dialer's "best next call" was silently random.</p>
+    </div>
+
+    <div class="snippet reveal">
+      <div class="snippet-file">paginate.ts</div>
+      <pre><code><span class="tok-com">// Offset pagination breaks under concurrent writes: rows get</span>
+<span class="tok-com">// skipped or duplicated mid-scan. A cursor doesn't care what</span>
+<span class="tok-com">// happened before it — it only knows the last id it saw.</span>
+<span class="tok-kw">let</span> lastId = <span class="tok-fn">0</span>;
+<span class="tok-kw">while</span> (<span class="tok-kw">true</span>) {
+  <span class="tok-kw">const</span> rows = <span class="tok-kw">await</span> db.<span class="tok-fn">query</span>(
+    <span class="tok-str">`select * from contacts where id &gt; $1 order by id asc limit $2`</span>,
+    [lastId, PAGE_SIZE]
+  );
+  <span class="tok-kw">if</span> (rows.length === <span class="tok-fn">0</span>) <span class="tok-kw">break</span>;
+  <span class="tok-fn">process</span>(rows);
+  lastId = rows[rows.length - <span class="tok-fn">1</span>].id;
+}</code></pre>
+      <p class="snippet-caption">Two "complete" scans of the same table were quietly returning different totals until this replaced a plain offset loop.</p>
+    </div>
+
+    <div class="snippet reveal">
+      <div class="snippet-file">safety-lock.ts</div>
+      <pre><code><span class="tok-com">// "Off" always means off — not "off unless five different</span>
+<span class="tok-com">// code paths all happen to agree." Every response is rewritten</span>
+<span class="tok-com">// through one choke point before it's ever sent.</span>
+<span class="tok-kw">function</span> <span class="tok-fn">sendInboundResponse</span>(xml: string): string {
+  <span class="tok-kw">if</span> (INBOUND_AI_LOCKED &amp;&amp; <span class="tok-fn">containsAiAssistant</span>(xml)) {
+    <span class="tok-kw">return</span> VOICEMAIL_FALLBACK_XML; <span class="tok-com">// hard override, not a suggestion</span>
+  }
+  <span class="tok-kw">return</span> xml;
+}</code></pre>
+      <p class="snippet-caption">The safety property lives in code, at a single choke point — not spread across a dashboard toggle, a database row, and a config flag that all have to agree.</p>
+    </div>
+
+    <p class="section-intro" style="margin-top:-18px;">
+      Six repositories are public, each with a README that explains the
+      trade-offs — <strong>git-secret-scan</strong> is a
+      <a href="#featured">Featured system above</a>, measured recall
+      80 %→100 %.
+      <a href="https://github.com/Atakan-24/gh-radar" rel="noopener noreferrer">gh-radar</a> ·
+      <a href="https://github.com/Atakan-24/yt-transcript" rel="noopener noreferrer">yt-transcript</a> ·
+      <a href="https://github.com/Atakan-24/postgrest-keyset-page" rel="noopener noreferrer">postgrest-keyset-page</a> ·
+      <a href="https://github.com/Atakan-24/gitingest" rel="noopener noreferrer">gitingest</a> ·
+      <a href="https://github.com/Atakan-24/fahm" rel="noopener noreferrer">fahm</a>
+    </p>
+
+    <div class="stat-row" style="margin-top:6px;">
+      <div class="stat"><span class="n">147</span><span class="l">tests, real CI runs across the repos that ship a suite</span></div>
+      <div class="stat"><span class="n">98%</span><span class="l">line coverage on git-secret-scan</span></div>
+      <div class="stat"><span class="n">3×3</span><span class="l">OS × Python-version CI matrix</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap-narrow">
+    <h2>How I work</h2>
+    <p class="section-intro" style="margin-bottom: 20px;">
+      I build fast by directing AI coding agents deliberately — writing the
+      specification, setting the guardrails, and verifying the result —
+      rather than typing every line by hand. That's a real, current skill:
+      the systems above aren't demos, they run a real business every day,
+      and treating "the agent said it's done" as a claim to verify rather
+      than a fact was the single habit that mattered most in building them.
+    </p>
+    <p class="note">
+      No customer data, phone numbers, or business metrics appear anywhere
+      on this page or in the linked repositories — the projects above are
+      described by their architecture and the problems they solved, not by
+      their private source. Numbers are rounded, not exact.
+    </p>
+  </div>
+</section>
+
+<section id="journey">
+  <div class="wrap-narrow">
+    <h2>Background</h2>
+    <p class="section-intro">
+      I didn't come to this through a computer science degree. The short
+      version:
+    </p>
+    <ul class="journey-list">
+      <li><span class="yr">~19&ndash;21</span>Ran online businesses &mdash; e-commerce, affiliate marketing, a YouTube channel. Learned how to get someone's attention and turn it into a customer, long before I could write a line of code.</li>
+      <li><span class="yr">~20</span>Started learning to code, at first alongside the business work.</li>
+      <li><span class="yr">22</span>Moved to Egypt and shifted focus fully to software.</li>
+      <li><span class="yr">22&ndash;23</span>Freelance client work, then building my own acquisition infrastructure &mdash; cold calling, AI voice calling, email and outreach &mdash; for Team Gold, the business behind most of the systems on this page.</li>
+      <li><span class="yr">23</span>Today: designing, building, and operating the systems above.</li>
+    </ul>
+    <p class="note">
+      No university degree &mdash; what replaced it was building real
+      systems, operating them, and fixing what broke.
+    </p>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap-narrow">
+    <h2>Get in touch</h2>
+    <p class="section-intro">
+      Based in Germany, open to engineering roles. Booking a slot is the
+      fastest route — pick a time and it is in both calendars.
+    </p>
+
+    <div class="channels">
+      <a class="channel primary" href="https://cal.com/atakanoztunc/30min" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+        </svg>
+        <span><span class="t">Book a call</span><span class="s">30 minutes, pick a slot</span></span>
+      </a>
+
+      <a class="channel" href="mailto:atakanfisc@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/>
+        </svg>
+        <span><span class="t">Email</span><span class="s">atakanfisc@gmail.com</span></span>
+      </a>
+
+      <a class="channel" href="https://wa.me/201069564012" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.1-.2 0-.4.1-.5l.4-.5c.1-.2.2-.3.3-.5v-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.6 4c.6.3 1.1.4 1.5.5a3.6 3.6 0 0 0 1.6.1 2.7 2.7 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .2-1.2c-.1-.1-.2-.2-.4-.3Z"/>
+        </svg>
+        <span><span class="t">WhatsApp</span><span class="s">fastest reply</span></span>
+      </a>
+
+      <a class="channel" href="https://t.me/Akioatakan" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M21.9 4.3 18.8 19c-.2 1-.9 1.3-1.7.8l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.8 8.8-8c.4-.3-.1-.5-.6-.2l-10.9 6.9-4.7-1.5c-1-.3-1-1 .2-1.5l18.4-7.1c.9-.3 1.6.2 1.3 1.5Z"/>
+        </svg>
+        <span><span class="t">Telegram</span><span class="s">@Akioatakan</span></span>
+      </a>
+
+      <a class="channel" href="https://github.com/Atakan-24" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 5.3 18.3 5.6 18.3 5.6c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/>
+        </svg>
+        <span><span class="t">GitHub</span><span class="s">github.com/Atakan-24</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Atakan · <a href="mailto:atakanfisc@gmail.com">atakanfisc@gmail.com</a> · <a href="https://github.com/Atakan-24" rel="noopener noreferrer">github.com/Atakan-24</a> · <a href="https://teamgoldllc.de" rel="noopener noreferrer">teamgoldllc.de</a></p>
+    <p style="margin-top:8px;">© 2026 Atakan. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var bar = document.getElementById('filterbar');
+  var grid = document.getElementById('cardgrid');
+  if (!bar || !grid) return;
+  var chips = bar.querySelectorAll('.chip');
+  var cards = grid.querySelectorAll('.card');
+  bar.addEventListener('click', function (e) {
+    var chip = e.target.closest('.chip');
+    if (!chip) return;
+    chips.forEach(function (c) { c.classList.remove('active'); });
+    chip.classList.add('active');
+    var filter = chip.getAttribute('data-filter');
+    cards.forEach(function (card) {
+      var cats = (card.getAttribute('data-cat') || '').split(' ');
+      var show = filter === 'all' || cats.indexOf(filter) !== -1;
+      card.classList.toggle('hidden', !show);
+    });
+  });
+})();
+
+// Scroll-reveal: fade/slide elements in as they enter the viewport.
+(function () {
+  var els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced || !('IntersectionObserver' in window)) {
+    els.forEach(function (el) { el.classList.add('visible'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(function (el, i) {
+    el.style.transitionDelay = (Math.min(i % 6, 5) * 0.06) + 's';
+    io.observe(el);
+  });
+})();
+
+// ---------------------------------------------------------------------
+// Demo 1 — lead scoring. The constants are the real ones from the CRM:
+// reachability is a 0.5–1.3 band, not a third equal multiplicand, because
+// it decides how expensive a lead is to reach, not whether it is worth
+// anything. Tier thresholds come from the real score distribution.
+// ---------------------------------------------------------------------
+(function () {
+  var need = document.getElementById('s-need');
+  if (!need) return;
+  var budget = document.getElementById('s-budget');
+  var reach  = document.getElementById('s-reach');
+
+  var REACH_MIN = 0.5, REACH_MAX = 1.3;
+  var TIERS = [
+    [496, 'S — call today'], [374, 'A — call this week'],
+    [306, 'B — after the A list'], [266, 'C — bulk outreach'],
+    [248, 'D — low priority'], [1, 'E — background']
+  ];
+
+  function oldScore(n, b, c) {
+    return Math.min(1000, Math.round(1000 * (n / 100) * (b / 100) * (c / 100)));
+  }
+  function newScore(n, b, c) {
+    var core = Math.sqrt((n / 100) * (b / 100));
+    var factor = REACH_MIN + (c / 100) * (REACH_MAX - REACH_MIN);
+    return Math.min(1000, Math.round(1000 * core * factor));
+  }
+  function tierOf(s) {
+    for (var i = 0; i < TIERS.length; i++) if (s >= TIERS[i][0]) return TIERS[i][1];
+    return 'F — filtered out';
+  }
+
+  // Sweep every combination once; it is a property of the formulas, so it
+  // never needs recomputing.
+  function buildHistograms() {
+    var BINS = 20, o = new Array(BINS).fill(0), nw = new Array(BINS).fill(0);
+    for (var a = 0; a <= 100; a += 5)
+      for (var b = 0; b <= 100; b += 5)
+        for (var c = 0; c <= 100; c += 5) {
+          o[Math.min(BINS - 1, Math.floor(oldScore(a, b, c) / (1000 / BINS)))]++;
+          nw[Math.min(BINS - 1, Math.floor(newScore(a, b, c) / (1000 / BINS)))]++;
+        }
+    return [o, nw];
+  }
+
+  function paint(el, data) {
+    var max = Math.max.apply(null, data);
+    el.innerHTML = data.map(function (v) {
+      return '<span class="bar" style="height:' + (max ? (v / max) * 100 : 0) + '%"></span>';
+    }).join('');
+  }
+
+  function update() {
+    var n = +need.value, b = +budget.value, c = +reach.value;
+    document.getElementById('o-need').textContent = n;
+    document.getElementById('o-budget').textContent = b;
+    document.getElementById('o-reach').textContent = c;
+
+    var so = oldScore(n, b, c), sn = newScore(n, b, c);
+    document.getElementById('v-old').textContent = so;
+    document.getElementById('v-new').textContent = sn;
+    document.getElementById('t-old').textContent = tierOf(so);
+    document.getElementById('t-new').textContent = tierOf(sn);
+
+    var f = (REACH_MIN + (c / 100) * (REACH_MAX - REACH_MIN)).toFixed(2);
+    document.getElementById('reach-note').textContent =
+      'Reachability is applied as a ×' + f + ' band (0.50–1.30), not as a third '
+      + 'equal factor — it changes how expensive a lead is to reach, not whether '
+      + 'it is worth reaching.';
+  }
+
+  [need, budget, reach].forEach(function (el) { el.addEventListener('input', update); });
+  update();
+
+  var built = false;
+  function maybeBuild() {
+    if (built) return;
+    built = true;
+    var h = buildHistograms();
+    paint(document.getElementById('h-old'), h[0]);
+    paint(document.getElementById('h-new'), h[1]);
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (e) {
+      if (e[0].isIntersecting) { maybeBuild(); io.disconnect(); }
+    }, { threshold: 0.15 });
+    io.observe(document.getElementById('h-old'));
+  } else { maybeBuild(); }
+})();
+
+// ---------------------------------------------------------------------
+// Demo 2 — the secret scanner, ported from scan.py. Patterns, allow-list
+// and the prose guard are the same rules the Python tool applies.
+// ---------------------------------------------------------------------
+(function () {
+  var input = document.getElementById('scan-in');
+  if (!input) return;
+  var out = document.getElementById('scan-out');
+
+  // [label, regex, proseProne] — mirrors PATTERNS in scan.py.
+  var PATTERNS = [
+    ['OpenAI key',        /\bsk-(proj-)?[A-Za-z0-9_-]{20,}/g, true],
+    ['Anthropic key',     /\bsk-ant-[A-Za-z0-9_-]{20,}/g, true],
+    ['GitHub token',      /\bgh[pousr]_[A-Za-z0-9]{30,}/g, false],
+    ['Slack token',       /\bxox[baprs]-[A-Za-z0-9-]{10,}/g, false],
+    ['AWS access key id', /\b(?:AKIA|ASIA)[0-9A-Z]{16}\b/g, false],
+    ['Google API key',    /\bAIza[A-Za-z0-9_-]{35}\b/g, false],
+    ['Telegram bot token',/\b[0-9]{8,12}:AA[A-Za-z0-9_-]{30,}/g, false],
+    ['JWT',               /\beyJhbGciOi[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}/g, false],
+    ['private key block', /-----BEGIN [A-Z ]*PRIVATE KEY-----/g, false]
+  ];
+  var ALLOW = [
+    /REPLACE[_-]?ME/i, /<[a-z_]+>/i,
+    /(YOUR|DEIN|EXAMPLE|BEISPIEL|DUMMY|SAMPLE|PLACEHOLDER|CHANGEME)/i,
+    /^x+$/i, /(0{8,}|1{8,}|a{8,})/i
+  ];
+  var IGNORE = /secret-scan:\s*ignore/;
+
+  function looksLikeProse(v) { return /^[a-z]+(?:-[a-z]+){2,}$/.test(v); }
+  function mask(v) { return v.length > 18 ? v.slice(0, 10) + '…' + v.slice(-4) : v; }
+
+  function scan(text) {
+    var lines = text.split('\n'), hits = [];
+    lines.forEach(function (line, i) {
+      if (IGNORE.test(line)) {
+        hits.push({ n: i + 1, ok: true, msg: 'suppressed — explicit "secret-scan: ignore"' });
+        return;
+      }
+      PATTERNS.forEach(function (p) {
+        p[1].lastIndex = 0;
+        var m;
+        while ((m = p[1].exec(line)) !== null) {
+          var v = m[0];
+          if (ALLOW.some(function (a) { return a.test(v); })) {
+            hits.push({ n: i + 1, ok: true, msg: 'suppressed — looks like a placeholder' });
+            continue;
+          }
+          if (p[2] && looksLikeProse(v)) {
+            hits.push({ n: i + 1, ok: true, msg: 'suppressed — kebab-case prose, not a key' });
+            continue;
+          }
+          hits.push({ n: i + 1, ok: false, what: p[0], val: mask(v) });
+        }
+      });
+    });
+    return hits;
+  }
+
+  function render() {
+    var hits = scan(input.value);
+    if (!hits.length) {
+      out.innerHTML = '<div class="finding ok"><span class="ln">—</span>'
+        + '<span>Nothing found. Paste an API key shape to see it caught.</span></div>';
+      return;
+    }
+    out.innerHTML = hits.map(function (h) {
+      return h.ok
+        ? '<div class="finding ok"><span class="ln">L' + h.n + '</span><span>' + h.msg + '</span></div>'
+        : '<div class="finding"><span class="ln">L' + h.n + '</span>'
+          + '<span><span class="what">' + h.what + '</span> — <code>' + h.val + '</code></span></div>';
+    }).join('');
+  }
+
+  // Prefilled so a visitor sees the payoff without typing — four lines,
+  // four different verdicts. Three outcomes demonstrate judgement; one
+  // outcome would only demonstrate a regex.
+  input.value =
+    'AWS_KEY = "AKIA' + '2X4YQZ7NPLMV3RTB"\n' +
+    'OPENAI_KEY = "sk-proj-REPLACE_ME_WITH_YOUR_KEY"\n' +
+    'policy = "sk-ask-before-high-impact-changes"\n' +
+    'LEGACY = "AKIA' + '2X4YQZ7NPLMV3RTB"  // secret-scan: ignore';
+
+  var t;
+  input.addEventListener('input', function () {
+    clearTimeout(t);
+    t = setTimeout(render, 120);
+  });
+  render();
+})();
+
+// ---------------------------------------------------------------------
+// Demo 3 — offset vs. cursor pagination. A real, live simulation, not a
+// scripted recording: the same slice()/filter() a query would run,
+// against a mutable array that two real writes land in mid-scan. The
+// "skipped" verdict is computed by diffing what each lane actually
+// delivered — the same way the real skip direction can only be found by
+// comparing against a source of truth, not by watching one scan alone.
+// ---------------------------------------------------------------------
+(function () {
+  var offTrack = document.getElementById('pg-off-track');
+  if (!offTrack) return;
+  var curTrack = document.getElementById('pg-cur-track');
+  var offTally = document.getElementById('pg-off-tally');
+  var curTally = document.getElementById('pg-cur-tally');
+  var playBtn  = document.getElementById('pg-play');
+  var resetBtn = document.getElementById('pg-reset');
+  var note     = document.getElementById('pg-note');
+
+  var PAGE = 3;
+  // WRITES[i] is applied immediately before the (i+1)-th fetch of both
+  // lanes. null = no write this round.
+  var WRITES = [null, { type: 'insert', id: 11 }, { type: 'delete', id: 6 }];
+  var NOTES = [
+    'Row 11 gets inserted, then row 6 gets deleted — both mid-scan, exactly the timing that broke this in production.',
+    'Page 1, before either write. Both lanes agree — this is the case a one-off test always runs.',
+    'Row 11 (the newest row) was inserted. Offset’s next page slides over row 8 a second time.',
+    'Done. Row 6 was deleted, so offset silently drops row 5 — its own bookkeeping still says "3 pages, done." Both faults are only visible now, by comparing against the cursor lane as a source of truth.'
+  ];
+
+  function initialRows() {
+    var r = [];
+    for (var i = 10; i >= 1; i--) r.push(i);
+    return r; // ids, newest (10) first
+  }
+
+  function fmtTally(dup, skip) {
+    return dup + ' duplicate' + (dup === 1 ? '' : 's') + ' · '
+         + skip + ' skipped' + (skip === 1 ? '' : '');
+  }
+
+  function renderTrack(el, rowsNow, hitSet, dupEverSet, skipSet) {
+    el.innerHTML = '';
+    rowsNow.forEach(function (id) {
+      var span = document.createElement('span');
+      span.className = 'pager-item';
+      span.textContent = id;
+      if (skipSet.has(id)) span.className += ' skip';
+      else if (dupEverSet.has(id)) span.className += ' dup';
+      else if (hitSet.has(id)) span.className += ' hit';
+      el.appendChild(span);
+    });
+  }
+
+  function resetView() {
+    var rows = initialRows();
+    renderTrack(offTrack, rows, new Set(), new Set(), new Set());
+    renderTrack(curTrack, rows, new Set(), new Set(), new Set());
+    offTally.textContent = fmtTally(0, 0);
+    curTally.textContent = fmtTally(0, 0);
+    note.textContent = NOTES[0];
+  }
+
+  function run() {
+    playBtn.disabled = true;
+    resetBtn.disabled = true;
+
+    var rows = initialRows();
+    var offOffset = 0, curLast = Infinity;
+    var offSeen = new Set(), curSeen = new Set();
+    var offDupEver = new Set(), offDupCount = 0;
+    var stepIdx = 0;
+
+    function doStep() {
+      var write = WRITES[stepIdx];
+      if (write) {
+        if (write.type === 'insert') rows.unshift(write.id);
+        else if (write.type === 'delete') {
+          var at = rows.indexOf(write.id);
+          if (at > -1) rows.splice(at, 1);
+        }
+      }
+
+      // Offset lane: a plain positional window into whatever the array
+      // looks like right now.
+      var offPage = rows.slice(offOffset, offOffset + PAGE);
+      offOffset += PAGE;
+      var offHit = new Set(offPage);
+      offPage.forEach(function (id) {
+        if (offSeen.has(id)) { offDupEver.add(id); offDupCount++; }
+        offSeen.add(id);
+      });
+
+      // Cursor lane: keyed by the last id actually delivered, not by a
+      // position — a write anywhere else in the array cannot shift it.
+      var candidates = rows.filter(function (id) { return id < curLast; })
+                            .sort(function (a, b) { return b - a; });
+      var curPage = candidates.slice(0, PAGE);
+      curPage.forEach(function (id) { curSeen.add(id); });
+      if (curPage.length) curLast = curPage[curPage.length - 1];
+
+      stepIdx++;
+
+      var offSkip = new Set();
+      var isLast = stepIdx === WRITES.length;
+      if (isLast) {
+        curSeen.forEach(function (id) { if (!offSeen.has(id)) offSkip.add(id); });
+      }
+
+      renderTrack(offTrack, rows, offHit, offDupEver, offSkip);
+      renderTrack(curTrack, rows, new Set(curPage), new Set(), new Set());
+      offTally.textContent = fmtTally(offDupCount, offSkip.size);
+      curTally.textContent = fmtTally(0, 0);
+      note.textContent = NOTES[stepIdx] || '';
+
+      if (!isLast) {
+        setTimeout(doStep, 1700);
+      } else {
+        resetBtn.disabled = false;
+      }
+    }
+    doStep();
+  }
+
+  playBtn.addEventListener('click', run);
+  resetBtn.addEventListener('click', function () { resetView(); run(); });
+  resetView();
+})();
+
+// ---------------------------------------------------------------------
+// Hero particle field. Hand-written canvas — no library, because the page
+// argues the tools here have no dependencies.
+// ---------------------------------------------------------------------
+(function () {
+  var c = document.getElementById('particles');
+  if (!c || !c.getContext) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var ctx = c.getContext('2d'), dots = [], raf = null, w = 0, h = 0;
+
+  function size() {
+    var r = c.parentElement.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = r.width; h = r.height;
+    c.width = w * dpr; c.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    // Density scaled to area, capped — a phone should not run 200 dots.
+    var n = Math.min(64, Math.round((w * h) / 16000));
+    dots = [];
+    for (var i = 0; i < n; i++) {
+      dots.push({ x: Math.random() * w, y: Math.random() * h,
+                  vx: (Math.random() - .5) * .22, vy: (Math.random() - .5) * .22 });
+    }
+  }
+
+  function frame() {
+    ctx.clearRect(0, 0, w, h);
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      d.x += d.vx; d.y += d.vy;
+      if (d.x < 0 || d.x > w) d.vx *= -1;
+      if (d.y < 0 || d.y > h) d.vy *= -1;
+      for (var j = i + 1; j < dots.length; j++) {
+        var e = dots[j], dx = d.x - e.x, dy = d.y - e.y, dist = dx * dx + dy * dy;
+        if (dist < 14000) {
+          ctx.strokeStyle = 'rgba(125,211,192,' + (1 - dist / 14000) * 0.22 + ')';
+          ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(d.x, d.y); ctx.lineTo(e.x, e.y); ctx.stroke();
+        }
+      }
+      ctx.fillStyle = 'rgba(125,211,192,0.5)';
+      ctx.beginPath(); ctx.arc(d.x, d.y, 1.4, 0, Math.PI * 2); ctx.fill();
+    }
+    raf = requestAnimationFrame(frame);
+  }
+
+  function start() { if (!raf) frame(); }
+  function stop() { if (raf) { cancelAnimationFrame(raf); raf = null; } }
+
+  size();
+  window.addEventListener('resize', function () { stop(); size(); start(); });
+  // Only animate while the hero is actually on screen.
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (e) {
+      e[0].isIntersecting ? start() : stop();
+    }, { threshold: 0 }).observe(c.parentElement);
+  } else { start(); }
+  document.addEventListener('visibilitychange', function () {
+    document.hidden ? stop() : start();
+  });
+})();
+
+// Terminal typewriter: types out a short "session" once, then blinks a cursor.
+(function () {
+  var body = document.getElementById('terminalBody');
+  if (!body) return;
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var script = [
+    { type: 'cmd', text: 'whoami' },
+    { type: 'out', text: 'atakan — builder & sole operator, Team Gold' },
+    { type: 'cmd', text: 'cat now.txt' },
+    { type: 'out', text: 'Building an AI-operated cold-calling platform, end to end.' },
+    { type: 'cmd', text: './ship.sh --systems 25 --mode solo' },
+    { type: 'out', text: '✓ done. all 25 in production.', ok: true }
+  ];
+
+  function renderStatic() {
+    script.forEach(function (step) {
+      var row = document.createElement('div');
+      if (step.type === 'cmd') {
+        row.className = 'line';
+        row.innerHTML = '<span class="prompt">$</span> ' + step.text;
+      } else {
+        row.className = 'out' + (step.ok ? ' ok' : '');
+        row.textContent = step.text;
+      }
+      body.appendChild(row);
+    });
+    var cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    cursor.textContent = '▍';
+    body.appendChild(cursor);
+  }
+
+  if (reduced) { renderStatic(); return; }
+
+  var i = 0;
+  function typeStep() {
+    if (i >= script.length) {
+      var cursor = document.createElement('span');
+      cursor.className = 'cursor';
+      cursor.textContent = '▍';
+      body.appendChild(cursor);
+      return;
+    }
+    var step = script[i];
+    var row = document.createElement('div');
+    if (step.type === 'cmd') {
+      row.className = 'line';
+      row.innerHTML = '<span class="prompt">$</span> <span class="typed"></span>';
+    } else {
+      row.className = 'out' + (step.ok ? ' ok' : '');
+    }
+    body.appendChild(row);
+    var target = step.type === 'cmd' ? row.querySelector('.typed') : row;
+    var chars = step.text.split('');
+    var c = 0;
+    var speed = step.type === 'cmd' ? 38 : 14;
+    (function typeChar() {
+      if (c < chars.length) {
+        target.textContent += chars[c];
+        c++;
+        setTimeout(typeChar, speed);
+      } else {
+        i++;
+        setTimeout(typeStep, step.type === 'cmd' ? 220 : 380);
+      }
+    })();
+  }
+
+  // Only run once the terminal actually scrolls into view.
+  if ('IntersectionObserver' in window) {
+    var started = false;
+    var termIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !started) {
+          started = true;
+          typeStep();
+          termIo.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+    termIo.observe(document.getElementById('terminal'));
+  } else {
+    typeStep();
+  }
+})();
+</script>
+
+<script>
+// Anonymer Besucher-Zaehler: Land, Referrer, geklickte Links.
+// Speichert nie eine IP oder einen Namen -- siehe portfolio-tracker im Repo.
+(function () {
+  var ENDPOINT = 'https://kglqsnltlokyiocvugbo.supabase.co/functions/v1/track';
+  function send(data) {
+    try {
+      navigator.sendBeacon(ENDPOINT, JSON.stringify(data));
+    } catch (e) {
+      // beacon nicht verfuegbar (sehr alter Browser) -> einfach nichts tun
+    }
+  }
+  send({ type: 'pageview', path: location.pathname, referrer: document.referrer });
+
+  document.addEventListener('click', function (ev) {
+    var link = ev.target.closest('a[href]');
+    if (!link) return;
+    var href = link.getAttribute('href') || '';
+    if (!/^https?:\/\//i.test(href)) return; // nur ausgehende Links
+    if (href.indexOf(location.hostname) !== -1) return; // eigene Seite nicht mitzaehlen
+    send({ type: 'click', path: location.pathname, referrer: document.referrer, target: href });
+  }, true);
+})();
+</script>
+
+<script>
+// "Frag mich"-Chat: FAQ-Buttons antworten sofort und lokal (kein API-Aufruf,
+// $0). Freitext geht an eine Supabase-Edge-Function, die Groq (kostenlos)
+// aufruft, streng an den echten CV/Goals-Text gebunden.
+(function () {
+  var ASK_ENDPOINT = 'https://kglqsnltlokyiocvugbo.supabase.co/functions/v1/ask';
+  var log = document.getElementById('askLog');
+  var form = document.getElementById('askForm');
+  var input = document.getElementById('askInput');
+  if (!log || !form || !input) return;
+
+  var REPO_LINKS = {
+    'git-secret-scan': 'https://github.com/Atakan-24/git-secret-scan',
+    'gh-radar': 'https://github.com/Atakan-24/gh-radar',
+    'postgrest-keyset-page': 'https://github.com/Atakan-24/postgrest-keyset-page',
+    'yt-transcript': 'https://github.com/Atakan-24/yt-transcript',
+    'gitingest': 'https://github.com/Atakan-24/gitingest',
+    'fahm': 'https://github.com/Atakan-24/fahm'
+  };
+
+  function escapeHtml(s) {
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  // Macht E-Mails, URLs und bekannte Projektnamen in einer bereits escapten
+  // Antwort klickbar. Arbeitet mit Platzhaltern, damit ein Treffer (z.B. eine
+  // volle github.com/.../git-secret-scan-URL) nicht ein zweites Mal von der
+  // Projektnamen-Regel verlinkt wird.
+  function linkify(escaped) {
+    var stash = [];
+    function keep(html) {
+      stash.push(html);
+      return ' ' + (stash.length - 1) + ' ';
+    }
+
+    var text = escaped;
+
+    text = text.replace(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g, function (m) {
+      return keep('<a href="mailto:' + m + '">' + m + '</a>');
+    });
+
+    text = text.replace(/https?:\/\/[^\s)]+/g, function (m) {
+      var clean = m.replace(/[.,;:]+$/, '');
+      var trail = m.slice(clean.length);
+      return keep('<a href="' + clean + '" target="_blank" rel="noopener noreferrer">' + clean + '</a>') + trail;
+    });
+
+    text = text.replace(/\b(?:cal\.com|teamgoldllc\.de|fahm-web\.vercel\.app|github\.com|wa\.me|t\.me)\/?[^\s),]*/g, function (m) {
+      var clean = m.replace(/[.,;:]+$/, '');
+      var trail = m.slice(clean.length);
+      return keep('<a href="https://' + clean + '" target="_blank" rel="noopener noreferrer">' + clean + '</a>') + trail;
+    });
+
+    Object.keys(REPO_LINKS).forEach(function (name) {
+      var re = new RegExp('\\b' + name.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&') + '\\b', 'gi');
+      text = text.replace(re, function (m) {
+        return keep('<a href="' + REPO_LINKS[name] + '" target="_blank" rel="noopener noreferrer">' + m + '</a>');
+      });
+    });
+
+    return text.replace(/ (\d+) /g, function (_, i) { return stash[Number(i)]; });
+  }
+
+  function addMsg(text, kind) {
+    var el = document.createElement('div');
+    el.className = 'ask-msg ' + kind;
+    el.innerHTML = escapeHtml(text);
+    log.appendChild(el);
+    log.scrollTop = log.scrollHeight;
+    return el;
+  }
+
+  function resolveMsg(el, text) {
+    el.classList.remove('pending');
+    el.innerHTML = linkify(escapeHtml(text));
+    log.scrollTop = log.scrollHeight;
+  }
+
+  document.querySelectorAll('.ask-chip').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      addMsg(chip.textContent, 'user');
+      var pending = addMsg('…', 'bot pending');
+      var wartezeit = 350 + Math.random() * 350; // kurze, echt wirkende Denkpause
+      setTimeout(function () {
+        resolveMsg(pending, chip.getAttribute('data-a'));
+      }, wartezeit);
+    });
+  });
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var frage = input.value.trim();
+    if (!frage) return;
+    input.value = '';
+    addMsg(frage, 'user');
+    var pending = addMsg('…', 'bot pending');
+
+    fetch(ASK_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ question: frage }),
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        resolveMsg(pending, data.answer || 'No answer received -- try again.');
+      })
+      .catch(function () {
+        resolveMsg(pending, 'Something went wrong just now -- try again in a moment, or email atakanfisc@gmail.com.');
+      });
+  });
+})();
+</script>
+
+</body>
+</html>
