@@ -494,7 +494,8 @@ img { display: block; max-width: 100%; }
 .v4-loop__node[data-state="on"] .v4-loop__disc { fill: var(--sc-accent); stroke: var(--sc-accent); }
 .v4-loop__node[data-state="on"] .v4-loop__icon { stroke: var(--sc-accent-ink); }
 .v4-loop__node[data-state="on"] .v4-loop__label { opacity: 1; }
-.v4-loop__node[data-state="on"] .v4-loop__halo { opacity: 1; }
+/* The halo circles stay in the SVG but are never shown: without the pulse
+   they would only be a second ring sitting exactly on the disc's edge. */
 /* one it has already passed through */
 .v4-loop__node[data-state="done"] .v4-loop__disc { stroke: var(--sc-accent); }
 .v4-loop__node[data-state="done"] .v4-loop__icon { stroke: var(--sc-accent); }
@@ -514,9 +515,12 @@ img { display: block; max-width: 100%; }
   .v4-loop__arc { stroke-dasharray: 190; stroke-dashoffset: 190; transition: stroke-dashoffset .62s cubic-bezier(.4,0,.2,1), stroke .3s; }
   .v4-loop__arc[data-lit="1"] { stroke-dashoffset: 0; }
   .v4-loop__disc, .v4-loop__icon, .v4-loop__label { transition: fill .3s, stroke .3s, opacity .3s; }
-  .v4-loop__halo { animation: none; }
-  .v4-loop__node[data-state="on"] .v4-loop__halo { animation: v4-loop-halo 1.1s ease-out infinite; }
-  @keyframes v4-loop-halo { 0% { opacity: .55; transform: scale(1); } 100% { opacity: 0; transform: scale(1.42); } }
+  /* The pulsing halo is gone (05.09.2026). It expanded from scale 1 to 1.42
+     and faded, over and over, on whichever node was active — the ring that
+     kept coming at the reader. Atakan asked for that one effect to stop, and
+     only that one: the run itself stays. The active step is still obvious
+     without it, because its disc fills with the accent colour and its label
+     goes to full opacity. */
   .v4-loop__reject { stroke-dasharray: 5 4; transition: opacity .3s; }
   .v4-loop__reject[data-show="1"] { animation: v4-loop-dash .7s linear infinite; }
   @keyframes v4-loop-dash { to { stroke-dashoffset: -18; } }
@@ -529,18 +533,15 @@ img { display: block; max-width: 100%; }
   .v4-loop__ln { stroke-dasharray: 10; stroke-dashoffset: 10; }
   .v4-loop__node[data-state="on"] .v4-loop__ln, .v4-loop__node[data-state="done"] .v4-loop__ln { stroke-dashoffset: 0; transition: stroke-dashoffset .4s ease-out .15s; }
 }
-/* The loop is a still picture for everyone since 05.09.2026. It used to play
-   as a run — two laps, a rejection, then a pass, repeating — and Atakan asked
-   for it to stop: "das nervt". This block was the reduced-motion fallback;
-   it is now the only state, so the picture says the same thing without
-   moving: every step lit, the rejection drawn in, the verdict readable. */
-.v4-loop__arc, .v4-loop__reject { opacity: 1 !important; stroke-dashoffset: 0 !important; }
-.v4-loop__arc { stroke: var(--sc-accent); }
-.v4-loop__reject { opacity: 1 !important; }
-.v4-loop__claim, .v4-loop__reason { opacity: 1 !important; }
-.v4-loop__label { opacity: 1; }
-.v4-loop__cross { opacity: 0; }
-.v4-loop__halo { animation: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  /* no run: everything simply lit, and the rejection shown as part of the picture */
+  .v4-loop__arc, .v4-loop__reject { opacity: 1 !important; stroke-dashoffset: 0 !important; }
+  .v4-loop__arc { stroke: var(--sc-accent); }
+  .v4-loop__reject { opacity: 1 !important; }
+  .v4-loop__claim, .v4-loop__reason { opacity: 1 !important; }
+  .v4-loop__label { opacity: 1; }
+  .v4-loop__cross { opacity: 0; }
+}
 .v4-how__dot { fill: var(--sc-accent); opacity: 0; }
 @media (prefers-reduced-motion: no-preference) {
   [data-sc-in].sc-in .v4-how__dot { animation: v4-travel 5s linear 1.4s infinite; }
@@ -2510,11 +2511,8 @@ img { display: block; max-width: 100%; }
     var reasons = [].slice.call(svg.querySelectorAll('.v4-loop__reason'));
     var pass = svg.querySelector('.v4-loop__pass');
     var lap = svg.querySelector('.v4-loop__lap');
-    /* Still picture for everyone (05.09.2026, Atakan: the run was annoying).
-       The run code below stays in the file but is never reached; the CSS
-       above lights every arc and shows the verdict without it. */
-    nodes.forEach(function (n) { n.setAttribute('data-state', 'done'); });
-    return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) { nodes.forEach(function (n) { n.setAttribute('data-state', 'done'); }); return; }
 
     var timers = [], running = false, seen = false;
     function at(ms, fn) { timers.push(setTimeout(fn, ms)); }
