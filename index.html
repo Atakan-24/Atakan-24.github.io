@@ -750,8 +750,25 @@ img { display: block; max-width: 100%; }
 #contact .sc-stage { display: grid; place-items: center; }
 .v4-close { width: 100%; max-width: var(--sc-maxw); margin-inline: auto; padding-inline: var(--sc-gutter);
             display: grid; gap: clamp(1.5rem, 3.5vw, 4rem);
-            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; }
+            grid-template-columns: minmax(0, 1.28fr) minmax(0, 0.72fr); align-items: center;
+            padding-bottom: 4.5rem; }                              /* room above the fixed dock */
 .v4-close__rig { transform: scale(calc(0.94 + var(--sc-p, 0) * 0.06)); transform-origin: 50% 50%; }
+/* 2026-09-05: contact as big buttons on the right, so the chat owns the wide
+   column; the link to v1 is a button too, never under the dock again. */
+.v4-big { display: grid; gap: 0.45rem; }
+.v4-big__btn { display: grid; grid-template-columns: 1.6rem 1fr; gap: 0.9rem; align-items: center;
+  min-height: 54px; padding: 0.45rem 1.1rem; border-radius: 16px; text-decoration: none;
+  color: var(--sc-ink); background: var(--sc-surface); box-shadow: var(--sc-e1), inset 0 0 0 1px var(--v4-hair-soft);
+  font-size: var(--sc-t-base); font-weight: 600; letter-spacing: -0.01em; line-height: 1.15;
+  transition: transform .35s var(--sc-ease-out), box-shadow .35s var(--sc-ease-out), background .2s; }
+.v4-big__btn small { display: block; font-size: var(--sc-t-sm); font-weight: 400; color: var(--sc-ink-soft); margin-top: 0.15rem; }
+.v4-big__btn svg { width: 1.6rem; height: 1.6rem; }
+.v4-big__btn:hover { transform: translateY(-2px); box-shadow: var(--sc-e2), inset 0 0 0 1px var(--sc-accent); }
+.v4-big__btn--primary { background: var(--sc-accent); color: var(--sc-accent-ink); box-shadow: var(--sc-e2); }
+.v4-big__btn--primary small { color: color-mix(in oklab, var(--sc-accent-ink) 78%, transparent); }
+.v4-big__btn--ghost { grid-template-columns: 1fr; background: transparent; box-shadow: inset 0 0 0 1px var(--v4-hair); color: var(--sc-accent); }
+.v4-big__btn:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 3px; }
+#contact .v4-ask__log { max-height: 19rem; min-height: 11rem; }
 .v4-contact { border-radius: 22px; background: var(--sc-surface);
   box-shadow: var(--sc-e3), inset 0 0 0 1px var(--v4-hair-soft);
   padding: clamp(1.4rem, 2.6vw, 2.2rem); }               /* 2026-09-05: no more laptop frame around the channels */
@@ -767,7 +784,7 @@ img { display: block; max-width: 100%; }
 .v4-channels svg { width: 22px; height: 22px; }
 .v4-channels .t { display: block; font-size: var(--sc-t-base); font-weight: 600; }
 .v4-channels .s { display: block; font-size: var(--sc-t-sm); color: var(--sc-ink-soft); }
-.v4-foot { font-size: var(--sc-t-sm); color: var(--sc-ink-soft); margin-top: var(--sc-6); line-height: 1.6; }
+.v4-foot { font-size: var(--sc-t-sm); color: var(--sc-ink-soft); margin-top: var(--sc-4); line-height: 1.6; }
 .v4-foot a { color: var(--sc-accent); text-underline-offset: 3px; }
 @media (max-width: 980px) { .v4-close { grid-template-columns: 1fr; } }
 
@@ -1332,7 +1349,7 @@ img { display: block; max-width: 100%; }
             <div class="v4-chat__bar">
               <span class="v4-chat__dot" aria-hidden="true"></span>
               <span class="v4-chat__title">Ask this page</span>
-              <span class="v4-chat__sub">a chatbot · answers in seconds</span>
+              <span class="v4-chat__sub">a chatbot · answers only from the real CV</span>
             </div>
             <div class="v4-ask__log" id="askLog" aria-live="polite">
               <p class="v4-ask__empty">Pick one of the five, or type your own.</p>
@@ -1350,29 +1367,29 @@ img { display: block; max-width: 100%; }
               <button type="submit" class="cat-ask__send">Send</button>
             </form>
           </div>
-          <p class="v4-note">The five suggested questions answer instantly from text held in this page. A typed question goes to a small model that only answers from the real CV and project write-ups, a few questions a day per visitor — the one thing here that leaves the page.</p>
-          <p class="v4-sub"><a class="v4-first" href="v1/">See the first version of this portfolio →</a></p>
         </div>
 
         <div class="v4-close__rig">
-          <div class="v4-contact">
-            <p class="v4-contact__k">Four ways in. Pick the one you already use.</p>
-                <ul class="v4-channels">
-                  <li><a href="https://cal.com/atakanoztunc/30min" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-                    <span><span class="t">Book a call</span><span class="s">30 minutes, pick a slot</span></span></a></li>
-                  <li><a href="mailto:atakanfisc@gmail.com">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m2 7 10 6 10-6"/></svg>
-                    <span><span class="t">Email</span><span class="s">atakanfisc@gmail.com</span></span></a></li>
-                  <li><a href="https://github.com/Atakan-24" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 5.3 18.3 5.6 18.3 5.6c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg>
-                    <span><span class="t">GitHub</span><span class="s">github.com/Atakan-24</span></span></a></li>
-                  <li><a href="https://t.me/Akioatakan" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.8 19c-.2 1-.9 1.3-1.7.8l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.8 8.8-8c.4-.3-.1-.5-.6-.2l-10.9 6.9-4.7-1.5c-1-.3-1-1 .2-1.5l18.4-7.1c.9-.3 1.6.2 1.3 1.5Z"/></svg>
-                    <span><span class="t">Telegram</span><span class="s">@Akioatakan</span></span></a></li>
-                </ul>
+          <div class="v4-big">
+            <a class="v4-big__btn v4-big__btn--primary" href="https://cal.com/atakanoztunc/30min" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              <span>Book a call<small>30 minutes, pick a slot</small></span></a>
+            <a class="v4-big__btn" href="mailto:atakanfisc@gmail.com">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m2 7 10 6 10-6"/></svg>
+              <span>Email<small>atakanfisc@gmail.com</small></span></a>
+            <a class="v4-big__btn" href="https://github.com/Atakan-24" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 5.3 18.3 5.6 18.3 5.6c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg>
+              <span>GitHub<small>github.com/Atakan-24</small></span></a>
+            <a class="v4-big__btn" href="https://t.me/Akioatakan" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.8 19c-.2 1-.9 1.3-1.7.8l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.8 8.8-8c.4-.3-.1-.5-.6-.2l-10.9 6.9-4.7-1.5c-1-.3-1-1 .2-1.5l18.4-7.1c.9-.3 1.6.2 1.3 1.5Z"/></svg>
+              <span>Telegram<small>@Akioatakan</small></span></a>
+            <a class="v4-big__btn" href="https://wa.me/201069564012" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 1-13.4 7.8L3 21l1.3-4.4A9 9 0 1 1 21 12z"/><path d="M9 10a4 4 0 0 0 5 5l1-1-2-1-1 1a3 3 0 0 1-2-2l1-1-1-2z"/></svg>
+              <span>WhatsApp<small>wa.me/201069564012</small></span></a>
+            <a class="v4-big__btn v4-big__btn--ghost" href="v1/">
+              <span>See the first version of this portfolio →<small>the page that was live before this one</small></span></a>
           </div>
-          <p class="v4-foot">Based in Germany, open to engineering roles and contract work. <a href="https://teamgoldllc.de" rel="noopener noreferrer">teamgoldllc.de</a></p>
+          <p class="v4-foot">Based in Germany, open to engineering roles and contract work · <a href="https://teamgoldllc.de" rel="noopener noreferrer">teamgoldllc.de</a></p>
         </div>
       </div>
     </div>
