@@ -181,7 +181,74 @@
   border: 1px solid var(--v4-hair); box-shadow: var(--sc-e1); cursor: pointer; }
 .v4-theme:hover { border-color: var(--sc-accent); }
 .v4-theme:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 2px; }
-@media (max-width: 700px) { .v4-theme { top: auto; bottom: max(0.75rem, env(safe-area-inset-bottom)); } }
+/* Both corner controls live in one fixed rail so a third one cannot collide
+   with the second (2026-09-05). */
+.v4-controls { position: fixed; z-index: 61; top: max(0.75rem, env(safe-area-inset-top)); right: 0.9rem;
+  display: flex; gap: 0.4rem; align-items: center; }
+.v4-theme { position: static; }
+@media (max-width: 700px) {
+  .v4-controls { top: auto; bottom: max(0.75rem, env(safe-area-inset-bottom)); left: 0.9rem; right: 0.9rem; justify-content: flex-end; }
+}
+/* ---- "Plain English": the page explains itself for non-developers -------
+   Off by default, so a technical reader sees exactly the page as built. On,
+   it underlines jargon (tap for a plain sentence) and puts one plain line at
+   the top of each act. Both are added at runtime and removed again, so the
+   markup and the page length stay untouched while it is off. */
+.v4-plainbtn { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 44px; padding: 0 0.9rem;
+  border-radius: var(--sc-r-pill); font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); font-weight: 500;
+  letter-spacing: 0.02em; color: var(--sc-ink); background: var(--v4-glass);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--v4-hair); box-shadow: var(--sc-e1); cursor: pointer; }
+.v4-plainbtn svg { width: 1rem; height: 1rem; }
+.v4-langbtn { font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); font-weight: 600; letter-spacing: 0.04em; }
+.v4-langbtn .on { color: var(--sc-accent); }
+.v4-langbtn .off { color: var(--sc-ink-soft); }
+.v4-langnote { position: fixed; z-index: 62; left: 50%; translate: -50% 0;
+  top: max(0.75rem, env(safe-area-inset-top)); display: none; align-items: center; gap: 0.7rem;
+  padding: 0.5rem 0.6rem 0.5rem 1rem; border-radius: var(--sc-r-pill);
+  background: var(--v4-glass); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--v4-hair); box-shadow: var(--sc-e2);
+  font-size: var(--sc-t-sm); color: var(--sc-ink); max-width: calc(100vw - 1.8rem); }
+.v4-langnote.is-on { display: flex; }
+.v4-langnote a { min-height: 36px; display: inline-flex; align-items: center; padding: 0 0.8rem;
+  border-radius: var(--sc-r-pill); background: var(--sc-accent); color: var(--sc-accent-ink);
+  text-decoration: none; font-weight: 600; white-space: nowrap; }
+@media (max-width: 700px) { .v4-langnote { top: auto; bottom: calc(max(0.75rem, env(safe-area-inset-bottom)) + 56px); } }
+.v4-plainbtn:hover { border-color: var(--sc-accent); }
+.v4-plainbtn:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 2px; }
+.v4-plainbtn[aria-pressed="true"] { background: var(--sc-accent); color: var(--sc-accent-ink); border-color: var(--sc-accent); }
+@media (max-width: 430px) { .v4-plainbtn__label { display: none; } .v4-plainbtn { padding: 0 0.75rem; } }
+
+.v4-jargon { display: inline; font: inherit; color: inherit; background: none; border: 0;   /* a button is inline-block by default, which makes a two-word term an unbreakable box and pushes a line */ padding: 0.42em 0.16em; margin: -0.42em -0.16em;   /* padding + negative margin: a finger-sized target without moving a single line of text */
+  cursor: help; text-decoration: underline dotted var(--sc-accent); text-underline-offset: 0.22em;
+  text-decoration-thickness: 2px; border-radius: 4px; }
+.v4-jargon:hover, .v4-jargon[aria-pressed="true"] { background: color-mix(in oklab, var(--sc-accent) 14%, transparent); color: var(--sc-accent); }
+.v4-jargon:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 1px; }
+
+.v4-plain__intro { margin: 0 0 var(--sc-4); padding: 0.7rem 1rem; border-radius: 12px;
+  font-size: var(--sc-t-base); line-height: 1.5; color: var(--sc-ink);
+  background: color-mix(in oklab, var(--sc-accent) 8%, transparent);
+  border-left: 3px solid var(--sc-accent); max-width: 60ch; }
+.v4-plain__intro b { font-weight: 600; color: var(--sc-accent); }
+/* A pinned act has a fixed stage height; the full-size line pushed #crm 10px
+   past it (measured), so inside a pin it runs compact. */
+[data-sc-act="pin"] .v4-plain__intro { padding: 0.45rem 0.8rem; margin-bottom: var(--sc-2); font-size: var(--sc-t-sm); }
+
+.v4-plainbar { position: fixed; z-index: 61; left: 0.9rem; bottom: max(1rem, env(safe-area-inset-bottom));
+  width: min(26rem, calc(100vw - 1.8rem)); padding: 0.9rem 1rem 0.9rem 1.1rem; border-radius: 16px;
+  display: none; grid-template-columns: 1fr auto; gap: 0.6rem; align-items: start;
+  background: var(--v4-glass); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--v4-hair); box-shadow: var(--sc-e3);
+  font-size: var(--sc-t-base); line-height: 1.5; color: var(--sc-ink); }
+.v4-plainbar.is-on { display: grid; }
+.v4-plainbar b { font-weight: 600; color: var(--sc-accent); }
+.v4-plainbar__x { min-width: 32px; min-height: 32px; border-radius: 50%; border: 0; cursor: pointer;
+  background: color-mix(in oklab, var(--sc-ink) 8%, transparent); color: var(--sc-ink);
+  font-family: var(--sc-font-mono); font-size: var(--sc-t-sm); line-height: 1; }
+.v4-plainbar__x:hover { background: var(--sc-accent); color: var(--sc-accent-ink); }
+@media (max-width: 700px) {
+  .v4-plainbar { left: 0.9rem; right: 0.9rem; width: auto; bottom: calc(max(0.75rem, env(safe-area-inset-bottom)) + 56px); }
+}
 
 /* ===========================================================================
    2 · GROUND RULES
@@ -197,6 +264,10 @@ img { display: block; max-width: 100%; }
 .v4-claim  { font-size: var(--sc-t-3xl); font-weight: 600; line-height: 1.02;
              letter-spacing: -0.03em; text-wrap: balance; max-width: 17ch; }
 .v4-claim--wide { max-width: 24ch; }
+/* A German compound can be wider than a phone at display size (measured:
+   "Sicherheitswerkzeug" overflowed a 360px viewport by 18px). */
+.v4-claim, .v4-hero__h1, .v4-about__h, .v4-demo h4, .v4-layer h4, .cat-idx-card h4 {
+  hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word; }
 .v4-sub    { font-size: var(--sc-t-lg); line-height: 1.42; color: var(--sc-ink-soft);
              max-width: 46ch; margin-top: var(--sc-4); text-wrap: pretty; }
 .v4-note   { font-size: var(--sc-t-sm); line-height: 1.55; color: var(--sc-ink-soft);
@@ -370,6 +441,7 @@ img { display: block; max-width: 100%; }
 /* The screen is the shape of the six lines it prints. A 16:9 frame here
    left two thirds of the hero as an empty black rectangle. */
 .v4-hero__rig .dv__screen { aspect-ratio: 16 / 7.4; }
+@media (max-width: 700px) { .v4-hero__rig .dv__screen { aspect-ratio: auto; min-height: 0; padding-block: 0.6rem; } }   /* the typed session is 327px on a 360px phone; a fixed 16/7.4 showed 142 of it */
 
 /* the terminal that types itself, on the laptop screen */
 .v4-term { font-family: var(--sc-font-mono); font-size: var(--sc-t-xs); line-height: 1.72;
@@ -819,6 +891,13 @@ img { display: block; max-width: 100%; }
    every frame, so the override has to be !important, and the pinned section's
    inline height has to come off with it. */
 @media (max-width: 760px) {
+  #crm .v4-peak__state { --e: 1; --e2: 1; --e3: 1; }
+  #crm .v4-explode__stack { transform: none; }
+  #crm .v4-plate--a, #crm .v4-plate--b, #crm .v4-plate--c {
+    width: 100%; transform: none; opacity: 1;; margin-top: 0; }   /* an earlier rule pulls --b up by -62%, which lands it on top of the laptop on a phone */
+  #crm .v4-explode::before, #crm .v4-explode__hint { display: none; }
+  #crm .v4-explode { cursor: default; }
+
   section[data-sc-act="pan"] { height: auto !important; }
   section[data-sc-act="pan"] [data-sc-stage] { position: static; height: auto; overflow: visible;
                                                padding-block: var(--sc-8); }
@@ -946,6 +1025,10 @@ img { display: block; max-width: 100%; }
   .v4-rail > :not(:first-child) { opacity: 1 !important; transform: none !important; }
 }
 </style>
+
+<link rel="alternate" hreflang="en" href="https://atakan-24.github.io/">
+<link rel="alternate" hreflang="de" href="https://atakan-24.github.io/de/">
+<link rel="alternate" hreflang="x-default" href="https://atakan-24.github.io/">
 </head>
 <body>
 
@@ -1597,7 +1680,19 @@ img { display: block; max-width: 100%; }
 
 </main>
 
-<button type="button" class="v4-theme" id="theme-toggle" aria-pressed="false">Dark</button>
+<div class="v4-langnote" id="lang-note"></div>
+<div class="v4-controls">
+  <a class="v4-plainbtn v4-langbtn" id="lang-switch" href="#" hreflang="de"><span class="on">EN</span><span class="off">|&#8202;DE</span></a>
+  <button type="button" class="v4-plainbtn" id="plain-toggle" aria-pressed="false" title="Explain the technical words on this page">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V6a2 2 0 0 1 2-2h13v15H6a2 2 0 0 0-2 2z"/><path d="M8 8h7M8 12h5"/></svg>
+    <span class="v4-plainbtn__label">Plain English</span>
+  </button>
+  <button type="button" class="v4-theme" id="theme-toggle" aria-pressed="false">Dark</button>
+</div>
+<aside class="v4-plainbar" id="plain-bar" aria-live="polite">
+  <p id="plain-bar-text"></p>
+  <button type="button" class="v4-plainbar__x" id="plain-bar-x" aria-label="Close explanation">&#215;</button>
+</aside>
 <script>
 (function () {
   var root = document.documentElement, btn = document.getElementById('theme-toggle'), KEY = 'v4-theme';
@@ -1611,6 +1706,244 @@ img { display: block; max-width: 100%; }
   var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
   apply(saved === 'dark' ? 'dark' : 'light', false);
   btn.addEventListener('click', function () { apply(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true); });
+})();
+</script>
+
+<script>
+/* ============================================================================
+   PLAIN ENGLISH. A visitor who does not write software should still be able to
+   read this page. The switch marks the technical words and puts one plain line
+   at the top of each act; off, the DOM is exactly as authored.
+   ========================================================================== */
+(function () {
+  var btn = document.getElementById('plain-toggle');
+  var bar = document.getElementById('plain-bar');
+  var barText = document.getElementById('plain-bar-text');
+  var barX = document.getElementById('plain-bar-x');
+  if (!btn || !bar) return;
+  var KEY = 'v4-plain', on = false, hinted = false;
+
+  /* --- the glossary. Written for someone who runs a business, not a build. -- */
+  var PLAIN = {
+    'offset paging': 'A way of reading a long list in chunks by counting: "skip 30, give me the next 10". If rows are added or removed while you are reading, the count slips and you see the same row twice or miss one.',
+    'cursor pagination': 'Reading a long list in chunks by remembering the last item you saw, instead of counting positions. Rows can be added or removed while you read and nothing is skipped or repeated.',
+    'geometric mean': 'A way of averaging where one bad value drags the whole result down, instead of being cancelled out by a good one. Useful when a lead has to be decent on every count, not just on one.',
+    'row-level security': 'A rule kept inside the database itself about who may see which rows, so a mistake in the app cannot show one person another person\u2019s data.',
+    'pre-commit hook': 'A small check that runs on your own machine the moment you save work into the project history, and refuses it if something is wrong \u2014 here: if a password or key slipped into the text.',
+    'precision': 'Of everything the tool flagged as a problem, how much really was one. Low precision means it cries wolf and people start ignoring it.',
+    'recall': 'Of all the real problems that were there, how many the tool actually caught. Low recall means it stays quiet while something slips through.',
+    'false positive': 'A false alarm: the tool says there is a problem when there is none. Too many of them and people switch the tool off.',
+    'labelled benchmark': 'A set of test cases where a human has written down the right answer in advance, so a tool can be measured instead of guessed about.',
+    'hreflang': 'A marker in a page that tells search engines "this is the German version, that is the English one", so the right one is shown to the right visitor.',
+    'JSON-LD': 'A block of structured facts added to a page for machines to read \u2014 opening hours, address, services \u2014 so search engines can show them directly in results.',
+    'watchdog': 'A second small program whose only job is to check that the first one is really working, and to restart it and raise the alarm when it is not.',
+    'softphone': 'A telephone that is just a part of the web page: the call runs through the browser, so nobody needs a handset on the desk.',
+    'WebRTC': 'The browser technology behind a softphone: talking to a customer directly from the CRM tab, no separate phone needed.',
+    'LLM': 'The kind of AI behind chat assistants: it reads and writes language. Here it speaks on calls and reviews call transcripts.',
+    'MCP': 'A standard plug that lets an AI reach real tools and data \u2014 a database, a browser, an inbox \u2014 instead of only chatting about them.',
+    'human-in-the-loop': 'The machine prepares the work but a person approves it before anything leaves the building. Speed of automation, with a human still answerable for it.',
+    'kill switch': 'One control that stops the whole thing at once, on purpose, without needing to understand which part went wrong.',
+    'spend cap': 'A hard ceiling on what the system may spend by itself. Once it is reached, it stops and asks, rather than continuing quietly.',
+    'scraper': 'A program that opens public web pages like a visitor would and collects the facts from them \u2014 here: business listings that become leads.',
+    'daemon': 'A program with no window that just runs in the background all day and does its job on a schedule.',
+    'CI': 'A service that runs all the checks automatically on every change, on a clean machine, so "it works on my computer" is not the standard.',
+    'repository': 'The project\u2019s folder with its full history: every change ever made, who made it, and the ability to go back.',
+    'ICP': 'A written description of the kind of customer actually worth calling, used to score new leads instead of judging them by feel.',
+    'A/B-tested': 'Two versions were used in turn on real calls, and the numbers decided which one stays \u2014 rather than an opinion deciding.',
+    'reachability': 'How likely this contact is to actually pick up: a working number, a real person behind it, at an hour they answer.',
+    'warm-up ramp': 'Starting with very few emails a day and raising the number slowly, so mail providers learn to trust the sender instead of filing it as spam.',
+    'loopback': 'Set so a service can only be reached from the machine it runs on \u2014 not from the internet, even if a port is open.',
+    'keystore': 'The operating system\u2019s own safe for passwords and keys, so they never sit in a file or in the project history.',
+    'ARM instance': 'A rented server built on the same efficient chip family as a phone \u2014 cheaper to run for small always-on jobs.',
+    'RSS': 'An old, free format that many sites publish new items in. Reading it needs no paid access and no permission.',
+    'blind grading': 'The reviewer is not told which version produced the answer, so the judgement cannot lean toward the favourite.'
+  };
+  /* Longest first, so "cursor pagination" wins over "pagination". */
+  var TERMS = Object.keys(PLAIN).sort(function (a, b) { return b.length - a.length; });
+
+  /* --- one sentence per act ------------------------------------------------ */
+  var INTRO = {
+    'ai-os': 'In plain words: routine work runs on its own overnight, but anything that costs money or cannot be undone stops and waits for a human yes.',
+    'crm': 'In plain words: the software a salesperson works in all day \u2014 the phone, and the rules that pick who is worth calling.',
+    'pipeline': 'In plain words: finding businesses to call, keeping that list correct while it changes, and noticing when the machine that collects them dies quietly.',
+    'secretscan': 'In plain words: a guard that stops passwords and access keys from being saved into a project by accident \u2014 the mistake that leaks companies.',
+    'shipped': 'In plain words: things other people use right now, not demos \u2014 a business website, a learning app, and an automation delivered to a customer.',
+    'full-list': 'In plain words: the rest of what was built, in one line each. Tap a card to open the ones that are public on GitHub.',
+    'about': 'In plain words: how the work actually gets done, and the road here \u2014 no computer science degree, learned by building things that had to keep running.',
+    'skills': 'In plain words: the tools behind everything above. Tap any of them for what it is, without jargon.'
+  };
+  var INTRO_AFTER = {
+    'ai-os': '.v4-claim', 'crm': '.v4-sub', 'pipeline': '.v4-rail__lead .v4-sub',
+    'secretscan': '.v4-claim', 'shipped': '.v4-rail__lead .v4-sub', 'full-list': '.v4-claim',
+    'about': '.v4-rail__lead .v4-sub', 'skills': '.v4-skillhint'
+  };
+
+  /* --- marking ------------------------------------------------------------- */
+  var SCOPE = '.v4-sub, .v4-demo p.why, .v4-local, .v4-note, .cat-idx-card p, .v4-about__p,' +
+              ' .v4-rail__cap, .v4-facts li .l, .v4-marks li .t, figcaption, .v4-timeline li span';
+  var SKIP = 'code, button, a, input, textarea, .v4-jargon, #askLog, .v4-track, .v4-lane, #scan-out, .v4-plain__intro';
+  function esc(t) { return t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+  function markSection(sec) {
+    var used = {};
+    Array.prototype.forEach.call(sec.querySelectorAll(SCOPE), function (host) {
+      if (host.closest(SKIP)) return;
+      var walker = document.createTreeWalker(host, NodeFilter.SHOW_TEXT, null);
+      var nodes = [], n;
+      while ((n = walker.nextNode())) { if (!n.parentElement.closest(SKIP)) nodes.push(n); }
+      nodes.forEach(function (node) {
+        for (var i = 0; i < TERMS.length; i++) {
+          var term = TERMS[i];
+          if (used[term]) continue;
+          var re = new RegExp('\\b' + esc(term) + '\\b', 'i');
+          var m = re.exec(node.nodeValue);
+          if (!m) continue;
+          var after = node.splitText(m.index);
+          after.nodeValue = after.nodeValue.slice(m[0].length);
+          var mark = document.createElement('button');
+          mark.type = 'button';
+          mark.className = 'v4-jargon';
+          mark.setAttribute('aria-pressed', 'false');
+          mark.dataset.term = term;
+          mark.textContent = m[0];
+          after.parentNode.insertBefore(mark, after);
+          used[term] = true;
+          node = after;                      /* keep scanning the tail */
+        }
+      });
+    });
+  }
+
+  function unmark() {
+    Array.prototype.forEach.call(document.querySelectorAll('.v4-jargon'), function (b) {
+      var parent = b.parentNode;
+      parent.replaceChild(document.createTextNode(b.textContent), b);
+      parent.normalize();
+    });
+  }
+
+  function addIntros() {
+    Object.keys(INTRO).forEach(function (id) {
+      var sec = document.getElementById(id); if (!sec) return;
+      var anchor = sec.querySelector(INTRO_AFTER[id]); if (!anchor) return;
+      var p = document.createElement('p');
+      p.className = 'v4-plain__intro';
+      p.innerHTML = '<b>Plain English</b> \u2014 ' + INTRO[id].replace(/^In plain words: /, '');
+      anchor.parentNode.insertBefore(p, anchor.nextSibling);
+    });
+  }
+  function removeIntros() {
+    Array.prototype.forEach.call(document.querySelectorAll('.v4-plain__intro'), function (p) { p.remove(); });
+  }
+
+  /* --- the bar ------------------------------------------------------------- */
+  function showBar(html) { barText.innerHTML = html; bar.classList.add('is-on'); }
+  function hideBar() {
+    bar.classList.remove('is-on');
+    Array.prototype.forEach.call(document.querySelectorAll('.v4-jargon[aria-pressed="true"]'),
+      function (b) { b.setAttribute('aria-pressed', 'false'); });
+  }
+  barX.addEventListener('click', hideBar);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hideBar(); });
+  document.addEventListener('click', function (e) {
+    var mark = e.target.closest && e.target.closest('.v4-jargon');
+    if (!mark) return;
+    var open = mark.getAttribute('aria-pressed') === 'true';
+    hideBar();
+    if (open) return;
+    mark.setAttribute('aria-pressed', 'true');
+    showBar('<b>' + mark.textContent + '</b> \u2014 ' + PLAIN[mark.dataset.term]);
+  });
+
+  /* --- the switch ---------------------------------------------------------- */
+  function apply(state, persist) {
+    on = state;
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    if (on) {
+      Array.prototype.forEach.call(document.querySelectorAll('main > section'), markSection);
+      addIntros();
+      if (!hinted) { hinted = true; showBar('<b>Plain English is on</b> \u2014 every underlined word can be tapped for what it means.'); }
+    } else {
+      unmark(); removeIntros(); hideBar();
+    }
+    if (persist) { try { localStorage.setItem(KEY, on ? 'on' : 'off'); } catch (e) {} }
+  }
+  btn.addEventListener('click', function () { apply(!on, true); });
+  var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
+  if (saved === 'on') { hinted = true; apply(true, false); }
+})();
+</script>
+
+<script>
+/* ============================================================================
+   LANGUAGE. Two real pages, not a runtime text swap: / is English, /de/ is
+   German, each with its own URL so a search engine and a shared link both see
+   the right one. This script only decides which one a visitor lands on, and
+   never overrides a choice they already made.
+   ========================================================================== */
+(function () {
+  var KEY = 'v4-lang', HOST = 'atakan-24.github.io';
+  var isDe = document.documentElement.lang === 'de';
+
+  /* Where the other edition lives depends on where this copy is served from.
+     Guessing it from location.pathname produced nonsense paths (and a redirect
+     into a 404) as soon as the file was not sitting at a site root. */
+  var live = location.hostname === HOST;
+  var local = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  var toDe = live ? '/de/' : local ? 'index-v4.de.html' : 'https://' + HOST + '/de/';
+  var toEn = live ? '/'    : local ? 'index-v4.html'    : 'https://' + HOST + '/';
+
+  var stored = null; try { stored = localStorage.getItem(KEY); } catch (e) {}
+  var param = (location.search.match(/[?&]lang=(en|de)/) || [])[1];
+  if (param) { try { localStorage.setItem(KEY, param); } catch (e) {} stored = param; }
+
+  var sw = document.getElementById('lang-switch');
+  if (sw) {
+    sw.setAttribute('href', isDe ? toEn : toDe);
+    sw.setAttribute('hreflang', isDe ? 'en' : 'de');
+    sw.innerHTML = isDe ? '<span class="off">EN&#8202;|</span><span class="on">DE</span>'
+                        : '<span class="on">EN</span><span class="off">|&#8202;DE</span>';
+    sw.addEventListener('click', function () { try { localStorage.setItem(KEY, isDe ? 'en' : 'de'); } catch (e) {} });
+  }
+
+  /* Sent onward only on the real site, only on a first visit, only one way. */
+  if (live && !stored && !param && !isDe && (navigator.language || '').toLowerCase().indexOf('de') === 0) {
+    location.replace(toDe + '?from=auto');
+    return;
+  }
+  if (isDe && /[?&]from=auto/.test(location.search)) {
+    var note = document.getElementById('lang-note');
+    if (note) {
+      note.textContent = 'Auf Deutsch angezeigt. ';
+      var a = document.createElement('a');
+      a.href = toEn + (live ? '?lang=en' : ''); a.textContent = 'Show in English';
+      note.appendChild(a);
+      note.classList.add('is-on');
+      setTimeout(function () { note.classList.remove('is-on'); }, 12000);
+    }
+  }
+})();
+</script>
+<script>
+/* Anonymous visitor count: country, referrer, clicked links, browser language
+   and which edition. Never an IP, never a name — see tools/portfolio-tracker.
+   (Carried back from the previous page, where it was lost in the rebuild.) */
+(function () {
+  var ENDPOINT = 'https://kglqsnltlokyiocvugbo.supabase.co/functions/v1/track';
+  var page = document.documentElement.lang === 'de' ? 'de' : 'en';
+  function send(data) {
+    data.lang = (navigator.language || '').slice(0, 12);
+    data.page = page;
+    try { navigator.sendBeacon(ENDPOINT, JSON.stringify(data)); } catch (e) {}
+  }
+  send({ type: 'pageview', path: location.pathname, referrer: document.referrer });
+  document.addEventListener('click', function (ev) {
+    var link = ev.target.closest && ev.target.closest('a[href]');
+    if (!link) return;
+    var href = link.getAttribute('href') || '';
+    if (!/^https?:\/\//i.test(href)) return;
+    send({ type: 'click', path: location.pathname, click_target: href });
+  }, true);
 })();
 </script>
 
@@ -2188,7 +2521,7 @@ img { display: block; max-width: 100%; }
   function escapeHtml(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
   function linkify(escaped) {
     var stash = [];
-    function keep(html) { stash.push(html); return '  ' + (stash.length - 1) + '  '; }
+    function keep(html) { stash.push(html); return ' ' + (stash.length - 1) + ' '; }
     var text = escaped;
     text = text.replace(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g, function (m) {
       return keep('<a href="mailto:' + m + '">' + m + '</a>');
@@ -2207,7 +2540,7 @@ img { display: block; max-width: 100%; }
         return keep('<a href="' + REPO_LINKS[name] + '" target="_blank" rel="noopener noreferrer">' + m + '</a>');
       });
     });
-    return text.replace(/ (\d+) /g, function (_, i) { return stash[Number(i)]; });
+    return text.replace(/(\d+)/g, function (_, i) { return stash[Number(i)]; });
   }
   var empty = log.querySelector('.v4-ask__empty');
   var chat = document.getElementById('askChat');
