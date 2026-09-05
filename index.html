@@ -529,15 +529,18 @@ img { display: block; max-width: 100%; }
   .v4-loop__ln { stroke-dasharray: 10; stroke-dashoffset: 10; }
   .v4-loop__node[data-state="on"] .v4-loop__ln, .v4-loop__node[data-state="done"] .v4-loop__ln { stroke-dashoffset: 0; transition: stroke-dashoffset .4s ease-out .15s; }
 }
-@media (prefers-reduced-motion: reduce) {
-  /* no run: everything simply lit, and the rejection shown as part of the picture */
-  .v4-loop__arc, .v4-loop__reject { opacity: 1 !important; stroke-dashoffset: 0 !important; }
-  .v4-loop__arc { stroke: var(--sc-accent); }
-  .v4-loop__reject { opacity: 1 !important; }
-  .v4-loop__claim, .v4-loop__reason { opacity: 1 !important; }
-  .v4-loop__label { opacity: 1; }
-  .v4-loop__cross { opacity: 0; }
-}
+/* The loop is a still picture for everyone since 05.09.2026. It used to play
+   as a run — two laps, a rejection, then a pass, repeating — and Atakan asked
+   for it to stop: "das nervt". This block was the reduced-motion fallback;
+   it is now the only state, so the picture says the same thing without
+   moving: every step lit, the rejection drawn in, the verdict readable. */
+.v4-loop__arc, .v4-loop__reject { opacity: 1 !important; stroke-dashoffset: 0 !important; }
+.v4-loop__arc { stroke: var(--sc-accent); }
+.v4-loop__reject { opacity: 1 !important; }
+.v4-loop__claim, .v4-loop__reason { opacity: 1 !important; }
+.v4-loop__label { opacity: 1; }
+.v4-loop__cross { opacity: 0; }
+.v4-loop__halo { animation: none !important; }
 .v4-how__dot { fill: var(--sc-accent); opacity: 0; }
 @media (prefers-reduced-motion: no-preference) {
   [data-sc-in].sc-in .v4-how__dot { animation: v4-travel 5s linear 1.4s infinite; }
@@ -2507,8 +2510,11 @@ img { display: block; max-width: 100%; }
     var reasons = [].slice.call(svg.querySelectorAll('.v4-loop__reason'));
     var pass = svg.querySelector('.v4-loop__pass');
     var lap = svg.querySelector('.v4-loop__lap');
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) { nodes.forEach(function (n) { n.setAttribute('data-state', 'done'); }); return; }
+    /* Still picture for everyone (05.09.2026, Atakan: the run was annoying).
+       The run code below stays in the file but is never reached; the CSS
+       above lights every arc and shows the verdict without it. */
+    nodes.forEach(function (n) { n.setAttribute('data-state', 'done'); });
+    return;
 
     var timers = [], running = false, seen = false;
     function at(ms, fn) { timers.push(setTimeout(fn, ms)); }
