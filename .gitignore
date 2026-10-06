@@ -1,0 +1,22 @@
+
+# --- winserver-backup Sicherheits-Ausschluss ---
+.env
+.env.local
+.env.*.local
+.env.local.bak
+.env.vercel-check
+.env.scraper
+*.key
+.credentials.json
+*.pem
+*.p12
+*.pfx
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+.next/
+dist/
+build/
+
