@@ -1,55 +1,19 @@
 <!doctype html>
-<!--
-  ============================================================================
-  atakan-portfolio v4 · "hell, clean, Apple-artig"
-  ============================================================================
-  SOURCE FILE. The shipped page is index-v4.html, produced by
-  `node lab/build-v4.mjs`, which substitutes the double-at tokens below with
-  base64 data URIs of the real screenshots in assets/ (the artifact host blocks
-  relative paths, so every <img> has to carry its own bytes). Edit THIS file,
-  never index-v4.html.
-
-  GRAMMAR: filmic one-shot (uniqueness.md §2.1), rebuilt on a light ground.
-  Why this one and not the other seven: the page is a single linear argument
-  with one arc ("one person, twenty-five systems, and here is the proof"), and
-  the owner's stated reference is an Apple product page, which is a filmic
-  one-shot in a light palette: a continuous ground, product stages that pin
-  while one claim at a time crosses them, and no way to jump. The rejected v3
-  was §2.6 gallery/catalog, and its "index of objects" chrome is exactly what
-  read as a catalog. §2.2 chaptered editorial forbids pinned type acts and
-  full-bleed media, which is the whole ask (big images, visible motion). §2.3
-  live surface forbids display headings outright, which would forbid the 132px
-  hero the owner asked for. §2.4 continuous world needs a place to travel
-  through and worldflight mode. §2.5 typographic poster forbids photographic
-  ground, and this build exists because the last one had no pictures. §2.7
-  split stage needs a two-sided comparison for the whole page. §2.8 rhythmic
-  cutlist bans pin and dwell, which is where all the motion lives here.
-
-  SIGNATURE MOVE: "the screenshot comes apart." On the peak act the real CRM
-  screenshot, sitting in a CSS laptop, separates under the scroll into three
-  labelled plates (the surface the operator sees, the scoring layer that
-  decides who gets called, the guardrail layer that can stop it), with hairline
-  leader lines that draw themselves from --sc-p. Scrolling back reassembles it.
-  Nothing in the device kit does this and neither prior build has it.
-
-  ENGINE: scrollcraft.css / scrollcraft.js are byte-identical to the skill's
-  engine/ folder. Everything below is page-local: my own classes, my own
-  data-* names, and CSS driven from the --sc-p the engine publishes.
--->
+<!-- Static portfolio: bilingual project stories; shared styles and scroll behavior live in scrollcraft.css/js. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Atakan · 25 systems, still running</title>
-<meta name="description" content="Twenty-five systems built, shipped and operated by one person. Every number on this page is a measurement.">
+<title>Atakan | Custom software & integrations</title>
+<meta name="description" content="Custom web applications, integrations and automation by Atakan. Explore documented projects and discuss a technical partnership.">
 <link rel="canonical" href="https://atakan-24.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://atakan-24.github.io/">
-<meta property="og:title" content="Atakan — 25 systems, still running">
-<meta property="og:description" content="Built, shipped and operated by one person. Every number on this page is a measurement, not a claim.">
-<meta property="og:image" content="https://atakan-24.github.io/og.jpg">
+<meta property="og:title" content="Atakan | Custom software & integrations">
+<meta property="og:description" content="Custom web applications, integrations and automation by Atakan. Explore documented projects and discuss a technical partnership.">
+<meta property="og:image" content="https://atakan-24.github.io/og.jpg?v=20261102">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://atakan-24.github.io/og.jpg">
+<meta name="twitter:image" content="https://atakan-24.github.io/og.jpg?v=20261102">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23F4F4F2'/><rect x='7' y='9' width='18' height='2.6' rx='1.3' fill='%231B4FD8'/><rect x='7' y='15' width='18' height='2.6' rx='1.3' fill='%231B4FD8' opacity='.55'/><rect x='7' y='21' width='11' height='2.6' rx='1.3' fill='%231B4FD8' opacity='.3'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -423,9 +387,10 @@ img { display: block; max-width: 100%; }
 .v4-hero__copy { position: relative; z-index: 2; }
 .v4-hero__drift { transform: translate3d(0, calc(var(--sc-p, 0) * -5vh), 0); will-change: transform; }
 .v4-hero__h1 {
-  font-size: var(--sc-t-4xl); font-weight: 650; line-height: 0.94;
-  letter-spacing: -0.045em; text-wrap: balance; max-width: 13ch;
+  font-size: clamp(3rem, 6.4vw, 6.5rem); font-weight: 650; line-height: 1;
+  letter-spacing: -0.045em; text-wrap: balance; max-width: 18ch;
 }
+.v4-demo video { width: 100%; aspect-ratio: 16 / 9; margin-top: var(--sc-5); border-radius: var(--sc-r-md); background: #08090b; }
 .v4-hero__h1 em { font-style: normal; color: var(--sc-accent); }
 .v4-hero__lede { font-size: var(--sc-t-lg); color: var(--sc-ink-soft); line-height: 1.4;
                  max-width: 44ch; margin: var(--sc-4) auto 0; text-wrap: pretty; }
@@ -849,7 +814,7 @@ img { display: block; max-width: 100%; }
 .cat-filter-chip:hover { background: color-mix(in oklab, var(--sc-ink) 11%, transparent); }
 .cat-filter-chip.is-active { background: var(--sc-ink); color: var(--sc-canvas); }
 .v4-grid { display: grid; gap: 1px; margin-top: var(--sc-6);
-           grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+           grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
            background: var(--v4-hair-soft); border-block: 1px solid var(--v4-hair-soft); }
 .cat-idx-card { background: var(--sc-canvas); padding: var(--sc-4) var(--sc-5) var(--sc-5);
                 display: grid; align-content: start; gap: 0.3rem; }
@@ -1063,7 +1028,7 @@ img { display: block; max-width: 100%; }
   .v4-grid { gap: 0; }
 }
 @media (max-width: 480px) {
-  .v4-hero__h1 { max-width: 100%; }
+  .v4-hero__h1 { max-width: 100%; font-size: clamp(2.2rem, 9vw, 3.4rem); }
   .v4-facts { gap: var(--sc-5); }
 }
 
@@ -1119,15 +1084,13 @@ img { display: block; max-width: 100%; }
 
         <div class="v4-hero__copy" data-sc-cue="0 1 0 0.3">
          <div class="v4-hero__drift">
-          <h1 class="v4-hero__h1">25 systems. <em>Still running.</em></h1>
-          <p class="v4-hero__lede">Built, shipped and operated by one person. Every number on this page is a measurement, not a claim.</p>
+          <p class="v4-eyebrow">Developer · open to technical partnerships</p>
+          <h1 class="v4-hero__h1">Custom software.<br><em>Built around your workflow.</em></h1>
+          <p class="v4-hero__lede">I’m Atakan, a developer from Germany. I build web applications and connect the tools a business already uses.</p>
           <div class="v4-hero__act">
-            <a class="v4-cta" href="https://cal.com/atakanoztunc/30min" rel="noopener noreferrer">Book a call</a>
-            <a class="v4-cta v4-cta--ghost" href="#full-list">See all 25 projects</a>
+            <a class="v4-cta" href="https://cal.com/atakanoztunc/30min" rel="noopener noreferrer">Discuss a project</a>
+            <a class="v4-cta v4-cta--ghost" href="#crm">Explore my work</a>
             <a class="v4-cta v4-cta--ghost" href="https://github.com/Atakan-24" rel="noopener noreferrer">GitHub</a>
-            <a class="v4-cta v4-cta--ghost" href="mailto:atakanfisc@gmail.com">Email</a>
-            <a class="v4-cta v4-cta--ghost" href="https://t.me/Akioatakan" rel="noopener noreferrer">Telegram</a>
-            <a class="v4-cta v4-cta--ghost" href="https://wa.me/201069564012" rel="noopener noreferrer">WhatsApp</a>
           </div>
          </div>
         </div>
@@ -1157,12 +1120,12 @@ img { display: block; max-width: 100%; }
     <div class="v4-wrap">
       <div class="v4-split" data-sc-in data-sc-stagger="70">
         <div>
-          <h2 class="v4-claim">Anything that costs money stops and asks.</h2>
-          <p class="v4-sub">Routine work runs unattended: a library of reusable agent skills, and a scored policy that decides which model and how much reasoning each task gets. One gate sits in front of every action with a price on it.</p>
+          <h2 class="v4-claim">Automation with human checkpoints.</h2>
+          <p class="v4-sub">An automation design combining reusable agent skills, model routing and approval checkpoints for actions involving money, access or direction.</p>
           <ul class="v4-facts">
             <li><span class="n"><span data-cat-count="20">20</span>+</span><span class="l">purpose-built agent skills</span></li>
             <li><span class="n"><span data-cat-count="8">8</span></span><span class="l">escalation signals in the routing policy</span></li>
-            <li><span class="n">24/7</span><span class="l">daemon, watched by a second process</span></li>
+            <li><span class="n">2</span><span class="l">processes: worker and watchdog</span></li>
           </ul>
         </div>
         <figure class="v4-fig">
@@ -1237,16 +1200,17 @@ img { display: block; max-width: 100%; }
           <div>
             <p class="v4-eyebrow">The one everything else runs on</p>
             <h2 class="v4-claim">The screen is the easy part.</h2>
-            <p class="v4-sub">A cold-calling CRM with a browser softphone, an outbound AI voice agent, and the scoring that decides who gets called. Scroll: it comes apart.</p>
+            <p class="v4-sub">The CRM I built for my own business brings lead management, browser calling and outreach into one workflow. The diagram below shows its main layers.</p>
+            <p class="v4-note">The public case study documents the private CRM with selected code excerpts and synthetic screenshots. Counts below describe the reviewed source snapshot. <a href="https://github.com/Atakan-24/team-gold-crm-showcase" rel="noopener noreferrer">Read the CRM case study ↗</a></p>
             <ol class="v4-marks">
               <li><span class="k">01</span><span><b>What the operator sees.</b> <span class="t">One trade at a time, with the measured runway of each lead pool.</span></span></li>
               <li><span class="k">02</span><span><b>What decides who gets called.</b> <span class="t">Two scoring layers, geometric mean, an explainable tier per lead.</span></span></li>
               <li><span class="k">03</span><span><b>What can stop it.</b> <span class="t">Spend cap, call window, and a kill switch no single toggle overrides.</span></span></li>
             </ol>
             <ul class="v4-facts">
-              <li><span class="n"><span data-cat-count="100">100</span>k+</span><span class="l">leads scored and routed</span></li>
-              <li><span class="n"><span data-cat-count="7">7</span></span><span class="l">rotating outbound numbers</span></li>
-              <li><span class="n"><span data-cat-count="14">14</span>+</span><span class="l">A/B-tested script versions</span></li>
+              <li><span class="n"><span data-cat-count="41">41</span></span><span class="l">dashboard pages</span></li>
+              <li><span class="n"><span data-cat-count="159">159</span></span><span class="l">server API routes</span></li>
+              <li><span class="n"><span data-cat-count="3">3</span></span><span class="l">access roles</span></li>
             </ul>
           </div>
 
@@ -1309,7 +1273,7 @@ img { display: block; max-width: 100%; }
                     <output id="o-reach">45</output></div>
                 </div>
                 <p class="v4-local" id="reach-note"></p>
-                <p class="v4-local">Measured on the real dataset: 9,400 of 59,725 leads landed on the identical score 35. The bars are all 9,261 combinations of the three inputs in steps of 5, in 20 bins.</p>
+                <p class="v4-local">An earlier scoring version produced too many tied scores. The chart compares both formulas across all 9,261 input combinations in steps of 5.</p>
               </div>
               <div>
                 <div class="v4-verdicts">
@@ -1340,7 +1304,7 @@ img { display: block; max-width: 100%; }
       <div class="v4-rail" data-sc-pan="0.06">
         <div class="v4-rail__lead">
           <h2 class="v4-claim">It has to be right at 3am, not just at noon.</h2>
-          <p class="v4-sub">An always-on pipeline that finds local businesses, checks they still exist, and reads their own websites for signal. Two scrapers cross-verify each other before anything is scored.</p>
+          <p class="v4-sub">A lead-data pipeline built to find local businesses, check their websites and compare signals from two independent scrapers before scoring.</p>
           <ul class="v4-facts">
             <li><span class="n"><span data-cat-count="2">2</span></span><span class="l">independent scrapers, cross-verified</span></li>
             <li><span class="n"><span data-cat-count="30">30</span>+</span><span class="l">business signals per lead</span></li>
@@ -1366,7 +1330,7 @@ img { display: block; max-width: 100%; }
               <button id="pg-reset" class="ghost" type="button" disabled>Replay</button>
             </div>
             <p class="v4-local" id="pg-note">Row 11 gets inserted, then row 6 gets deleted, both mid-scan. Exactly the timing that broke this in production.</p>
-            <p class="v4-local">Measured on the real dataset: a 20-minute scan with 43 concurrent inserts produced exactly 20 duplicate reads under offset paging.</p>
+            <p class="v4-local">Engineering lesson: cursor pagination avoids shifting offset windows when rows are inserted or deleted during a scan.</p>
           </div>
         </div>
 
@@ -1393,7 +1357,7 @@ img { display: block; max-width: 100%; }
 
       <ul class="v4-facts">
         <li><span class="n"><span data-cat-count="98">98</span></span><span class="l">tests, 98% coverage</span></li>
-        <li><span class="n"><span data-cat-count="11">11</span></span><span class="l">CI jobs, 3 operating systems by 3 Python versions</span></li>
+        <li><span class="n"><span data-cat-count="11">11</span></span><span class="l">CI jobs across 3 operating systems</span></li>
         <li><span class="n">80 &rarr; 100%</span><span class="l">recall, after measuring it. Precision 91.4 &rarr; 100%</span></li>
       </ul>
 
@@ -1424,7 +1388,7 @@ img { display: block; max-width: 100%; }
       <div class="v4-rail" data-sc-pan="0.06">
         <div class="v4-rail__lead">
           <h2 class="v4-claim">Things other people actually open.</h2>
-          <p class="v4-sub">Two of the twenty-five are public and running right now. Both are screenshots of the live thing, not mockups.</p>
+          <p class="v4-sub">Public web projects and a guided phone demo. The screenshots show earlier versions of the applications; the links open the current sites.</p>
         </div>
 
         <div class="v4-rail__dev">
@@ -1461,63 +1425,20 @@ img { display: block; max-width: 100%; }
 
         <div class="v4-rail__item">
           <div class="v4-demo">
-            <h4>Missed Call Rescue · delivered, and honest about what is unproven</h4>
-            <p class="why">A missed call becomes a text to the caller, a logged lead, and an alert to the owner, in under 60 seconds. Built for a two-person crew who are on a roof when the phone rings.</p>
-            <figure class="v4-fig" style="margin-top: var(--sc-5);">
-              <svg class="cat-flow-svg v4-mcr" viewBox="0 0 600 372" role="img" aria-labelledby="mcr-t">
-                <title id="mcr-t">Flow: a call comes in; if nobody answered, within 60 seconds the caller gets a text, the lead is logged, and the owner is alerted. Answered calls are only tracked.</title>
-                <defs>
-                  <marker id="mcr-a" markerWidth="10" markerHeight="10" refX="7" refY="4" orient="auto"><path d="M0,0 L7,4 L0,8 Z" style="fill:var(--sc-accent)"/></marker>
-                  <marker id="mcr-m" markerWidth="10" markerHeight="10" refX="7" refY="4" orient="auto"><path d="M0,0 L7,4 L0,8 Z" style="fill:var(--sc-ink-soft)"/></marker>
-                </defs>
-                <!-- 1 · the call -->
-                <g transform="translate(200 14)">
-                  <rect width="200" height="56" rx="28" style="fill:var(--sc-accent)"/>
-                  <g transform="translate(22 16)" style="fill:none;stroke:var(--sc-accent-ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round">
-                    <path d="M4 3h5l2 5-3 2a12 12 0 0 0 6 6l2-3 5 2v5a2 2 0 0 1-2 2A17 17 0 0 1 2 5a2 2 0 0 1 2-2z"/>
-                  </g>
-                  <text x="118" y="35" text-anchor="middle" style="fill:var(--sc-accent-ink);font-family:var(--sc-font-display);font-size:19px;font-weight:600">Call comes in</text>
-                </g>
-                <path d="M300 70 V100" style="fill:none;stroke:var(--sc-accent);stroke-width:2.2" marker-end="url(#mcr-a)"/>
-                <!-- 2 · the question -->
-                <g transform="translate(300 134)">
-                  <path d="M0 -30 L96 0 L0 30 L-96 0 Z" style="fill:var(--sc-surface);stroke:var(--v4-hair);stroke-width:1.5"/>
-                  <text y="6" text-anchor="middle" style="fill:var(--sc-ink);font-family:var(--sc-font-display);font-size:17px;font-weight:600">Nobody answered?</text>
-                </g>
-                <path d="M204 134 H150 V190" style="fill:none;stroke:var(--sc-accent);stroke-width:2.2" marker-end="url(#mcr-a)"/>
-                <text x="164" y="176" style="fill:var(--sc-accent);font-family:var(--sc-font-mono);font-size:16px;font-weight:500">yes · in 60 s</text>
-                <path d="M396 134 H450 V190" style="fill:none;stroke:var(--sc-ink-soft);stroke-width:1.6;stroke-dasharray:4 4" marker-end="url(#mcr-m)"/>
-                <text x="404" y="176" style="fill:var(--sc-ink-soft);font-family:var(--sc-font-mono);font-size:16px">no</text>
-                <!-- 3 · the three things that happen -->
-                <g transform="translate(30 196)">
-                  <rect width="240" height="160" rx="18" style="fill:var(--sc-surface);stroke:var(--v4-hair);stroke-width:1.5"/>
-                  <g transform="translate(20 18)">
-                    <g style="fill:none;stroke:var(--sc-accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M3 3h18v12H9l-6 5z"/></g>
-                    <text x="34" y="16" style="fill:var(--sc-ink);font-family:var(--sc-font-display);font-size:17px;font-weight:600">Text to the caller</text>
-                  </g>
-                  <g transform="translate(20 66)">
-                    <g style="fill:none;stroke:var(--sc-accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="3" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v10"/></g>
-                    <text x="34" y="16" style="fill:var(--sc-ink);font-family:var(--sc-font-display);font-size:17px;font-weight:600">Lead logged</text>
-                  </g>
-                  <g transform="translate(20 114)">
-                    <g style="fill:none;stroke:var(--sc-accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M6 15V10a6 6 0 0 1 12 0v5l2 3H4zM10 20h4"/></g>
-                    <text x="34" y="16" style="fill:var(--sc-ink);font-family:var(--sc-font-display);font-size:17px;font-weight:600">Owner alerted</text>
-                  </g>
-                </g>
-                <g transform="translate(330 196)">
-                  <rect width="240" height="72" rx="18" style="fill:var(--sc-surface);stroke:var(--v4-hair);stroke-width:1.5;stroke-dasharray:4 4"/>
-                  <g transform="translate(20 24)" style="fill:none;stroke:var(--sc-ink-soft);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M3 12l6 6L21 6"/></g>
-                  <text x="54" y="42" style="fill:var(--sc-ink-soft);font-family:var(--sc-font-display);font-size:17px;font-weight:600">Answered · tracked</text>
-                </g>
-              </svg>
-              <figcaption>Drawn from the workflow's own eight-node diagram. 0 validator errors, 0 warnings, 8 of 8 nodes reachable, about 15 minutes to install. It has not yet run against a live phone system, and the setup's last step is a real test call.</figcaption>
-            </figure>
+            <h4>Phone receptionist · guided demo</h4>
+            <p class="why">A receptionist flow for service businesses: capture the enquiry, confirm contact details and offer sample appointment slots. Try it in English or German.</p>
+            <video controls playsinline preload="none" poster="https://raw.githubusercontent.com/Atakan-24/ai-voice-agent-demo/main/images/short-poster.jpg" aria-label="Phone receptionist · guided demo">
+              <source src="https://raw.githubusercontent.com/Atakan-24/ai-voice-agent-demo/main/media/call-demo-short.mp4" type="video/mp4">
+              <a href="https://github.com/Atakan-24/ai-voice-agent-demo/blob/main/media/call-demo-short.mp4">Watch the recorded demo</a>
+            </video>
+            <p class="v4-note">The browser demo uses prerecorded replies and sample slots. It does not make a real booking. The case study includes the call flow, audio examples and video pipeline.</p>
+            <p><a href="https://teamgoldllc.de/voice-agent" rel="noopener noreferrer">Try the guided demo ↗</a> · <a href="https://github.com/Atakan-24/ai-voice-agent-demo" rel="noopener noreferrer">Read the case study ↗</a></p>
           </div>
         </div>
 
         <div class="v4-rail__note">
-          <h3 class="v4-claim" style="font-size: var(--sc-t-2xl);">Two servers, administered by hand.</h3>
-          <p class="v4-sub">A Windows box and an Ubuntu ARM instance. SSH password authentication off entirely, keys only. Debug ports bind to loopback. Secrets live in the OS keystore, enforced by the hook above and again in CI.</p>
+          <h3 class="v4-claim" style="font-size: var(--sc-t-2xl);">Infrastructure and shared working context.</h3>
+          <p class="v4-sub">The multi-machine-agent-sync case study documents shared working context and Git backups across macOS, Linux and Windows. <a href="https://github.com/Atakan-24/multi-machine-agent-sync" rel="noopener noreferrer">Read the case study ↗</a></p>
         </div>
       </div>
     </div>
@@ -1528,8 +1449,8 @@ img { display: block; max-width: 100%; }
        rather than nineteen identical boxes. -->
   <section class="v4-sec v4-sec--tight" id="full-list" data-sc-act="flow" data-sc-drift="#F7F7F5">
     <div class="v4-wrap" data-sc-in data-sc-stagger="50">
-      <h2 class="v4-claim v4-claim--wide">Nineteen more, to the same standard.</h2>
-      <p class="v4-sub">Smaller in scope than the six above. Each one a real, independently working subsystem, not a stub.</p>
+      <h2 class="v4-claim v4-claim--wide">More projects and engineering work.</h2>
+      <p class="v4-sub">A mix of standalone tools and components built within larger systems. Public work samples are linked where available.</p>
 
       <div class="v4-filter" id="filterbar" role="group" aria-label="Filter by area">
         <button class="cat-filter-chip is-active" type="button" data-filter="all">All</button>
@@ -1568,7 +1489,7 @@ img { display: block; max-width: 100%; }
         <article class="cat-idx-card" data-cat="personal"><p class="k">Personal</p><h4>Early projects</h4><p>A chess engine, a crypto-trading backtester, and classic learn-to-code exercises. Kept private, and the actual starting point.</p></article>
       </div>
       <p id="cardgrid-count" aria-live="polite"></p>
-      <p class="v4-note" style="margin-top: var(--sc-6);">Built by directing coding agents deliberately: writing the specification, setting the guardrails, verifying the result. No degree; what replaced it was building real systems, operating them, and fixing what broke. No customer data, phone numbers or business metrics appear anywhere on this page or in the linked repositories.</p>
+      <p class="v4-note">Public examples omit private customer records and credentials. The CRM case study uses synthetic demonstration data.</p>
     </div>
   </section>
 
@@ -1590,7 +1511,7 @@ img { display: block; max-width: 100%; }
           <div>
           <h3 class="v4-about__h">How I work</h3>
           <p class="v4-about__p"><a class="v4-cta v4-cta--ghost" href="https://github.com/Atakan-24/multi-machine-agent-sync" rel="noopener noreferrer">multi-machine-agent-sync ↗</a></p>
-          <p class="v4-note">No customer data, phone numbers, or business metrics appear anywhere on this page or in the linked repositories; numbers are rounded, not exact.</p>
+          <p class="v4-note">Public examples omit private customer records and credentials. The CRM case study uses synthetic demonstration data.</p>
           </div>
           <figure class="v4-fig v4-howfig">
             <svg class="v4-loop" viewBox="-110 -30 580 420" role="img" aria-labelledby="how-t">
@@ -1658,7 +1579,7 @@ img { display: block; max-width: 100%; }
             <li style="--t: 0.26"><span class="yr">~20</span><span>Started learning to code, at first alongside the business work.</span></li>
             <li style="--t: 0.36"><span class="yr">22</span><span>Moved to Egypt and shifted focus fully to software.</span></li>
             <li style="--t: 0.46"><span class="yr">22–23</span><span>Freelance client work, then building my own acquisition infrastructure — cold calling, AI voice calling, email and outreach — for Team Gold, the business behind most of the systems on this page.</span></li>
-            <li style="--t: 0.56"><span class="yr">23</span><span>Today: designing, building, and operating the systems above.</span></li>
+            <li style="--t: 0.56"><span class="yr">Now</span><span>Building custom software and developing technical partnerships through Team Gold.</span></li>
           </ol>
           <p class="v4-note">No university degree — what replaced it was building real systems, operating them, and fixing what broke.</p>
         </div>
@@ -1718,22 +1639,23 @@ img { display: block; max-width: 100%; }
     <div data-sc-stage>
       <div class="v4-close">
         <div id="frag-mich">
-          <h2 class="v4-claim">Ask, instead of reading all of it.</h2>
+          <h2 class="v4-claim">Let’s talk about your project.</h2>
+          <p class="v4-note">I’m open to technical partnerships and custom development projects. We can work through the scope together and agree on responsibilities and delivery.</p>
           <div class="v4-ask v4-chat" id="askChat" data-sc-in>
             <div class="v4-chat__bar">
               <span class="v4-chat__dot" aria-hidden="true"></span>
               <span class="v4-chat__title">Ask this page</span>
-              <span class="v4-chat__sub">a chatbot · answers only from the real CV</span>
+              <span class="v4-chat__sub">quick project answers + AI chat</span>
             </div>
             <div class="v4-ask__log" id="askLog" aria-live="polite">
               <p class="v4-ask__empty">Pick one of the five, or type your own.</p>
             </div>
             <div class="v4-ask__chips" aria-label="Suggested questions">
-              <button type="button" class="cat-ask__chip" data-a="Day to day: an AI-driven cold-calling platform for Team Gold (Next.js, Supabase, Telnyx Voice/WebRTC, LLM voice agents), plus the multi-agent automation layer that runs it. Alongside that, six public repos with real tests and CI.">What does he build?</button>
-              <button type="button" class="cat-ask__chip" data-a="He considered a Fachinformatiker apprenticeship, but it didn't become his path. Instead: about 3 years of self-directed learning by building, breaking, testing and shipping real systems. The open gap he's actively closing is external validation: clients, production use, references.">Why no degree?</button>
-              <button type="button" class="cat-ask__chip" data-a="A pre-commit hook and GitHub Action that stops API keys from reaching a commit. 98 tests, and measured precision/recall improved from 80% to 100% on a labelled benchmark.">What is git-secret-scan?</button>
-              <button type="button" class="cat-ask__chip" data-a="Yes. He's actively looking for paying clients and contract/freelance engineering work alongside his own business. Book a 30-min call or email him.">Open to contract work?</button>
-              <button type="button" class="cat-ask__chip" data-a="Email atakanfisc@gmail.com, book a 30-min call at cal.com/atakanoztunc/30min, message on WhatsApp at wa.me/201069564012, or on Telegram at t.me/Akioatakan.">How to contact him?</button>
+              <button type="button" class="cat-ask__chip" data-a="Custom web applications, integrations and automation. The team-gold-crm-showcase documents my own sales CRM, and ai-voice-agent-demo explains a guided phone receptionist demo.">What do you build?</button>
+              <button type="button" class="cat-ask__chip" data-a="We can review the existing setup, define the scope and plan the implementation together. I’m open to paid technical partnerships on client projects, with responsibilities and commercial terms agreed for each project.">How could we work together?</button>
+              <button type="button" class="cat-ask__chip" data-a="The public team-gold-crm-showcase contains a documented architecture, selected source excerpts and screenshots with synthetic data. It is a case study of my private CRM, not the full application source.">Can I see the CRM?</button>
+              <button type="button" class="cat-ask__chip" data-a="No. ai-voice-agent-demo shows a guided receptionist flow with prerecorded replies and sample slots. It does not book, send or store an appointment.">Does the demo book real appointments?</button>
+              <button type="button" class="cat-ask__chip" data-a="Email atakanfisc@gmail.com, book a call at cal.com/atakanoztunc/30min, or message me on WhatsApp at wa.me/201069564012 or Telegram at t.me/Akioatakan.">How can I contact you?</button>
             </div>
             <form id="askForm" class="v4-ask__form">
               <label for="askInput" class="v4-hidden">Ask a question</label>
@@ -1763,7 +1685,7 @@ img { display: block; max-width: 100%; }
             <a class="v4-big__btn v4-big__btn--ghost" href="v1/">
               <span>See the first version of this portfolio →<small>the page that was live before this one</small></span></a>
             <a class="v4-big__btn v4-big__btn--ghost" href="https://teamgoldllc.de" rel="noopener noreferrer">
-              <span>Based in Germany · open to roles &amp; contract work<small>teamgoldllc.de ↗</small></span></a>
+              <span>TEAM GOLD LLC · custom software &amp; project partnerships<small>teamgoldllc.de ↗</small></span></a>
           </div>
         </div>
       </div>
@@ -1981,9 +1903,8 @@ img { display: block; max-width: 100%; }
      Guessing it from location.pathname produced nonsense paths (and a redirect
      into a 404) as soon as the file was not sitting at a site root. */
   var live = location.hostname === HOST;
-  var local = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-  var toDe = live ? '/de/' : local ? 'index-v4.de.html' : 'https://' + HOST + '/de/';
-  var toEn = live ? '/'    : local ? 'index-v4.html'    : 'https://' + HOST + '/';
+  var toDe = '/de/';
+  var toEn = '/';
 
   var stored = null; try { stored = localStorage.getItem(KEY); } catch (e) {}
   var param = (location.search.match(/[?&]lang=(en|de)/) || [])[1];
@@ -2021,6 +1942,7 @@ img { display: block; max-width: 100%; }
    and which edition. Never an IP, never a name — see tools/portfolio-tracker.
    (Carried back from the previous page, where it was lost in the rebuild.) */
 (function () {
+  if (location.hostname !== 'atakan-24.github.io') return;
   var ENDPOINT = 'https://kglqsnltlokyiocvugbo.supabase.co/functions/v1/track';
   var page = document.documentElement.lang === 'de' ? 'de' : 'en';
   function send(data) {
@@ -2054,9 +1976,9 @@ img { display: block; max-width: 100%; }
   var where = document.getElementById('dock-where');
   var num = document.getElementById('dock-n');
   if (!dock) return;
-  var NAMES = { hero: 'The shelf', 'ai-os': 'AI-OS', crm: 'Team Gold CRM',
+  var NAMES = { hero: 'Atakan', 'ai-os': 'AI-OS', crm: 'Team Gold CRM',
                 pipeline: 'Lead pipeline', secretscan: 'git-secret-scan',
-                shipped: 'Shipped and public', 'full-list': 'Nineteen more',
+                shipped: 'Shipped and public', 'full-list': 'More projects',
                 about: 'Who builds this', skills: 'Skills & stack', contact: 'Get in touch' };
   var secs = Array.prototype.slice.call(document.querySelectorAll('main > section'));
   var phone = matchMedia('(max-width: 700px)');
@@ -2454,14 +2376,15 @@ img { display: block; max-width: 100%; }
 (function () {
   var body = document.getElementById('terminalBody');
   if (!body) return;
+  body.replaceChildren();
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var script = [
     { type: 'cmd', text: 'whoami' },
-    { type: 'out', text: 'atakan, builder and sole operator, Team Gold' },
+    { type: 'out', text: 'Atakan · developer · Team Gold' },
     { type: 'cmd', text: 'cat now.txt' },
-    { type: 'out', text: 'Building an AI-operated cold-calling platform, end to end.' },
-    { type: 'cmd', text: './ship.sh --systems 25 --mode solo' },
-    { type: 'out', text: 'done. all 25 in production.', ok: true }
+    { type: 'out', text: 'Custom web applications, integrations and automation.' },
+    { type: 'cmd', text: 'cat working-together.txt' },
+    { type: 'out', text: 'Understand the workflow. Plan together. Build and verify.', ok: true }
   ];
   function cursor() { var s = document.createElement('span'); s.className = 'cursor'; s.textContent = '▍'; body.appendChild(s); }
   function row(step) {
@@ -2686,6 +2609,8 @@ img { display: block; max-width: 100%; }
   var input = document.getElementById('askInput');
   if (!log || !form || !input) return;
   var REPO_LINKS = {
+    'team-gold-crm-showcase': 'https://github.com/Atakan-24/team-gold-crm-showcase',
+    'ai-voice-agent-demo': 'https://github.com/Atakan-24/ai-voice-agent-demo',
     'git-secret-scan': 'https://github.com/Atakan-24/git-secret-scan',
     'gh-radar': 'https://github.com/Atakan-24/gh-radar',
     'postgrest-keyset-page': 'https://github.com/Atakan-24/postgrest-keyset-page',
