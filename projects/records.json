@@ -1,0 +1,2845 @@
+[
+  {
+    "name": "ai-voice-agent-demo",
+    "visibility": "public",
+    "category": "showcase",
+    "group": "Team Gold Voice Agent",
+    "summary": {
+      "de": "Fallstudie und Medienpaket für den Telefonassistenten Alex. Die öffentliche Browserdemo führt Besucher durch einen festen Gesprächsablauf für vier Handwerksbranchen. Vorgefertigte Sprachaufnahmen und Beispieltermine zeigen, wie eine Empfangssituation aussehen kann.",
+      "en": "Case study and media collection for Alex, a telephone assistant. The public browser demo guides visitors through a fixed conversation for four trades. Prerecorded speech and sample appointments illustrate a reception workflow."
+    },
+    "purpose": {
+      "de": "Ein Besucher kann den Ablauf vom ersten Gruß über die Problembeschreibung bis zur Terminbestätigung kennenlernen. Die Fallstudie erklärt außerdem, wie geskriptete Gespräche, synthetische Stimmen und HTML-Szenen zu Demo-Videos zusammengefügt wurden.",
+      "en": "Visitors can explore the flow from the greeting through a description of the problem to appointment confirmation. The case study also explains how scripted conversations, synthetic voices and HTML scenes were combined into demo videos."
+    },
+    "features": {
+      "de": [
+        "Vier Branchen: Heizung/Klima, Sanitär, Dach und Solar, jeweils auf Englisch und Deutsch.",
+        "Sprechen oder Tippen, Rücklesen von Kontaktdaten und Auswahl aus drei Beispielzeiten.",
+        "Kurzes Gesprächsvideo, längerer Rundgang und einzelne synthetische Audiobeispiele.",
+        "Dokumentierter Produktionsablauf: Text schreiben, Sprache erzeugen, rücktranskribieren, HTML-Szenen rendern und komprimieren."
+      ],
+      "en": [
+        "Four trades: heating/air, plumbing, roofing and solar, in English and German.",
+        "Speech or typed input, contact-detail readback and a choice of three sample times.",
+        "Short call video, longer walkthrough and individual synthetic audio examples.",
+        "Documented production process: write scripts, generate speech, transcribe it back, render HTML scenes and compress the result."
+      ]
+    },
+    "architecture": {
+      "de": [
+        "Die Rezeptionsdemo wählt aus vorher aufgenommenen Antworten. Laut Dokumentation verarbeitet lokale Spracherkennung den gesprochenen Besuchereingang; Tippen bleibt als Alternative verfügbar.",
+        "Der dokumentierte Videoablauf verbindet Text-to-Speech-Clips mit HyperFrames-Szenen. ffmpeg komprimiert die gerenderten Medien.",
+        "Das öffentliche Repository enthält Markdown, Bilder, Audio und Videos. React/Vite-Website und Telnyx-Konfiguration sind hier nicht als ausführbare Anwendung enthalten."
+      ],
+      "en": [
+        "The reception demo chooses between prerecorded responses. The documentation describes local speech recognition for visitor input, with typing available as an alternative.",
+        "The documented video process combines text-to-speech clips with HyperFrames scenes. ffmpeg compresses the rendered media.",
+        "The public repository contains Markdown, images, audio and video. The React/Vite website and Telnyx configuration are not included here as an executable application."
+      ]
+    },
+    "setup": [],
+    "files": [
+      {
+        "path": "README.md",
+        "de": "Gesprächsablauf, Medien und Herstellungsprozess.",
+        "en": "Conversation flow, media and production process."
+      },
+      {
+        "path": "docs/reception-demo.md",
+        "de": "Verhalten und Grenzen der geführten Browserdemo.",
+        "en": "Behavior and limits of the guided browser demo."
+      },
+      {
+        "path": "media/call-demo-short.mp4",
+        "de": "Kurzes geskriptetes Gesprächsvideo.",
+        "en": "Short scripted call video."
+      },
+      {
+        "path": "audio/de-greeting-hvac.mp3",
+        "de": "Synthetischer deutscher Begrüßungsclip.",
+        "en": "Synthetic German greeting clip."
+      }
+    ],
+    "limits": {
+      "de": [
+        "Die öffentliche Rezeptionsdemo nutzt kein live antwortendes Sprachmodell. Sie bucht, versendet und speichert nichts.",
+        "Firmen und Gesprächsdaten sind erfunden; auch die Anruferstimme im Video ist ein Platzhalter.",
+        "Die Beschreibung einer Telefonintegration belegt keinen produktiven Kundeneinsatz. Ein längerer Test mit mehreren echten Sprechern ist laut Dokumentation noch offen.",
+        "Es gibt keinen Installationsbefehl für ein vollständiges Produkt; das Repository ist eine Fallstudie."
+      ],
+      "en": [
+        "The public reception demo does not use a live responding language model. It books, sends and stores nothing.",
+        "Businesses and conversation details are fictional; the caller voice in the video is a placeholder too.",
+        "Describing a telephony integration does not establish customer production use. The documentation still lists a longer test with several real speakers as open.",
+        "There is no installation command for a complete product; this repository is a case study."
+      ]
+    },
+    "sources": [
+      {
+        "title": "README.md",
+        "url": "https://github.com/Atakan-24/ai-voice-agent-demo/blob/main/README.md"
+      },
+      {
+        "title": "docs/reception-demo.md",
+        "url": "https://github.com/Atakan-24/ai-voice-agent-demo/blob/main/docs/reception-demo.md"
+      }
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "visitor",
+          "de": "Besucher: Sprache / Text",
+          "en": "Visitor: speech / text"
+        },
+        {
+          "id": "recognition",
+          "de": "Lokale Spracherkennung (dokumentiert)",
+          "en": "Local speech recognition (documented)"
+        },
+        {
+          "id": "flow",
+          "de": "Fester Gesprächsablauf",
+          "en": "Fixed conversation flow"
+        },
+        {
+          "id": "clips",
+          "de": "Vorab erzeugte Sprachclips",
+          "en": "Pregenerated speech clips"
+        },
+        {
+          "id": "sample",
+          "de": "Beispiel-Terminansicht",
+          "en": "Sample appointment view"
+        },
+        {
+          "id": "scenes",
+          "de": "HyperFrames-Szenen (dokumentiert)",
+          "en": "HyperFrames scenes (documented)"
+        },
+        {
+          "id": "video",
+          "de": "Gerenderte Demo-Videos",
+          "en": "Rendered demo videos"
+        }
+      ],
+      "edges": [
+        [
+          "visitor",
+          "recognition"
+        ],
+        [
+          "recognition",
+          "flow"
+        ],
+        [
+          "visitor",
+          "flow"
+        ],
+        [
+          "flow",
+          "clips"
+        ],
+        [
+          "flow",
+          "sample"
+        ],
+        [
+          "clips",
+          "scenes"
+        ],
+        [
+          "scenes",
+          "video"
+        ]
+      ]
+    },
+    "media": [
+      {
+        "kind": "image",
+        "url": "https://raw.githubusercontent.com/Atakan-24/ai-voice-agent-demo/main/images/short-poster.jpg",
+        "caption": {
+          "de": "Vorschau des geskripteten Gesprächs mit fiktiver Firma.",
+          "en": "Preview of the scripted call with a fictional business."
+        }
+      },
+      {
+        "kind": "video",
+        "url": "https://raw.githubusercontent.com/Atakan-24/ai-voice-agent-demo/main/media/call-demo-short.mp4",
+        "caption": {
+          "de": "Kurzes Gesprächsvideo, laut README 1:37 Minuten.",
+          "en": "Short call video, listed as 1:37 in the README."
+        }
+      },
+      {
+        "kind": "demo",
+        "url": "https://teamgoldllc.de/voice-agent",
+        "caption": {
+          "de": "Verlinkte englische Browserdemo mit festen Antworten und Beispielzeiten.",
+          "en": "Linked English browser demo with fixed replies and sample times."
+        }
+      },
+      {
+        "kind": "demo",
+        "url": "https://teamgoldllc.de/voice-agent/de",
+        "caption": {
+          "de": "Verlinkte deutsche Fassung derselben geführten Demo.",
+          "en": "Linked German version of the same guided demo."
+        }
+      }
+    ],
+    "evidence_note": {
+      "de": "README, Rezeptionsdokumentation und Medienpfade am 02.11.2026 geprüft. Das Verhalten der Website ist als Dokumentationsaussage gekennzeichnet; Website und Telefonie wurden hier nicht ausgeführt.",
+      "en": "Reviewed the README, reception documentation and media paths on 2 November 2026. Website behavior is identified as a documentation claim; the website and telephony were not exercised here."
+    }
+  },
+  {
+    "name": "Atakan-24.github.io",
+    "visibility": "public",
+    "category": "application",
+    "group": "Atakan profile and portfolio",
+    "summary": {
+      "de": "Zweisprachiges Portfolio mit Projektgeschichten, interaktiven Erklärungen und Kontaktmöglichkeiten. Die laufende Überarbeitung richtet den Einstieg auf individuelle Software und mögliche technische Partnerschaften aus.",
+      "en": "A bilingual portfolio with project stories, interactive explanations and contact channels. The pending refresh introduces custom software and potential technical partnerships."
+    },
+    "purpose": {
+      "de": "Technische Arbeit anhand von Beispielen erklären und ein konkretes Projektgespräch ermöglichen.",
+      "en": "Explain engineering work through examples and enable a practical project conversation."
+    },
+    "features": {
+      "de": [
+        "Deutsche und englische Seiten, heller und dunkler Modus.",
+        "Scrollgesteuerte CRM-Darstellung, Bewertungs- und Paginierungsbeispiele.",
+        "Lokale Kurzantworten und ein separater externer Freitext-Chat.",
+        "Im lokalen Entwurf: aktualisierte CRM- und Voice-Fallstudien sowie neues Link-Vorschaubild.",
+        "Im lokalen Entwurf: sechs Projektvorschauen mit Medien und verlinkte DE/EN-Dokumentation der 16 öffentlichen Repos."
+      ],
+      "en": [
+        "German and English editions, light and dark modes.",
+        "Scroll-driven CRM illustration, scoring and pagination examples.",
+        "Local quick answers plus a separate external free-text chat.",
+        "The local draft adds updated CRM and voice case studies and a new sharing image.",
+        "The local draft includes six project previews with media and linked DE/EN documentation for the 16 public repositories."
+      ]
+    },
+    "architecture": {
+      "de": [
+        "Statische HTML-Seiten enthalten Inhalt, seitenbezogene CSS-Regeln und JavaScript.",
+        "scrollcraft.css und scrollcraft.js steuern gemeinsame Gestaltung und Scroll-Interaktionen.",
+        "Externe Supabase-Funktionen bedienen Freitext-Antworten und Besucherereignisse; ihr Backend wurde hier nicht geprüft."
+      ],
+      "en": [
+        "Static HTML pages contain content, page-specific CSS and JavaScript.",
+        "scrollcraft.css and scrollcraft.js provide shared styling and scroll interactions.",
+        "External Supabase functions serve free-text answers and visitor events; their backend was not reviewed here."
+      ]
+    },
+    "setup": [
+      {
+        "command": "python3 -m http.server 8765 --bind 127.0.0.1",
+        "de": "Im Repo-Verzeichnis als lokale statische Vorschau starten. Im aktuellen Entwurf sind lokale Analytics abgeschaltet.",
+        "en": "Run from the repository directory for a local static preview. The current draft disables local analytics."
+      }
+    ],
+    "files": [
+      {
+        "path": "index.html",
+        "de": "Englische Seite und lokale Interaktionen.",
+        "en": "English page and local interactions."
+      },
+      {
+        "path": "de/index.html",
+        "de": "Deutsche Ausgabe.",
+        "en": "German edition."
+      },
+      {
+        "path": "scrollcraft.js",
+        "de": "Scroll- und Bewegungssystem.",
+        "en": "Scroll and motion system."
+      },
+      {
+        "path": "scrollcraft.css",
+        "de": "Gemeinsame Gestaltungsregeln.",
+        "en": "Shared visual rules."
+      },
+      {
+        "path": "og.jpg",
+        "de": "Vorschaubild für geteilte Links.",
+        "en": "Sharing preview image."
+      },
+      {
+        "path": "project-media.css / project-media.js",
+        "de": "Lokaler Entwurf: Darstellung und kontrollierte Wiedergabe der Projektmedien.",
+        "en": "Local draft: project-media layout and controlled playback."
+      },
+      {
+        "path": "projects/",
+        "de": "Lokaler Entwurf: Dokumentation und Grafiken ausschließlich öffentlicher Repos.",
+        "en": "Local draft: documentation and diagrams for public repositories only."
+      }
+    ],
+    "limits": {
+      "de": [
+        "Die neue Headline und Korrekturen sind als lokaler Entwurf vorhanden und noch nicht veröffentlicht.",
+        "Externe Chat-Antworten und deren Wissensbasis wurden nicht live geprüft.",
+        "Ein Projektbericht ist keine aktuelle Betriebsanzeige aller beschriebenen Systeme."
+      ],
+      "en": [
+        "The new headline and corrections exist as a local draft and have not been published.",
+        "External chat answers and their knowledge base were not live-tested.",
+        "Project stories are not a current uptime report for every described system."
+      ]
+    },
+    "sources": [
+      {
+        "title": "Portfolio source",
+        "url": "https://github.com/Atakan-24/Atakan-24.github.io"
+      },
+      {
+        "title": "Live portfolio",
+        "url": "https://atakan-24.github.io/"
+      }
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "visitor",
+          "de": "Besucher",
+          "en": "Visitor"
+        },
+        {
+          "id": "html",
+          "de": "HTML · DE / EN",
+          "en": "HTML · DE / EN"
+        },
+        {
+          "id": "scroll",
+          "de": "Scrollcraft · CSS / JS",
+          "en": "Scrollcraft · CSS / JS"
+        },
+        {
+          "id": "chat",
+          "de": "Externer Antwortdienst",
+          "en": "External answer service"
+        }
+      ],
+      "edges": [
+        [
+          "visitor",
+          "html"
+        ],
+        [
+          "html",
+          "scroll"
+        ],
+        [
+          "html",
+          "chat"
+        ]
+      ]
+    },
+    "media": [
+      {
+        "kind": "image",
+        "url": "assets/portfolio-draft.png",
+        "caption": {
+          "de": "Lokale Desktop-Vorschau des überarbeiteten Entwurfs, 02.11.2026.",
+          "en": "Local desktop preview of the refreshed draft, 2 Nov 2026."
+        }
+      },
+      {
+        "kind": "demo",
+        "url": "https://atakan-24.github.io/",
+        "caption": {
+          "de": "Aktuell veröffentlichte Seite; kann vom Entwurf abweichen.",
+          "en": "Currently published page; it may differ from the draft."
+        }
+      }
+    ],
+    "evidence_note": {
+      "de": "Öffentlichen Quellcode bei Commit 406ab7b geprüft. Lokalen Entwurf auf zehn Kombinationen aus Sprache und Bildschirmbreite sowie Interaktionen getestet.",
+      "en": "Public source at commit 406ab7b inspected. The local draft was tested across ten language/viewport combinations and interactive flows."
+    }
+  },
+  {
+    "name": "autolm",
+    "visibility": "public",
+    "category": "research",
+    "group": "AutoLM",
+    "summary": {
+      "de": "Experiment zum Bau eines kleinen Sprachmodells von Grund auf. Das Repository verbindet Lehrschritte für Backpropagation und Attention mit einem PyTorch-Transformer, BPE-Tokenizer, Training und einer messbaren Aufgabe: n8n-Workflow-Gerüste aus Text erzeugen.",
+      "en": "Experiment in building a small language model from scratch. The repository connects lessons on backpropagation and attention with a PyTorch transformer, BPE tokenizer, training code and a measurable task: producing n8n workflow skeletons from text."
+    },
+    "purpose": {
+      "de": "Die Arbeit untersucht, welche Teile einer engen Generierungsaufgabe ein kleines eigenes Modell lernen kann. Statt nur Textproben zu zeigen, prüft sie JSON, bekannte Knotentypen, Verbindungen und den Import in n8n. Eine einfache Nachschlagekontrolle dient als Vergleich.",
+      "en": "The work examines which parts of a narrow generation task a small custom model can learn. Evaluation checks JSON, known node types, connections and n8n import rather than relying on text samples alone. A simple retrieval baseline supplies a comparison."
+    },
+    "features": {
+      "de": [
+        "Lehrpfad und fusionierter QKV-Attention-Pfad mit Gleichheitstests.",
+        "Datenaufbereitung, eigenes BPE, Checkpointing und Trainingsschleife.",
+        "Vorlagensplits mit Abbruch bei überlappenden IDs oder identischen Testtexten im Training.",
+        "Versionierte Auswertungsdateien und lokale Demo mit offen ausgewiesenem Best-of-k."
+      ],
+      "en": [
+        "Teaching implementation and fused QKV attention path with equivalence tests.",
+        "Data preparation, custom BPE, checkpoint handling and training loop.",
+        "Template splits that stop on overlapping IDs or test text duplicated in training.",
+        "Versioned evaluation results and a local demo that explicitly reports best-of-k sampling."
+      ]
+    },
+    "architecture": {
+      "de": [
+        "Öffentliche Vorlagen werden in Kurzschrift überführt und für das Training mutiert. Ein eigener Tokenizer erzeugt die Eingabeströme für MiniGPT.",
+        "Die Demo lädt vorhandene Checkpoints, zieht Modellproben, prüft lokale Tore und rendert lesbare Ausgaben zu Workflow-JSON. Der separate Importprüfer ruft n8n auf.",
+        "Gespeicherte Ergebnisse vom 12.09.2026 melden für 15 Aufgaben 7/15 gültige Antworten bei einem Versuch und 15/15 mit Best-of-8. Das sind Ergebnisse dieses Versuchsaufbaus."
+      ],
+      "en": [
+        "Public templates become a shorthand representation and are mutated for training. A custom tokenizer creates input streams for MiniGPT.",
+        "The demo loads existing checkpoints, samples the model, applies local checks and renders readable outputs as workflow JSON. A separate import checker invokes n8n.",
+        "Stored results dated 12 September 2026 report 7/15 valid answers with one attempt and 15/15 with best-of-8 on 15 tasks. These are results from that experimental setup."
+      ]
+    },
+    "setup": [
+      {
+        "command": "python schritte/01_wie_lernt_ein_computer.py",
+        "de": "Reiner Python-Lehrschritt zur automatischen Ableitung. Das trainierte Workflow-Modell benötigt weitere Daten und Abhängigkeiten.",
+        "en": "Pure Python lesson on automatic differentiation. The trained workflow model needs additional data and dependencies."
+      },
+      {
+        "command": "python -m unittest workflow.test_workflow",
+        "de": "Dokumentierter Testaufruf; die vorhandene Python-Umgebung und benötigte Bibliotheken müssen vorher eingerichtet sein.",
+        "en": "Documented test command; the Python environment and required libraries must already be available."
+      }
+    ],
+    "files": [
+      {
+        "path": "kern/modell.py",
+        "de": "MiniGPT und die beiden Attention-Pfade.",
+        "en": "MiniGPT and its two attention implementations."
+      },
+      {
+        "path": "workflow/baue_datensatz.py",
+        "de": "Vorlagensplits, Mutationen und Tokenströme.",
+        "en": "Template splits, mutations and token streams."
+      },
+      {
+        "path": "workflow/demo.py",
+        "de": "Lokale Proben aus vorhandenen Checkpoints.",
+        "en": "Local sampling from existing checkpoints."
+      },
+      {
+        "path": "bewertung/tore.py",
+        "de": "JSON-, Typen- und Graphprüfungen.",
+        "en": "JSON, type and graph validation."
+      },
+      {
+        "path": "bewertung/ergebnisse/",
+        "de": "Gespeicherte Resultate einzelner Versuche.",
+        "en": "Stored results from individual experiments."
+      }
+    ],
+    "limits": {
+      "de": [
+        "Checkpoints und abgeleitete Trainingsdaten sind nicht enthalten. Eine frische Kopie kann die trainierte Demo nicht sofort starten.",
+        "Importierbare Gerüste enthalten noch keine vollständigen Parameter und belegen keine fachlich korrekte Automation.",
+        "Best-of-8 ist kein fairer Ein-Versuch-Vergleich. Laut README bleibt das Modell bei semantischer Übereinstimmung unter der Nachschlagekontrolle.",
+        "GPU-Training und weitere Forschungsstufen sind im dokumentierten Stand offen. Historische Modellnamen, Preise und Ergebnisse im README sind keine aktuelle Marktübersicht."
+      ],
+      "en": [
+        "Checkpoints and derived training data are excluded. A fresh checkout cannot immediately run the trained demo.",
+        "Importable skeletons still lack complete parameters and do not establish semantically correct automation.",
+        "Best-of-8 is not an equal single-attempt comparison. The README reports that semantic agreement remains below the retrieval baseline.",
+        "GPU training and later research stages remain open in the documented snapshot. Historical model names, prices and results in the README are not a current market comparison."
+      ]
+    },
+    "sources": [
+      {
+        "title": "README.md",
+        "url": "https://github.com/Atakan-24/autolm/blob/master/README.md"
+      },
+      {
+        "title": "kern/modell.py",
+        "url": "https://github.com/Atakan-24/autolm/blob/master/kern/modell.py"
+      },
+      {
+        "title": "workflow/demo.py",
+        "url": "https://github.com/Atakan-24/autolm/blob/master/workflow/demo.py"
+      },
+      {
+        "title": "workflow/baue_datensatz.py",
+        "url": "https://github.com/Atakan-24/autolm/blob/master/workflow/baue_datensatz.py"
+      },
+      {
+        "title": "bewertung/tore.py",
+        "url": "https://github.com/Atakan-24/autolm/blob/master/bewertung/tore.py"
+      },
+      {
+        "title": "bewertung/ergebnisse/stufe4-v3-15instr-tor4-k1-2026-09-12.json",
+        "url": "https://github.com/Atakan-24/autolm/blob/master/bewertung/ergebnisse/stufe4-v3-15instr-tor4-k1-2026-09-12.json"
+      },
+      {
+        "title": "bewertung/ergebnisse/stufe4-v3-15instr-tor4-k8-2026-09-12.json",
+        "url": "https://github.com/Atakan-24/autolm/blob/master/bewertung/ergebnisse/stufe4-v3-15instr-tor4-k8-2026-09-12.json"
+      }
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "templates",
+          "de": "Workflow-Vorlagen",
+          "en": "Workflow templates"
+        },
+        {
+          "id": "split",
+          "de": "Split und Mutationen",
+          "en": "Split and mutations"
+        },
+        {
+          "id": "tokenizer",
+          "de": "Workflow-Tokenizer",
+          "en": "Workflow tokenizer"
+        },
+        {
+          "id": "model",
+          "de": "MiniGPT / PyTorch",
+          "en": "MiniGPT / PyTorch"
+        },
+        {
+          "id": "sample",
+          "de": "Proben aus Checkpoint",
+          "en": "Checkpoint sampling"
+        },
+        {
+          "id": "checks",
+          "de": "JSON / Typen / Graph",
+          "en": "JSON / types / graph"
+        },
+        {
+          "id": "json",
+          "de": "Gerüst als Workflow-JSON",
+          "en": "Skeleton as workflow JSON"
+        },
+        {
+          "id": "import",
+          "de": "Separater n8n-Importtest",
+          "en": "Separate n8n import test"
+        }
+      ],
+      "edges": [
+        [
+          "templates",
+          "split"
+        ],
+        [
+          "split",
+          "tokenizer"
+        ],
+        [
+          "tokenizer",
+          "model"
+        ],
+        [
+          "model",
+          "sample"
+        ],
+        [
+          "sample",
+          "checks"
+        ],
+        [
+          "checks",
+          "json"
+        ],
+        [
+          "json",
+          "import"
+        ]
+      ]
+    },
+    "media": [],
+    "evidence_note": {
+      "de": "README, Modell, Datensatzbauer, Demo, lokale Prüfungen und zwei gespeicherte Resultate am 02.11.2026 gelesen. Ergebnisse wurden aus den JSON-Dateien abgelesen; kein Training, Provideraufruf oder n8n-Import wurde wiederholt.",
+      "en": "Read the README, model, dataset builder, demo, local checks and two stored result files on 2 November 2026. Results were read from JSON; training, provider calls and n8n imports were not repeated."
+    }
+  },
+  {
+    "name": "fahm",
+    "visibility": "public",
+    "category": "application",
+    "group": "Fahm",
+    "summary": {
+      "de": "Persönliche Lernanwendung für arabische Wörter und Sätze mit deutscher Oberfläche. HTML, CSS, Wortlisten und JavaScript stehen gemeinsam in fahm.html. Der aktuelle Quelltext verbindet wiederholte Abfragen, Hörübungen und eigene Satzsammlungen.",
+      "en": "Personal learning application for Arabic words and sentences with a German interface. HTML, CSS, vocabulary and JavaScript live together in fahm.html. The current source combines scheduled review, listening practice and custom sentence collections."
+    },
+    "purpose": {
+      "de": "Die Anwendung ergänzt das Lernen aus einem Lehrbuch um regelmäßiges Abrufen von Vokabeln. Häufige Quran-Wörter und ein gesonderter Sprechwortschatz helfen bei unterschiedlichen Lernzielen. Beispiel­sätze, Umschrift und eigene Merkhilfen begleiten die Einträge.",
+      "en": "The application supplements textbook study with regular vocabulary recall. Frequent Quran vocabulary and a separate speaking set support different learning goals. Example sentences, transliteration and personal memory aids accompany the entries."
+    },
+    "features": {
+      "de": [
+        "Wiederholung nach festen Tagesintervallen und getrennte Abfrage auf Arabisch.",
+        "Hörmodus mit Browser-Sprachausgabe sowie Schreib- und eigene Vokabelansichten.",
+        "Häufigkeitssortierung mit bevorzugten Funktionswörtern und Anzeige des Lernfortschritts.",
+        "Eigene Sprachinseln und optionaler Abgleich über selbst eingetragene Supabase-Daten."
+      ],
+      "en": [
+        "Review using fixed day intervals and a separate Arabic recall direction.",
+        "Listening mode using browser speech synthesis, writing practice and custom vocabulary views.",
+        "Frequency ordering with function-word priority and learning-progress display.",
+        "Custom language islands and optional synchronization using user-supplied Supabase settings."
+      ]
+    },
+    "architecture": {
+      "de": [
+        "Sechs eingebettete Rohlisten werden zu Wortobjekten aufbereitet. Ihre statischen Zeilen ergeben im geprüften Stand 546 Einträge; die README-Angabe von 353 ist älter.",
+        "Ein Store kapselt localStorage und merkt, ob dauerhaftes Speichern verfügbar ist. Ohne Speicherzugriff arbeitet die Anwendung mit dem Speicherzustand der Sitzung weiter.",
+        "Die Sync-Komponente bleibt ohne eigene URL, Schlüssel und Abgleichcode inaktiv. Browser-Sprachausgabe hat Auswahl- und Timeoutlogik für Stimmen."
+      ],
+      "en": [
+        "Six embedded raw lists become vocabulary objects. Their static rows total 546 entries in the reviewed source; the README’s count of 353 is older.",
+        "A Store wraps localStorage and tracks whether persistent storage is available. Without storage access, the application continues with in-session memory.",
+        "The sync component stays inactive without a user-supplied URL, key and sync code. Browser speech synthesis has voice selection and timeout handling."
+      ]
+    },
+    "setup": [],
+    "files": [
+      {
+        "path": "fahm.html",
+        "de": "Gesamte Anwendung samt Wortlisten, Speicher, Ansichten und optionalem Abgleich. Zum lokalen Einstieg herunterladen und im Browser öffnen.",
+        "en": "Complete application with vocabulary, storage, views and optional sync. Download and open in a browser for local use."
+      },
+      {
+        "path": "README.md",
+        "de": "Lernmethode und technische Beschreibung mit teilweise älteren Angaben.",
+        "en": "Learning method and technical description containing some older claims."
+      }
+    ],
+    "limits": {
+      "de": [
+        "Im aktuellen Repository sind keine Manifestdatei und keine Service-Worker-Registrierung erkennbar. Die README-Aussage zur Offline-PWA ist damit nicht belegt.",
+        "Browserstimmen und iOS-Verhalten hängen von der Umgebung ab; hier wurde kein Gerätetest ausgeführt.",
+        "Lokaler Fortschritt hängt von verfügbaren Browserdaten ab. Geräteübergreifender Abgleich benötigt eine eigene Supabase-Einrichtung.",
+        "Es gibt keinen Build-Schritt und keinen Serverstart; der dokumentierte Einstieg ist das Öffnen der HTML-Datei."
+      ],
+      "en": [
+        "The current repository shows no manifest file or service-worker registration. Its README claim of an offline PWA is therefore unsubstantiated by this source.",
+        "Browser voices and iOS behavior depend on the environment; no device test was performed here.",
+        "Local progress depends on available browser storage. Cross-device sync requires a separate Supabase setup.",
+        "There is no build step or server startup; the documented entry point is opening the HTML file."
+      ]
+    },
+    "sources": [
+      {
+        "title": "README.md",
+        "url": "https://github.com/Atakan-24/fahm/blob/main/README.md"
+      },
+      {
+        "title": "fahm.html",
+        "url": "https://github.com/Atakan-24/fahm/blob/main/fahm.html"
+      },
+      {
+        "title": "Passive browser capture, 2026-11-02",
+        "url": "https://fahm-web.vercel.app/"
+      }
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "lists",
+          "de": "Eingebettete Wortlisten",
+          "en": "Embedded vocabulary"
+        },
+        {
+          "id": "ui",
+          "de": "Lern-, Hör- und Schreibansichten",
+          "en": "Review, listening and writing views"
+        },
+        {
+          "id": "review",
+          "de": "Intervall- und Fortschrittslogik",
+          "en": "Interval and progress logic"
+        },
+        {
+          "id": "store",
+          "de": "Store / localStorage",
+          "en": "Store / localStorage"
+        },
+        {
+          "id": "speech",
+          "de": "Browser-Sprachausgabe",
+          "en": "Browser speech synthesis"
+        },
+        {
+          "id": "sync",
+          "de": "Optionaler Supabase-Abgleich",
+          "en": "Optional Supabase sync"
+        }
+      ],
+      "edges": [
+        [
+          "lists",
+          "ui"
+        ],
+        [
+          "ui",
+          "review"
+        ],
+        [
+          "review",
+          "store"
+        ],
+        [
+          "ui",
+          "speech"
+        ],
+        [
+          "store",
+          "sync"
+        ]
+      ]
+    },
+    "media": [
+      {
+        "kind": "image",
+        "url": "assets/fahm-current.png",
+        "caption": {
+          "de": "Passive Aufnahme der öffentlichen Fahm-Webseite vom 02.11.2026. Kein Nachweis, dass der gezeigte Deployment-Stand dem Standardbranch entspricht.",
+          "en": "Passive capture of the public Fahm website on 2 November 2026. This does not establish that the deployed version matches the default branch."
+        }
+      },
+      {
+        "kind": "demo",
+        "url": "https://fahm-web.vercel.app",
+        "caption": {
+          "de": "Im README verlinkte Webfassung.",
+          "en": "Web version linked in the README."
+        }
+      }
+    ],
+    "evidence_note": {
+      "de": "README, vollständige Dateiliste und fahm.html am 02.11.2026 statisch geprüft. Die 546 Einträge wurden aus Rohtextzeilen gezählt. Eine separate passive Bildschirmaufnahme zeigt die öffentliche Webfassung; ihre Gleichheit mit dem Quellstand ist nicht belegt. Offline- und Lernerfolgsversprechen wurden nicht übernommen.",
+      "en": "Statically reviewed the README, complete file list and fahm.html on 2 November 2026. The 546 entries were counted from raw text rows. A separate passive capture shows the public web version; parity with the source snapshot is unverified. Offline and learning-outcome promises were not adopted."
+    }
+  },
+  {
+    "name": "gh-radar",
+    "visibility": "public",
+    "category": "tool",
+    "group": "gh-radar",
+    "summary": {
+      "de": "Python-Digest für GitHub-Aktivität: offene Rückfragen in eigenen Repositorys und begründete Vorschläge für Beiträge in anderen Projekten. Das Werkzeug liest GitHub und schreibt einen Bericht. Die HTTP-Schicht lehnt andere Methoden als GET ab.",
+      "en": "Python digest of GitHub activity: outstanding questions in owned repositories and explained contribution suggestions elsewhere. The tool reads GitHub and produces a report. Its HTTP layer rejects methods other than GET."
+    },
+    "purpose": {
+      "de": "Der Bericht soll übersehene Rückfragen sichtbar machen und eine große Issue-Suche auf wenige passende Kandidaten reduzieren. Menschen entscheiden anschließend, ob und wie sie tätig werden. Zustand zwischen Läufen verhindert ständig wiederholte Vorschläge.",
+      "en": "The digest aims to surface missed questions and reduce broad issue searches to a few suitable candidates. People then decide whether and how to act. State between runs prevents constant repetition of suggestions."
+    },
+    "features": {
+      "de": [
+        "Eigene Repositorys beobachten und externe Issues nach Ausschlüssen bewerten.",
+        "Jeder Vorschlag enthält Gründe, Warnungen und eine einfache Aufwandsklasse.",
+        "Sprachen aus zugänglichen Repositorys erkennen oder per Option festlegen.",
+        "Text-, JSON- und vollständig netzloser Dry-run-Modus."
+      ],
+      "en": [
+        "Watch owned repositories and score external issues after hard exclusions.",
+        "Suggestions carry reasons, warnings and a simple effort category.",
+        "Detect languages from accessible repositories or override them with an option.",
+        "Text, JSON and fully offline dry-run modes."
+      ]
+    },
+    "architecture": {
+      "de": [
+        "__main__.py orchestriert watch und scout, verwaltet Zustand und übergibt Ergebnisse an report.py.",
+        "Netzwerkzugriffe laufen über github.py. Der Request-Einstieg akzeptiert nur GET und behandelt Drosselung getrennt von leeren Ergebnissen.",
+        "score.py trennt harte Ausschlüsse von gewichteten Heuristiken. Die Dokumentation meldet 58 Tests; diese Prüfung hat sie nicht ausgeführt."
+      ],
+      "en": [
+        "__main__.py orchestrates watch and scout, maintains state and passes results to report.py.",
+        "Network access goes through github.py. Its request entry point accepts only GET and separates rate limiting from empty results.",
+        "score.py separates hard exclusions from weighted heuristics. The documentation reports 58 tests; this review did not run them."
+      ]
+    },
+    "setup": [
+      {
+        "command": "python -m radar --dry-run",
+        "de": "Rendert die im Code enthaltenen Beispieldaten ohne Netzwerk oder GitHub-Token.",
+        "en": "Renders the sample data included in the source without network access or a GitHub token."
+      },
+      {
+        "command": "python -m radar",
+        "de": "Liest GitHub mit einem zuvor gesetzten GH_RADAR_TOKEN, GITHUB_TOKEN oder GH_TOKEN; Token niemals in den Befehl schreiben.",
+        "en": "Reads GitHub using a previously configured GH_RADAR_TOKEN, GITHUB_TOKEN or GH_TOKEN; do not put a token in the command."
+      }
+    ],
+    "files": [
+      {
+        "path": "radar/__main__.py",
+        "de": "CLI, Zustand und Orchestrierung.",
+        "en": "CLI, state and orchestration."
+      },
+      {
+        "path": "radar/github.py",
+        "de": "GET-Client und Drosselungsfehler.",
+        "en": "GET client and rate-limit errors."
+      },
+      {
+        "path": "radar/score.py",
+        "de": "Ausschlüsse, Gewichte und Begründungen.",
+        "en": "Exclusions, weights and explanations."
+      },
+      {
+        "path": "radar/report.py",
+        "de": "Im Architekturplan getrennte Berichtsausgabe.",
+        "en": "Report rendering separated in the architecture."
+      }
+    ],
+    "limits": {
+      "de": [
+        "Gewichte und Aufwandshinweise sind Heuristiken. Sie sagen keinen Merge oder Projektnutzen voraus.",
+        "Die Suche konzentriert sich auf gelabelte Issues und ist durch Tokenrechte und GitHub-Quoten begrenzt.",
+        "Das Werkzeug öffnet keine PRs und beantwortet keine Issues. Zeitplanung und Benachrichtigungsversand gehören nicht zum Kern."
+      ],
+      "en": [
+        "Weights and effort hints are heuristics. They do not predict merges or project impact.",
+        "Search focuses on labelled issues and is limited by token permissions and GitHub quotas.",
+        "The tool does not open PRs or answer issues. Scheduling and notification delivery are outside its core."
+      ]
+    },
+    "sources": [
+      {
+        "title": "README.md",
+        "url": "https://github.com/Atakan-24/gh-radar/blob/main/README.md"
+      },
+      {
+        "title": "radar/github.py",
+        "url": "https://github.com/Atakan-24/gh-radar/blob/main/radar/github.py"
+      },
+      {
+        "title": "radar/__main__.py",
+        "url": "https://github.com/Atakan-24/gh-radar/blob/main/radar/__main__.py"
+      },
+      {
+        "title": "radar/score.py",
+        "url": "https://github.com/Atakan-24/gh-radar/blob/main/radar/score.py"
+      }
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "cli",
+          "de": "CLI / Zustand",
+          "en": "CLI / state"
+        },
+        {
+          "id": "watch",
+          "de": "watch: eigene Repositorys",
+          "en": "watch: owned repositories"
+        },
+        {
+          "id": "scout",
+          "de": "scout: externe Issues",
+          "en": "scout: external issues"
+        },
+        {
+          "id": "score",
+          "de": "Ausschlüsse / Bewertung",
+          "en": "Exclusions / scoring"
+        },
+        {
+          "id": "github",
+          "de": "GET-Client",
+          "en": "GET client"
+        },
+        {
+          "id": "api",
+          "de": "GitHub REST API",
+          "en": "GitHub REST API"
+        },
+        {
+          "id": "report",
+          "de": "Bericht",
+          "en": "Report"
+        }
+      ],
+      "edges": [
+        [
+          "cli",
+          "watch"
+        ],
+        [
+          "cli",
+          "scout"
+        ],
+        [
+          "watch",
+          "github"
+        ],
+        [
+          "scout",
+          "github"
+        ],
+        [
+          "scout",
+          "score"
+        ],
+        [
+          "github",
+          "api"
+        ],
+        [
+          "watch",
+          "report"
+        ],
+        [
+          "score",
+          "report"
+        ]
+      ]
+    },
+    "media": [
+      {
+        "kind": "image",
+        "url": "https://raw.githubusercontent.com/Atakan-24/gh-radar/main/demo.svg",
+        "caption": {
+          "de": "Veröffentlichter Beispieldigest mit erfundenen Namen.",
+          "en": "Published example digest using invented names."
+        }
+      }
+    ],
+    "evidence_note": {
+      "de": "README, CLI, HTTP-Client und Scoringmodul am 02.11.2026 gelesen. GET-Beschränkung ist im ausgewählten Quellcode sichtbar. Keine Live-Suche, Nachrichten oder Änderungen an GitHub ausgeführt.",
+      "en": "Read the README, CLI, HTTP client and scoring module on 2 November 2026. The GET restriction is visible in the selected source. No live search, messages or GitHub changes were performed."
+    }
+  },
+  {
+    "name": "git-secret-scan",
+    "visibility": "public",
+    "category": "tool",
+    "group": "git-secret-scan",
+    "summary": {
+      "de": "Python-Werkzeug zum Erkennen bekannter Zugangsdatenmuster vor einem Git-Commit. Derselbe Scanner kann lokale Dateien, Historie und Änderungen zwischen Revisionen prüfen. Ein Hook und eine GitHub Action verbinden ihn mit Entwicklungsabläufen.",
+      "en": "Python tool for detecting known credential patterns before a Git commit. The same scanner can inspect local files, history and changes between revisions. A hook and a GitHub Action connect it to development workflows."
+    },
+    "purpose": {
+      "de": "Der Scanner entstand nach einem dokumentierten Fund von Zugangsdaten in verfolgten Dateien. Er soll bekannte Muster früh sichtbar machen und den Commit oder CI-Lauf bei einem Fund stoppen. Ausgaben maskieren den erkannten Wert.",
+      "en": "The scanner followed a documented discovery of credentials in tracked files. It aims to surface known patterns early and stop a commit or CI run when it finds one. Output masks the detected value."
+    },
+    "features": {
+      "de": [
+        "Zehn Musterarten, keine Laufzeitpakete außerhalb der Python-Standardbibliothek.",
+        "Prüfung des Staging-Bereichs, verfolgter Dateien, der Historie oder eines Revisionsbereichs.",
+        "Bewusste Platzhalter- und Opt-out-Behandlung sowie maskierte Befunde.",
+        "Beschrifteter 61-Fälle-Benchmark und dokumentierte Regressionstests."
+      ],
+      "en": [
+        "Ten pattern types and no runtime packages beyond Python’s standard library.",
+        "Scanning of staged files, tracked files, history or a revision range.",
+        "Explicit placeholder and opt-out handling, with masked findings.",
+        "Labelled 61-case benchmark and documented regression tests."
+      ]
+    },
+    "architecture": {
+      "de": [
+        "Git-Quellen liefern Dateiname und Bytes an scan_blob. Die Mustertabelle trennt Erkennung und textabhängige Ausnahmen.",
+        "install.py erzeugt einen lokalen pre-commit-Hook mit festem Interpreterpfad. action.yml ruft denselben Scanner aus CI auf.",
+        "Das README meldet 98 Tests und 98 % Coverage. Der eigene Benchmark stieg von 80 % Recall und 91,4 % Präzision auf jeweils 100 %."
+      ],
+      "en": [
+        "Git sources feed filenames and bytes into scan_blob. The pattern table separates detection from text-dependent exceptions.",
+        "install.py creates a local pre-commit hook with a fixed interpreter path. action.yml invokes the same scanner from CI.",
+        "The README reports 98 tests and 98% coverage. Its own benchmark improved from 80% recall and 91.4% precision to 100% for both."
+      ]
+    },
+    "setup": [
+      {
+        "command": "python scan.py --tracked",
+        "de": "Liest verfolgte Dateien des aktuellen Repositorys; gibt 0, 1 oder 2 für sauber, Fund oder Fehler zurück.",
+        "en": "Reads tracked files in the current repository; returns 0, 1 or 2 for clean, finding or error."
+      },
+      {
+        "command": "python benchmark/measure.py",
+        "de": "Führt den mitgelieferten synthetischen Benchmark aus.",
+        "en": "Runs the included synthetic benchmark."
+      }
+    ],
+    "files": [
+      {
+        "path": "scan.py",
+        "de": "Muster, Maskierung und Git-Quellen.",
+        "en": "Patterns, masking and Git sources."
+      },
+      {
+        "path": "install.py",
+        "de": "Lokaler Hook-Installer.",
+        "en": "Local hook installer."
+      },
+      {
+        "path": "action.yml",
+        "de": "Composite Action mit Änderungsmodus.",
+        "en": "Composite Action with change scanning."
+      },
+      {
+        "path": "benchmark/measure.py",
+        "de": "Dokumentierter Benchmark-Einstieg.",
+        "en": "Documented benchmark entry point."
+      }
+    ],
+    "limits": {
+      "de": [
+        "100 % beziehen sich auf den selbst geschriebenen Testsatz; unbekannte Muster und alle Geheimnisse werden damit nicht abgedeckt.",
+        "Ein Hook wirkt nur dort, wo er installiert ist, und lässt sich überspringen. CI muss separat eingerichtet werden.",
+        "Funde erfordern eine menschliche Prüfung und gegebenenfalls Rotation. Das Werkzeug widerruft keine Zugangsdaten."
+      ],
+      "en": [
+        "100% refers to the author’s own corpus; it does not cover unknown patterns or every secret.",
+        "A hook works only where installed and can be bypassed. CI needs separate configuration.",
+        "Findings require human review and, where necessary, credential rotation. The tool does not revoke credentials."
+      ]
+    },
+    "sources": [
+      {
+        "title": "README.md",
+        "url": "https://github.com/Atakan-24/git-secret-scan/blob/main/README.md"
+      },
+      {
+        "title": "scan.py",
+        "url": "https://github.com/Atakan-24/git-secret-scan/blob/main/scan.py"
+      },
+      {
+        "title": "install.py",
+        "url": "https://github.com/Atakan-24/git-secret-scan/blob/main/install.py"
+      },
+      {
+        "title": "action.yml",
+        "url": "https://github.com/Atakan-24/git-secret-scan/blob/main/action.yml"
+      }
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "git",
+          "de": "Git: Staging / Dateien / Historie / Bereich",
+          "en": "Git: staged / tracked / history / range"
+        },
+        {
+          "id": "scanner",
+          "de": "scan_blob / Mustertabelle",
+          "en": "scan_blob / pattern table"
+        },
+        {
+          "id": "result",
+          "de": "Maskierter Befund und Exit-Code",
+          "en": "Masked finding and exit code"
+        },
+        {
+          "id": "hook",
+          "de": "Lokaler Hook",
+          "en": "Local hook"
+        },
+        {
+          "id": "action",
+          "de": "GitHub Action",
+          "en": "GitHub Action"
+        }
+      ],
+      "edges": [
+        [
+          "hook",
+          "git"
+        ],
+        [
+          "action",
+          "git"
+        ],
+        [
+          "git",
+          "scanner"
+        ],
+        [
+          "scanner",
+          "result"
+        ]
+      ]
+    },
+    "media": [
+      {
+        "kind": "image",
+        "url": "https://raw.githubusercontent.com/Atakan-24/git-secret-scan/main/demo.svg",
+        "caption": {
+          "de": "Veröffentlichtes schematisches Beispiel eines blockierten Commits.",
+          "en": "Published schematic example of a blocked commit."
+        }
+      }
+    ],
+    "evidence_note": {
+      "de": "README, Scanner, Hook-Installer und Action am 02.11.2026 gelesen. Testzahlen und Messwerte stammen aus der Dokumentation; dieses Audit hat weder fremde Repositorys gescannt noch Tests wiederholt.",
+      "en": "Read the README, scanner, hook installer and Action on 2 November 2026. Test counts and measurements come from documentation; this audit neither scanned other repositories nor reran tests."
+    }
+  },
+  {
+    "name": "gitingest",
+    "visibility": "public",
+    "category": "tool",
+    "group": "gitingest",
+    "summary": {
+      "de": "Kompaktes Python-Skript, das ausgewählte Textdateien eines Git-Repositorys zu einer durchsuchbaren Ausgabe verbindet. Es versieht Inhalte mit relativen Dateipfaden und wechselt bei überschrittenem Zeichenbudget auf eine sichtbare Strukturübersicht.",
+      "en": "Small Python script that combines selected text files from a Git repository into searchable output. It labels content with relative paths and switches to an explicit structure overview when the character budget is exceeded."
+    },
+    "purpose": {
+      "de": "Eine einzelne Textausgabe erleichtert das Lesen einer Codebasis oder das Bereitstellen von Kontext für Architekturfragen. Das Skript trifft eine Dateiauswahl, erzeugt aber keine Zusammenfassung oder Bewertung des Projekts.",
+      "en": "A single text output makes a codebase easier to read or supply as context for architecture questions. The script selects files but does not summarize or evaluate the project."
+    },
+    "features": {
+      "de": [
+        "Akzeptiert Repository-Kurzname oder URL und klont mit --depth 1.",
+        "Schließt bekannte generierte Verzeichnisse, Binärdateien und Lockfiles aus der Ausgabe aus.",
+        "Berücksichtigt wichtige Dateien ohne Endung, etwa README und Makefile.",
+        "Schreibt nach stdout oder in eine angegebene Datei."
+      ],
+      "en": [
+        "Accepts a repository shorthand or URL and clones with --depth 1.",
+        "Excludes known generated directories, binary files and lockfiles from output.",
+        "Recognizes important extensionless files such as README and Makefile.",
+        "Writes to stdout or a specified file."
+      ]
+    },
+    "architecture": {
+      "de": [
+        "gitingest.py nutzt ausschließlich die Standardbibliothek und den installierten Git-Befehl. Ein temporäres Verzeichnis hält den flachen Checkout.",
+        "Dateisammlung und Textaufbau sind getrennte Funktionen. Überschreitet ein Block das Budget, liefert _fallback Dateibaum und README statt eines abgeschnittenen Dumps."
+      ],
+      "en": [
+        "gitingest.py uses only the standard library and an installed Git executable. A temporary directory holds the shallow checkout.",
+        "File selection and text assembly are separate functions. If a block exceeds the budget, _fallback returns the tree and README instead of a silently truncated dump."
+      ]
+    },
+    "setup": [
+      {
+        "command": "python gitingest.py octocat/Hello-World",
+        "de": "Beobachtetes Beispiel: liest ein öffentliches Repository über einen temporären flachen Clone. Git muss installiert sein.",
+        "en": "Observed example: reads a public repository through a temporary shallow clone. Git must be installed."
+      }
+    ],
+    "files": [
+      {
+        "path": "gitingest.py",
+        "de": "Clone, Auswahl, Textaufbau und Budget-Fallback.",
+        "en": "Clone, selection, text assembly and budget fallback."
+      },
+      {
+        "path": "tests/test_selection.py",
+        "de": "Im Repository vorhandene Auswahltests.",
+        "en": "Selection tests present in the repository."
+      }
+    ],
+    "limits": {
+      "de": [
+        "Es gibt keine Inhaltsbewertung, Geheimnisbereinigung oder vollständige Analyse aller Dateien.",
+        "Die Fallback-Ausgabe mit README ist keine harte Garantie, dass das gesamte Ergebnis innerhalb des Zeichenbudgets bleibt.",
+        "Private Zugriffe hängen von vorhandener Git-Anmeldung ab. Keine Cache- oder inkrementelle Aktualisierungsschicht enthalten.",
+        "Dateifilter schließen Inhalte aus der Ausgabe aus; sie ersetzen keine Prüfung der Ausgabe vor ihrer Weitergabe."
+      ],
+      "en": [
+        "There is no content evaluation, secret redaction or complete analysis of every file.",
+        "The README fallback does not strictly guarantee that the entire output stays within the character budget.",
+        "Private access depends on existing Git authentication. There is no cache or incremental-update layer.",
+        "File filters exclude content from the output; they do not replace reviewing output before sharing it."
+      ]
+    },
+    "sources": [
+      {
+        "title": "README.md",
+        "url": "https://github.com/Atakan-24/gitingest/blob/main/README.md"
+      },
+      {
+        "title": "gitingest.py",
+        "url": "https://github.com/Atakan-24/gitingest/blob/main/gitingest.py"
+      }
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "url",
+          "de": "Repository-URL",
+          "en": "Repository URL"
+        },
+        {
+          "id": "clone",
+          "de": "Temporärer flacher Git-Clone",
+          "en": "Temporary shallow Git clone"
+        },
+        {
+          "id": "select",
+          "de": "Textdateiauswahl",
+          "en": "Text file selection"
+        },
+        {
+          "id": "budget",
+          "de": "Zeichenbudget",
+          "en": "Character budget"
+        },
+        {
+          "id": "full",
+          "de": "Pfadbeschrifteter Volltext",
+          "en": "Path-labelled full text"
+        },
+        {
+          "id": "fallback",
+          "de": "Dateibaum + README",
+          "en": "File tree + README"
+        }
+      ],
+      "edges": [
+        [
+          "url",
+          "clone"
+        ],
+        [
+          "clone",
+          "select"
+        ],
+        [
+          "select",
+          "budget"
+        ],
+        [
+          "budget",
+          "full"
+        ],
+        [
+          "budget",
+          "fallback"
+        ]
+      ]
+    },
+    "media": [],
+    "evidence_note": {
+      "de": "README und gesamtes gitingest.py am 02.11.2026 gelesen. Das Skript wurde nicht ausgeführt und kein fremder Quellcode für diese Prüfung geklont.",
+      "en": "Read the README and complete gitingest.py on 2 November 2026. The script was not run and no external source repository was cloned for this review."
+    }
+  },
+  {
+    "name": "linux-werkzeuge",
+    "visibility": "public",
+    "category": "tool",
+    "group": "Linux Workplace Tools",
+    "summary": {
+      "de": "Sammlung eigener Bash- und Python-Werkzeuge für einen Kali/XFCE-Arbeitsplatz. Enthalten sind Desktop-Anpassungen sowie Energie- und Sperrsteuerung. Weitere Ordner dokumentieren die Architektur einer lokalen Prüfoberfläche und die Absicherung eines Dienstes.",
+      "en": "Collection of custom Bash and Python tools for a Kali/XFCE workstation. It includes desktop customization plus power and lock management. Other folders document a local assessment interface and the hardening of a service."
+    },
+    "purpose": {
+      "de": "Die Sammlung hält nachvollziehbar fest, wie ein konkreter Linux-Arbeitsplatz angepasst wurde. Ausführbare Skripte und beschreibende Fallstudien stehen nebeneinander. Der Leser kann dadurch unterscheiden, welche Komponenten er im Repository untersuchen kann und welche nur dokumentiert sind.",
+      "en": "The collection records how a particular Linux workstation was customized. Executable scripts sit alongside descriptive case studies. Readers can distinguish components available for inspection in the repository from those described only in documentation."
+    },
+    "features": {
+      "de": [
+        "GTK-/Qt-Farben, XFCE-Einstellungen, Tastenkürzel und Screenshot-Helfer.",
+        "Hook-gesteuerte Energieverwaltung mit Status, Countdown und Deckel-/Leerlaufregeln.",
+        "Dokumentierte Prüfoberfläche mit Freigabe, Scope-Prüfung, Hintergrundausführung und Berichten.",
+        "Fallstudie zu Token-Anmeldung und blockierten Shell-Eingaben eines lokalen HTTP-Dienstes."
+      ],
+      "en": [
+        "GTK/Qt colors, XFCE settings, keyboard shortcuts and screenshot helpers.",
+        "Hook-driven power management with status, countdown and lid/idle rules.",
+        "Documented assessment interface with authorization, scope checks, background execution and reports.",
+        "Case study of token authentication and blocked shell input for a local HTTP service."
+      ]
+    },
+    "architecture": {
+      "de": [
+        "design-apply ruft xfconf-query auf und sichert Konfigurationswerte vor Änderungen. Die Skripte erwarten eine konkrete Desktop-Sitzung und zusätzliche lokale Helfer.",
+        "claude-power verwaltet Konfiguration und Sitzungsstatus als Dateien. Hooks melden Arbeitszustände; Systemwerkzeuge setzen Energieaktionen um.",
+        "Die separat beschriebene Tkinter-Anwendung trennt Ansichten, Hintergrundthreads und eine Queue. Ihre Ausführungslogik ist nicht veröffentlicht."
+      ],
+      "en": [
+        "design-apply calls xfconf-query and backs up configuration values before changes. The scripts expect a particular desktop session and additional local helpers.",
+        "claude-power keeps configuration and session state in files. Hooks report work states, while system tools carry out power actions.",
+        "The separately documented Tkinter application separates views, worker threads and a queue. Its execution code is not published."
+      ]
+    },
+    "setup": [
+      {
+        "command": "claude-power status",
+        "de": "Beobachteter Statusaufruf für einen bereits eingerichteten Arbeitsplatz; installiert keine Komponenten.",
+        "en": "Observed status command for an already configured workstation; it installs no components."
+      },
+      {
+        "command": "design-apply status",
+        "de": "Liest den Desktop-Stand. Zuvor müssen die im Skript angegebenen Benutzer- und Hilfsprogrammannahmen passen.",
+        "en": "Reads desktop settings. User and helper assumptions in the script must match the workstation first."
+      }
+    ],
+    "files": [
+      {
+        "path": "desktop-setup/bin/design-apply",
+        "de": "Farben und gesicherte XFCE-/Qt-Einstellungen.",
+        "en": "Colors and backed-up XFCE/Qt settings."
+      },
+      {
+        "path": "energie-sperre/claude-power",
+        "de": "Sitzungsstatus, Countdown und Energieaktionen.",
+        "en": "Session state, countdown and power actions."
+      },
+      {
+        "path": "kontrollzentrum-architektur/README.en.md",
+        "de": "Beschreibt die nicht veröffentlichte Prüfoberfläche.",
+        "en": "Describes the unpublished assessment interface."
+      },
+      {
+        "path": "dienst-absicherung/README.md",
+        "de": "Dokumentiert die Absicherung eines lokalen Dienstes.",
+        "en": "Documents hardening of a local service."
+      }
+    ],
+    "limits": {
+      "de": [
+        "Die Skripte sind Vorlagen für einen bestimmten Rechner. Benutzerplatzhalter, Pfade und nicht enthaltene Helfer müssen angepasst werden.",
+        "Die Sicherheits-Prüfwerkzeuge und der fremde HTTP-Server sind nicht enthalten. Deren Testresultate sind Dokumentationsaussagen.",
+        "Die Dienstabsicherung nutzt laut Bericht noch eine Zeichensperrliste. Sie ersetzt keine saubere Übergabe von Argumentlisten.",
+        "Dieses Audit prüft keine universelle Linux-Kompatibilität oder gegenwärtige Dienstkonfiguration."
+      ],
+      "en": [
+        "The scripts are templates for a particular machine. User placeholders, paths and missing helpers require adaptation.",
+        "Assessment-tool execution code and the external HTTP server are excluded. Their reported test results are documentary claims.",
+        "The service-hardening report still describes a character blocklist. It does not replace proper argument-list handling.",
+        "This audit establishes neither universal Linux compatibility nor the current service configuration."
+      ]
+    },
+    "sources": [
+      {
+        "title": "README.md",
+        "url": "https://github.com/Atakan-24/linux-werkzeuge/blob/main/README.md"
+      },
+      {
+        "title": "desktop-setup/README.md",
+        "url": "https://github.com/Atakan-24/linux-werkzeuge/blob/main/desktop-setup/README.md"
+      },
+      {
+        "title": "desktop-setup/bin/design-apply",
+        "url": "https://github.com/Atakan-24/linux-werkzeuge/blob/main/desktop-setup/bin/design-apply"
+      },
+      {
+        "title": "energie-sperre/README.md",
+        "url": "https://github.com/Atakan-24/linux-werkzeuge/blob/main/energie-sperre/README.md"
+      },
+      {
+        "title": "energie-sperre/claude-power",
+        "url": "https://github.com/Atakan-24/linux-werkzeuge/blob/main/energie-sperre/claude-power"
+      },
+      {
+        "title": "kontrollzentrum-architektur/README.en.md",
+        "url": "https://github.com/Atakan-24/linux-werkzeuge/blob/main/kontrollzentrum-architektur/README.en.md"
+      },
+      {
+        "title": "dienst-absicherung/README.md",
+        "url": "https://github.com/Atakan-24/linux-werkzeuge/blob/main/dienst-absicherung/README.md"
+      }
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "desktop",
+          "de": "Desktop-Helfer",
+          "en": "Desktop helpers"
+        },
+        {
+          "id": "xfce",
+          "de": "XFCE / GTK / Qt",
+          "en": "XFCE / GTK / Qt"
+        },
+        {
+          "id": "backup",
+          "de": "Konfigurationssicherung",
+          "en": "Configuration backup"
+        },
+        {
+          "id": "hooks",
+          "de": "Arbeits-Hooks",
+          "en": "Work-state hooks"
+        },
+        {
+          "id": "power",
+          "de": "claude-power",
+          "en": "claude-power"
+        },
+        {
+          "id": "state",
+          "de": "Dateibasierter Sitzungsstatus",
+          "en": "File-based session state"
+        },
+        {
+          "id": "system",
+          "de": "Energie- und Sperrbefehle",
+          "en": "Power and lock commands"
+        }
+      ],
+      "edges": [
+        [
+          "desktop",
+          "backup"
+        ],
+        [
+          "desktop",
+          "xfce"
+        ],
+        [
+          "hooks",
+          "power"
+        ],
+        [
+          "power",
+          "state"
+        ],
+        [
+          "state",
+          "power"
+        ],
+        [
+          "power",
+          "system"
+        ]
+      ]
+    },
+    "media": [
+      {
+        "kind": "image",
+        "url": "https://raw.githubusercontent.com/Atakan-24/linux-werkzeuge/main/bilder/demo/1-startseite.png",
+        "caption": {
+          "de": "Dokumentierte Prüfoberfläche; Beispielablauf mit Musterdaten.",
+          "en": "Documented assessment interface; example flow using sample data."
+        }
+      },
+      {
+        "kind": "image",
+        "url": "https://raw.githubusercontent.com/Atakan-24/linux-werkzeuge/main/bilder/demo/4-was-heisst-das.png",
+        "caption": {
+          "de": "Erklärung eines Beispielergebnisses in Alltagssprache.",
+          "en": "Plain-language explanation of an example result."
+        }
+      }
+    ],
+    "evidence_note": {
+      "de": "Root-README, vier Teilbeschreibungen sowie design-apply und claude-power am 02.11.2026 gelesen. Aussagen über die nicht veröffentlichten Komponenten bleiben als solche gekennzeichnet. Keine Desktop- oder Energieaktion ausgeführt.",
+      "en": "Read the root README, four component descriptions, design-apply and claude-power on 2 November 2026. Claims about unpublished components remain identified as documentary. No desktop or power action was performed."
+    }
+  },
+  {
+    "name": "multi-machine-agent-sync",
+    "visibility": "public",
+    "category": "tool",
+    "group": "Multi-machine Agent Sync",
+    "summary": {
+      "de": "Skripte und Vorlagen für Git-Backups und gemeinsamen Markdown-Kontext von Coding-Agenten. Die dokumentierte Installation verteilt sich über vier Rechner. Jeder Rechner schreibt in ein eigenes Repository und kann den Stand der anderen bei Bedarf lesen.",
+      "en": "Scripts and templates for Git backups and shared Markdown context for coding agents. The documented setup spans four machines. Each machine writes to its own repository and can read another machine’s state when needed."
+    },
+    "purpose": {
+      "de": "Agentensitzungen beginnen mit begrenztem Wissen über vorherige Arbeit auf anderen Rechnern. CLAUDE.md und AGENTS.md halten Projektstand und Arbeitsregeln fest. Regelmäßige Git-Synchronisation transportiert diese Dateien und andere eingeschlossene Projekte zu einem Remote.",
+      "en": "Agent sessions start with limited knowledge of earlier work on other machines. CLAUDE.md and AGENTS.md record project state and working rules. Scheduled Git synchronization sends those files and other included projects to a remote."
+    },
+    "features": {
+      "de": [
+        "Bash-Synchronisation für macOS/Linux sowie PowerShell-Fassung für Windows.",
+        "Commit, Rebase und bedingter Push mit Abbruch bei Rebase-Konflikten.",
+        "launchd-, systemd- und Task-Scheduler-Vorlagen für regelmäßige Ausführung.",
+        "Windows gleicht die beiden Agentendateien nach Änderungszeit ab; andere Systeme verwenden laut Beschreibung einen Symlink."
+      ],
+      "en": [
+        "Bash synchronization for macOS/Linux and a PowerShell version for Windows.",
+        "Commit, rebase and conditional push, stopping on rebase conflicts.",
+        "launchd, systemd and Task Scheduler templates for scheduled runs.",
+        "Windows synchronizes the two agent files by modification time; other systems use a symlink according to the description."
+      ]
+    },
+    "architecture": {
+      "de": [
+        "Ein Scheduler startet das lokale Sync-Skript. Es arbeitet in ~/projects, erfasst Änderungen, holt den Remote-Stand mit Rebase und pusht nur vorliegende neue Commits.",
+        "Die Linux-Einrichtung erstellt einen systemd-Benutzerdienst und einen persistenten 15-Minuten-Timer. Windows erwartet den Branch main; Bash erkennt den aktuellen Branch.",
+        "Markdown liefert den gemeinsamen Kontext. Ein Manifest kann Verweise auf separat versionierte Projekte festhalten, ersetzt aber deren eigene Sicherung nicht."
+      ],
+      "en": [
+        "A scheduler starts the local sync script. It works in ~/projects, commits changes, fetches remote state through rebase and pushes only when local commits remain.",
+        "Linux setup creates a systemd user service and persistent 15-minute timer. Windows expects the main branch; Bash detects the current branch.",
+        "Markdown supplies shared context. A manifest can record separately versioned projects but does not replace their own backups."
+      ]
+    },
+    "setup": [],
+    "files": [
+      {
+        "path": "git_auto.sh",
+        "de": "Bash-Ablauf mit Rebase-Abbruch.",
+        "en": "Bash sequence with rebase abort."
+      },
+      {
+        "path": "windows/git_auto.ps1",
+        "de": "Windows-Sync und Abgleich der Agentendateien.",
+        "en": "Windows sync and agent-file alignment."
+      },
+      {
+        "path": "linux/setup.sh",
+        "de": "Legt Dienst und Timer im Benutzerkontext an.",
+        "en": "Creates user-level service and timer."
+      },
+      {
+        "path": "templates/CLAUDE.md",
+        "de": "Vorlage für den gemeinsamen Kontext.",
+        "en": "Template for shared context."
+      }
+    ],
+    "limits": {
+      "de": [
+        "Das dokumentierte 15-Minuten-Intervall belegt keine aktuelle Ausführung auf allen Rechnern.",
+        "Die Skripte erzeugen Commits und Pushes; Einrichtung setzt geeignete Remotes, Git-Anmeldung und geprüfte Dateiausschlüsse voraus.",
+        "gitignore schützt keine bereits verfolgten Geheimnisse. Der Ansatz enthält keinen vollständigen Geheimnisscanner.",
+        "Agenten müssen Kontextänderungen selbst notieren. Die Synchronisation erzwingt das nicht und löst Konflikte nicht automatisch."
+      ],
+      "en": [
+        "The documented 15-minute interval does not establish current execution on every machine.",
+        "The scripts create commits and pushes; setup requires suitable remotes, Git authentication and reviewed file exclusions.",
+        "gitignore does not protect secrets already tracked. This approach contains no complete credential scanner.",
+        "Agents must record context changes themselves. Synchronization does not enforce that behavior or resolve conflicts automatically."
+      ]
+    },
+    "sources": [
+      {
+        "title": "README.md",
+        "url": "https://github.com/Atakan-24/multi-machine-agent-sync/blob/main/README.md"
+      },
+      {
+        "title": "git_auto.sh",
+        "url": "https://github.com/Atakan-24/multi-machine-agent-sync/blob/main/git_auto.sh"
+      },
+      {
+        "title": "windows/git_auto.ps1",
+        "url": "https://github.com/Atakan-24/multi-machine-agent-sync/blob/main/windows/git_auto.ps1"
+      },
+      {
+        "title": "linux/setup.sh",
+        "url": "https://github.com/Atakan-24/multi-machine-agent-sync/blob/main/linux/setup.sh"
+      }
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "scheduler",
+          "de": "Lokaler Scheduler",
+          "en": "Local scheduler"
+        },
+        {
+          "id": "script",
+          "de": "Sync-Skript je Rechner",
+          "en": "Per-machine sync script"
+        },
+        {
+          "id": "local",
+          "de": "Lokales Git / Markdown-Kontext",
+          "en": "Local Git / Markdown context"
+        },
+        {
+          "id": "rebase",
+          "de": "Pull mit Rebase",
+          "en": "Pull with rebase"
+        },
+        {
+          "id": "remote",
+          "de": "Eigenes Remote je Rechner",
+          "en": "Separate remote per machine"
+        },
+        {
+          "id": "abort",
+          "de": "Konflikt: Abbruch und Protokoll",
+          "en": "Conflict: abort and log"
+        }
+      ],
+      "edges": [
+        [
+          "scheduler",
+          "script"
+        ],
+        [
+          "script",
+          "local"
+        ],
+        [
+          "local",
+          "rebase"
+        ],
+        [
+          "remote",
+          "rebase"
+        ],
+        [
+          "rebase",
+          "remote"
+        ],
+        [
+          "rebase",
+          "abort"
+        ]
+      ]
+    },
+    "media": [
+      {
+        "kind": "image",
+        "url": "https://raw.githubusercontent.com/Atakan-24/multi-machine-agent-sync/main/docs/sync-cycle.svg",
+        "caption": {
+          "de": "Veröffentlichtes Diagramm des Commit-/Rebase-/Push-Ablaufs.",
+          "en": "Published diagram of the commit/rebase/push sequence."
+        }
+      }
+    ],
+    "evidence_note": {
+      "de": "README, beide Sync-Skripte und Linux-Einrichtung am 02.11.2026 gelesen. Der Ablauf wurde statisch geprüft. Kein Scheduler wurde eingerichtet, kein Git-Push ausgeführt und kein privater Rechnerbestand übernommen.",
+      "en": "Read the README, both sync scripts and Linux setup on 2 November 2026. The sequence was reviewed statically. No scheduler was installed, Git push performed or private machine inventory copied."
+    }
+  },
+  {
+    "name": "pokeapi",
+    "visibility": "public",
+    "category": "fork",
+    "group": "PokeAPI",
+    "summary": {
+      "de": "Fork des Projekts PokeAPI/pokeapi, einer REST- und GraphQL-Schnittstelle für Pokémon-Daten. Das Repository gehört zur öffentlichen Lern- und Arbeitsumgebung. Es wird nicht als von Atakan entwickelte API oder als Nachweis eigener Beiträge dargestellt.",
+      "en": "Fork of PokeAPI/pokeapi, a REST and GraphQL interface for Pokémon data. The repository belongs to the public learning and working environment. It is not presented as an API authored by Atakan or as evidence of personal contributions."
+    },
+    "purpose": {
+      "de": "Der Quellbestand erlaubt das Studium einer größeren datengetriebenen Django-Anwendung. Die dokumentierte lokale Einrichtung lädt Abhängigkeiten, legt die Datenbank an und startet einen Entwicklungsserver. Der Code stammt aus dem upstream Projekt; eigene Änderungen wurden in diesem Audit nicht ermittelt.",
+      "en": "The source supports studying a larger data-driven Django application. Its documented local setup installs dependencies, initializes a database and starts a development server. The code comes from the upstream project; this audit did not establish personal modifications."
+    },
+    "features": {
+      "de": [
+        "Django und Django REST Framework für die API.",
+        "CSV-basierte Datenaufbereitung und versionierte Datenmodelle.",
+        "Docker-Compose-Dienste für PostgreSQL, Redis, Webserver und Hasura.",
+        "Makefile-Aufgaben für Installation, Entwicklung und Qualitätsprüfungen."
+      ],
+      "en": [
+        "Django and Django REST Framework API.",
+        "CSV-based data preparation and versioned data models.",
+        "Docker Compose services for PostgreSQL, Redis, web serving and Hasura.",
+        "Makefile tasks for installation, development and quality checks."
+      ]
+    },
+    "architecture": {
+      "de": [
+        "Django bindet pokemon_v2-Routen ein. Die Paketdatei beschreibt API-, Caching- und Datenbankbibliotheken.",
+        "Compose trennt Anwendung, PostgreSQL und Redis. Ein Webcontainer übernimmt externe HTTP-Zugriffe; Hasura nutzt dieselbe Datenbank für GraphQL.",
+        "CSV-Import und Migrationen sind getrennte Schritte. Das Neuaufbauen der Daten kann vorhandene Tabelleninhalte ersetzen."
+      ],
+      "en": [
+        "Django includes pokemon_v2 routes. The package manifest declares API, caching and database libraries.",
+        "Compose separates the application, PostgreSQL and Redis. A web container handles external HTTP access, while Hasura uses the database for GraphQL.",
+        "CSV loading and migrations are separate steps. Rebuilding data can replace existing table contents."
+      ]
+    },
+    "setup": [
+      {
+        "command": "make help",
+        "de": "Zeigt die beobachteten Aufgaben ohne Datenbankaufbau. Weitere Einrichtung nur in einer frischen lokalen Testumgebung nach upstream Anleitung.",
+        "en": "Lists the observed tasks without building a database. Follow upstream instructions for further setup in a fresh local test environment."
+      },
+      {
+        "command": "make install",
+        "de": "Dokumentierte lokale Installation über vorhandenes uv; lädt Projektabhängigkeiten.",
+        "en": "Documented local installation using an existing uv installation; downloads project dependencies."
+      },
+      {
+        "command": "make serve",
+        "de": "Startet nach abgeschlossener lokaler Datenbankeinrichtung den Entwicklungsserver.",
+        "en": "Starts the development server after local database setup is complete."
+      }
+    ],
+    "files": [
+      {
+        "path": "pyproject.toml",
+        "de": "Django- und Datenbankabhängigkeiten.",
+        "en": "Django and database dependencies."
+      },
+      {
+        "path": "Makefile",
+        "de": "Beobachtete Entwicklungsaufgaben.",
+        "en": "Observed development tasks."
+      },
+      {
+        "path": "config/urls.py",
+        "de": "Bindet die API-Routen ein.",
+        "en": "Includes API routes."
+      },
+      {
+        "path": "docker-compose.yml",
+        "de": "Container und Datenvolumes.",
+        "en": "Containers and data volumes."
+      }
+    ],
+    "limits": {
+      "de": [
+        "GitHub kennzeichnet diesen Bestand als Fork von PokeAPI/pokeapi. Eigene Autorenschaft oder gemergte Beiträge wurden nicht nachgewiesen.",
+        "README-Badges und öffentlicher API-Betrieb beziehen sich auf upstream, nicht auf diesen Fork.",
+        "Keine Installation, Datenladung oder Containerprüfung ausgeführt. Beispielkonfiguration ist keine Sicherheitsfreigabe für einen öffentlichen Server."
+      ],
+      "en": [
+        "GitHub identifies this repository as a fork of PokeAPI/pokeapi. Personal authorship or merged contributions were not established.",
+        "README badges and the public API service refer to upstream, not to this fork.",
+        "No installation, data load or container test was performed. Sample configuration is not approval for a public server deployment."
+      ]
+    },
+    "sources": [
+      {
+        "title": "Fork metadata",
+        "url": "https://api.github.com/repos/Atakan-24/pokeapi"
+      },
+      {
+        "title": "README.md",
+        "url": "https://github.com/Atakan-24/pokeapi/blob/master/README.md"
+      },
+      {
+        "title": "pyproject.toml",
+        "url": "https://github.com/Atakan-24/pokeapi/blob/master/pyproject.toml"
+      },
+      {
+        "title": "Makefile",
+        "url": "https://github.com/Atakan-24/pokeapi/blob/master/Makefile"
+      },
+      {
+        "title": "config/urls.py",
+        "url": "https://github.com/Atakan-24/pokeapi/blob/master/config/urls.py"
+      },
+      {
+        "title": "docker-compose.yml",
+        "url": "https://github.com/Atakan-24/pokeapi/blob/master/docker-compose.yml"
+      }
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "client",
+          "de": "API-Client",
+          "en": "API client"
+        },
+        {
+          "id": "web",
+          "de": "Webcontainer",
+          "en": "Web container"
+        },
+        {
+          "id": "django",
+          "de": "Django / REST Framework",
+          "en": "Django / REST Framework"
+        },
+        {
+          "id": "db",
+          "de": "PostgreSQL",
+          "en": "PostgreSQL"
+        },
+        {
+          "id": "cache",
+          "de": "Redis",
+          "en": "Redis"
+        },
+        {
+          "id": "graphql",
+          "de": "Hasura GraphQL",
+          "en": "Hasura GraphQL"
+        }
+      ],
+      "edges": [
+        [
+          "client",
+          "web"
+        ],
+        [
+          "web",
+          "django"
+        ],
+        [
+          "django",
+          "db"
+        ],
+        [
+          "django",
+          "cache"
+        ],
+        [
+          "client",
+          "graphql"
+        ],
+        [
+          "graphql",
+          "db"
+        ]
+      ]
+    },
+    "media": [],
+    "evidence_note": {
+      "de": "Fork-Metadaten, README, Paketdatei, Makefile, URL-Konfiguration und Compose-Datei am 02.11.2026 gelesen. Die Darstellung beschreibt upstream Architektur; ein Vergleich eigener Commits mit upstream war nicht Teil dieses Audits.",
+      "en": "Read fork metadata, README, package manifest, Makefile, URL configuration and Compose file on 2 November 2026. This describes upstream architecture; comparing personal commits against upstream was outside this audit."
+    }
+  },
+  {
+    "name": "portfolio-tracker",
+    "visibility": "public",
+    "category": "application",
+    "group": "Atakan Portfolio",
+    "summary": {
+      "de": "Kleines Backend für Besuchsereignisse und den Fragebereich einer Portfolio-Seite. Zwei Supabase Edge Functions übernehmen die HTTP-Anfragen; ein Node-Skript liest einen Kurzbericht aus gespeicherten Besuchsdaten.",
+      "en": "Small backend for portfolio visit events and a question box. Two Supabase Edge Functions receive HTTP requests, while a Node script reads a brief report from stored visit data."
+    },
+    "purpose": {
+      "de": "Der Betreiber kann sehen, welche Seiten und ausgehenden Links besucht wurden. Besucher können Fragen an ein Modell stellen, dessen Systemprompt einen festen Wissensblock zum Portfolio enthält. Die Implementierung trennt Ereigniserfassung, Modellaufruf und Berichtsausgabe.",
+      "en": "The owner can inspect page views and outbound link clicks. Visitors can ask a model questions using a system prompt containing a fixed portfolio knowledge block. The implementation separates event collection, model calls and report output."
+    },
+    "features": {
+      "de": [
+        "Ereignistypen pageview und click mit begrenzten Textfeldern.",
+        "Länder-/Regionsabfrage und Speicherung von Seiten- und Referrer-Metadaten.",
+        "Fragebereich mit SHA-256-IP-Hash sowie Besucher- und Tagesquoten.",
+        "CLI-Bericht über Länder, Verweisquellen und häufig geklickte Ziele."
+      ],
+      "en": [
+        "Pageview and click event types with clipped text fields.",
+        "Country/region lookup and storage of page and referrer metadata.",
+        "Question endpoint with SHA-256 IP hashes and visitor/daily quotas.",
+        "CLI report showing countries, referrers and frequently clicked destinations."
+      ]
+    },
+    "architecture": {
+      "de": [
+        "track nimmt POST-JSON entgegen, fragt ip-api.com mit der übermittelten IP ab und schreibt Ereignisse in portfolio_visits. Die rohe IP wird in diesem Datensatz nicht gespeichert.",
+        "ask zählt heutige Logeinträge, ruft bei verfügbarer Quote Groq mit einem festen Systemprompt auf und protokolliert Frage und Antwort.",
+        "bericht.mjs liest lokale Umgebungswerte und fragt die Supabase-REST-Schnittstelle ab. Die Edge Functions benötigen Deno/Supabase und laufen nicht als Node-Skripte."
+      ],
+      "en": [
+        "track accepts POST JSON, queries ip-api.com using the forwarded IP and writes events to portfolio_visits. The raw IP is not stored in that event record.",
+        "ask counts today’s log entries, calls Groq with a fixed system prompt when quota remains, and records the question and answer.",
+        "bericht.mjs reads local environment values and queries Supabase REST. The Edge Functions need Deno/Supabase and do not run as Node scripts."
+      ]
+    },
+    "setup": [
+      {
+        "command": "cp .env.example .env.local",
+        "de": "Im Checkout eine lokale Konfigurationsdatei anlegen und mit eigenen Projektwerten ausfüllen.",
+        "en": "Create a local configuration file in the checkout and fill it with your own project values."
+      },
+      {
+        "command": "node bericht.mjs",
+        "de": "Liest bei vorhandener Konfiguration den Bericht der letzten sieben Tage.",
+        "en": "Reads the last seven days of reporting data when configuration is available."
+      },
+      {
+        "command": "node bericht.mjs --tage=30",
+        "de": "Dokumentierter Leseaufruf für dreißig Tage.",
+        "en": "Documented read command for thirty days."
+      }
+    ],
+    "files": [
+      {
+        "path": "functions/track/index.ts",
+        "de": "Ereignisannahme, Geo-Abfrage und Datenbankeintrag.",
+        "en": "Event input, geo lookup and database insert."
+      },
+      {
+        "path": "functions/ask/index.ts",
+        "de": "Fester Wissensprompt, Quotenprüfung und Modellaufruf.",
+        "en": "Fixed knowledge prompt, quota check and model call."
+      },
+      {
+        "path": "bericht.mjs",
+        "de": "Lokaler Bericht über gespeicherte Ereignisse.",
+        "en": "Local report over stored events."
+      }
+    ],
+    "limits": {
+      "de": [
+        "Der Geo-Anbieter erhält die rohe IP; der aktuelle Aufruf nutzt HTTP. Ein IP-Hash ist ein pseudonymes Merkmal, keine Anonymitätsgarantie.",
+        "Nur ask zeigt im geprüften Code Quotenprüfungen. track enthält keine sichtbare Ratenbegrenzung, obwohl die README dies breit formuliert.",
+        "Zählen und Schreiben der Fragequote sind getrennte Schritte. Das Audit bestätigt keine atomare Durchsetzung oder Produktions-RLS.",
+        "Freitext und Referrer können persönliche Angaben enthalten. Der feste Prompt verhindert keine falschen Antworten und kann veralten."
+      ],
+      "en": [
+        "The geo provider receives the raw IP; the current request uses HTTP. An IP hash is a pseudonymous identifier, not an anonymity guarantee.",
+        "Only ask contains visible quota checks in the reviewed code. track has no visible rate limit despite broad README wording.",
+        "Question-quota counting and insertion are separate steps. This audit does not establish atomic enforcement or production RLS.",
+        "Free text and referrers can contain personal information. The fixed prompt cannot prevent inaccurate answers and can become outdated."
+      ]
+    },
+    "sources": [
+      {
+        "title": "README.md",
+        "url": "https://github.com/Atakan-24/portfolio-tracker/blob/main/README.md"
+      },
+      {
+        "title": "functions/track/index.ts",
+        "url": "https://github.com/Atakan-24/portfolio-tracker/blob/main/functions/track/index.ts"
+      },
+      {
+        "title": "functions/ask/index.ts",
+        "url": "https://github.com/Atakan-24/portfolio-tracker/blob/main/functions/ask/index.ts"
+      },
+      {
+        "title": "bericht.mjs",
+        "url": "https://github.com/Atakan-24/portfolio-tracker/blob/main/bericht.mjs"
+      }
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "site",
+          "de": "Portfolio-Browser",
+          "en": "Portfolio browser"
+        },
+        {
+          "id": "track",
+          "de": "track Edge Function",
+          "en": "track Edge Function"
+        },
+        {
+          "id": "geo",
+          "de": "ip-api.com",
+          "en": "ip-api.com"
+        },
+        {
+          "id": "visits",
+          "de": "Besuchsereignisse / Postgres",
+          "en": "Visit events / Postgres"
+        },
+        {
+          "id": "ask",
+          "de": "ask Edge Function",
+          "en": "ask Edge Function"
+        },
+        {
+          "id": "groq",
+          "de": "Groq-Modell",
+          "en": "Groq model"
+        },
+        {
+          "id": "qa",
+          "de": "Fragenprotokoll / Postgres",
+          "en": "Question log / Postgres"
+        },
+        {
+          "id": "report",
+          "de": "bericht.mjs",
+          "en": "bericht.mjs"
+        }
+      ],
+      "edges": [
+        [
+          "site",
+          "track"
+        ],
+        [
+          "track",
+          "geo"
+        ],
+        [
+          "track",
+          "visits"
+        ],
+        [
+          "site",
+          "ask"
+        ],
+        [
+          "qa",
+          "ask"
+        ],
+        [
+          "ask",
+          "groq"
+        ],
+        [
+          "ask",
+          "qa"
+        ],
+        [
+          "visits",
+          "report"
+        ]
+      ]
+    },
+    "media": [],
+    "evidence_note": {
+      "de": "README und alle drei Implementierungsdateien am 02.11.2026 gelesen. Datenbankschema, Deployment und externe Dienste wurden nicht geprüft. Quellcodeabweichungen von der README sind ausdrücklich festgehalten.",
+      "en": "Read the README and all three implementation files on 2 November 2026. Database schema, deployment and external services were not tested. Source differences from the README are explicitly recorded."
+    }
+  },
+  {
+    "name": "postgrest-keyset-page",
+    "visibility": "public",
+    "category": "tool",
+    "group": "postgrest-keyset-page",
+    "summary": {
+      "de": "Abhängigkeitsfreie JavaScript-Hilfe für Cursor-Paginierung über PostgREST-artige REST-Schnittstellen. Sie liest Seiten nach einem stabilen Schlüssel statt nach verschiebbaren Zeilenpositionen und bricht bei erkannten Vertragsverletzungen ab.",
+      "en": "Dependency-free JavaScript helper for cursor pagination over PostgREST-style REST APIs. It reads pages using a stable key instead of shifting row positions and stops on detected contract violations."
+    },
+    "purpose": {
+      "de": "Offset-Paginierung kann bei gleichzeitigen Änderungen doppelte oder fehlende Datensätze produzieren. Die Hilfe adressiert diese Fehlerklasse mit aufsteigender Schlüsselreihenfolge und einer bewegten Untergrenze. Ein mitgelieferter Test stellt die Verschiebung eines Offset-Fensters nach.",
+      "en": "Offset pagination can yield duplicate or missing records during concurrent changes. This helper addresses that failure class with ascending key order and a moving lower bound. An included test reproduces a shifting offset window."
+    },
+    "features": {
+      "de": [
+        "Asynchroner Seitengenerator sowie Wrapper zum Sammeln aller Seiten.",
+        "Fügt den Schlüssel bei Bedarf zur Auswahl hinzu.",
+        "Prüft HTTP-Fehler, fehlenden Schlüssel, doppelte Werte und maximale Seitenzahl.",
+        "Austauschbare fetch-Funktion für lokale Tests."
+      ],
+      "en": [
+        "Asynchronous page generator and a wrapper that collects all pages.",
+        "Adds the key to the selection when needed.",
+        "Checks HTTP errors, missing keys, duplicate values and a page-count limit.",
+        "Injectable fetch function for local tests."
+      ]
+    },
+    "architecture": {
+      "de": [
+        "paginateKeyset baut select-, order-, limit- und gt-Parameter pro Anfrage. Ein Set merkt bereits gelesene Schlüssel.",
+        "paginateKeysetAll sammelt die vom Generator gelieferten Seiten. Paketdatei und Implementierung verwenden ES-Module und Node.js ab Version 18.",
+        "Das README dokumentiert neun Tests, einschließlich eines veränderlichen Fake-Backends."
+      ],
+      "en": [
+        "paginateKeyset builds select, order, limit and gt parameters for each request. A Set remembers keys already read.",
+        "paginateKeysetAll collects pages yielded by the generator. The manifest and implementation use ES modules and Node.js 18 or newer.",
+        "The README documents nine tests, including a mutating fake backend."
+      ]
+    },
+    "setup": [
+      {
+        "command": "node --test",
+        "de": "Führt im Checkout die mitgelieferten lokalen Tests aus; keine Installation von Laufzeitabhängigkeiten nötig.",
+        "en": "Runs the included local tests in the checkout; no runtime dependency installation is required."
+      }
+    ],
+    "files": [
+      {
+        "path": "paginate.mjs",
+        "de": "Generator und Sammel-Wrapper.",
+        "en": "Generator and collection wrapper."
+      },
+      {
+        "path": "paginate.test.mjs",
+        "de": "Vertrags- und Paginierungsregressionstests.",
+        "en": "Contract and pagination regression tests."
+      },
+      {
+        "path": "package.json",
+        "de": "ES-Module, Testaufruf und Node-Anforderung.",
+        "en": "ES modules, test command and Node requirement."
+      }
+    ],
+    "limits": {
+      "de": [
+        "Der Cursor benötigt einen eindeutigen, stabilen und sortierbaren Schlüssel. Zusammengesetzte Cursor werden nicht unterstützt.",
+        "Cursor-Paginierung erzeugt keinen Datenbanksnapshot und garantiert nicht die Vollständigkeit gegenüber beliebigen gleichzeitigen Updates oder Löschungen.",
+        "Auch der Generator speichert alle gesehenen Schlüssel. Der Sammel-Wrapper hält zusätzlich sämtliche Ergebniszeilen im Speicher.",
+        "Die Lizenz erklärt alle Rechte vorbehalten; öffentlicher Quellcode bedeutet hier keine allgemeine Wiederverwendungslizenz."
+      ],
+      "en": [
+        "The cursor requires a unique, stable and sortable key. Composite cursors are not supported.",
+        "Cursor pagination does not create a database snapshot or guarantee completeness under arbitrary concurrent updates or deletions.",
+        "Even the generator retains all seen keys. The collection wrapper additionally holds every result row in memory.",
+        "The license reserves all rights; public source does not provide a general reuse license here."
+      ]
+    },
+    "sources": [
+      {
+        "title": "README.md",
+        "url": "https://github.com/Atakan-24/postgrest-keyset-page/blob/main/README.md"
+      },
+      {
+        "title": "paginate.mjs",
+        "url": "https://github.com/Atakan-24/postgrest-keyset-page/blob/main/paginate.mjs"
+      },
+      {
+        "title": "package.json",
+        "url": "https://github.com/Atakan-24/postgrest-keyset-page/blob/main/package.json"
+      }
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "options",
+          "de": "URL / Auswahl / Cursoroptionen",
+          "en": "URL / selection / cursor options"
+        },
+        {
+          "id": "generator",
+          "de": "paginateKeyset",
+          "en": "paginateKeyset"
+        },
+        {
+          "id": "api",
+          "de": "PostgREST-artige REST-API",
+          "en": "PostgREST-style REST API"
+        },
+        {
+          "id": "check",
+          "de": "Schlüssel- und Duplikatprüfung",
+          "en": "Key and duplicate checks"
+        },
+        {
+          "id": "pages",
+          "de": "Seitenausgabe",
+          "en": "Yielded pages"
+        },
+        {
+          "id": "all",
+          "de": "paginateKeysetAll",
+          "en": "paginateKeysetAll"
+        }
+      ],
+      "edges": [
+        [
+          "options",
+          "generator"
+        ],
+        [
+          "generator",
+          "api"
+        ],
+        [
+          "api",
+          "check"
+        ],
+        [
+          "check",
+          "pages"
+        ],
+        [
+          "check",
+          "generator"
+        ],
+        [
+          "pages",
+          "all"
+        ]
+      ]
+    },
+    "media": [],
+    "evidence_note": {
+      "de": "README, komplette Implementierung und Paketdatei am 02.11.2026 gelesen. Testzahlen sind dokumentarisch übernommen; weder Tests noch Datenbankanfragen wurden ausgeführt.",
+      "en": "Read the README, complete implementation and package manifest on 2 November 2026. Test counts are documentary; no tests or database requests were run."
+    }
+  },
+  {
+    "name": "team-gold-crm-showcase",
+    "visibility": "public",
+    "category": "showcase",
+    "group": "Team Gold CRM",
+    "summary": {
+      "de": "Öffentliche Fallstudie eines CRM für Atakans eigenes Unternehmen Team Gold. Sie zeigt den Weg von importierten Firmenkontakten über Zuweisung und Browsertelefonie bis zur Auswertung. Die veröffentlichten Ansichten stammen aus einer lokalen Sitzung mit erfundenen Daten.",
+      "en": "Public case study of a CRM for Atakan’s own business, Team Gold. It presents the path from imported business contacts through assignment and browser calls to outcome review. The published screens were captured locally with invented data."
+    },
+    "purpose": {
+      "de": "Vertriebsarbeit verteilt sich sonst auf Kontaktlisten, Telefonie und Nachfassaufgaben. Die dokumentierte Anwendung verbindet diese Schritte in einer Oberfläche für Admins, Manager und Mitarbeiter. Das öffentliche Repository macht Aufbau und ausgewählte Entscheidungen nachvollziehbar, ohne Zugang zum Geschäftssystem zu geben.",
+      "en": "Sales work otherwise spans contact lists, telephony and follow-up tasks. The documented application combines those steps in one interface for admins, managers and representatives. The public repository explains its structure and selected decisions without granting access to the business system."
+    },
+    "features": {
+      "de": [
+        "Feature-Tour mit Kontaktpools, Anrufen, Aufzeichnungen, Auswertungen und Teamverwaltung.",
+        "Dokumentierte Rollenansichten sowie englische, deutsche und arabische Oberfläche.",
+        "Drei veröffentlichte TypeScript-Helfer für Telefonnummern, E-Mail-Bereinigung und stabile Empfängerdeduplizierung.",
+        "Rundgang-Video und Screenshots mit synthetischen Firmen, Beispieladressen und fiktiven Nummern."
+      ],
+      "en": [
+        "Feature tour covering contact pools, calls, recordings, insights and team management.",
+        "Documented role-specific views and an English, German and Arabic interface.",
+        "Three published TypeScript helpers for phone normalization, email cleanup and stable recipient deduplication.",
+        "Walkthrough video and screenshots using synthetic businesses, example addresses and fictional numbers."
+      ]
+    },
+    "architecture": {
+      "de": [
+        "Die Fallstudie beschreibt Next.js/React im Browser und serverseitige API-Routen. Supabase übernimmt Anmeldung und PostgreSQL-Datenhaltung; Telnyx und Resend stehen für Telefonie und E-Mail.",
+        "Der öffentliche Code besteht ausschließlich aus drei reinen Helfermodulen. Die Node-Tests importieren sie direkt; sie benötigen weder Datenbank noch Providerzugang.",
+        "Die dokumentierten 41 Dashboard-Seiten, 159 API-Routen und 104 nummerierten Migrationen beschreiben den geprüften privaten Quellstand."
+      ],
+      "en": [
+        "The case study describes Next.js/React in the browser and server API routes. Supabase supplies authentication and PostgreSQL storage; Telnyx and Resend handle telephony and email.",
+        "Public executable code consists only of three pure helper modules. Node tests import them directly and need no database or provider access.",
+        "The documented 41 dashboard pages, 159 API routes and 104 numbered migrations describe the reviewed private source snapshot."
+      ]
+    },
+    "setup": [
+      {
+        "command": "npm test",
+        "de": "Im öffentlichen Repository mit Node.js 24 oder neuer ausführen. Prüft nur die drei isolierten Helfer.",
+        "en": "Run in the public repository with Node.js 24 or newer. Tests only the three isolated helpers."
+      }
+    ],
+    "files": [
+      {
+        "path": "README.md",
+        "de": "Systemüberblick und Veröffentlichungsgrenzen.",
+        "en": "System overview and publication boundaries."
+      },
+      {
+        "path": "docs/SYSTEM-WALKTHROUGH.md",
+        "de": "Dokumentierter Ablauf und vereinfachte Verantwortlichkeiten.",
+        "en": "Documented workflow and simplified responsibilities."
+      },
+      {
+        "path": "src/lib/phone.ts",
+        "de": "Normalisiert Nummern mit bekanntem Länderkontext.",
+        "en": "Normalizes numbers with known country context."
+      },
+      {
+        "path": "src/lib/normEmail.ts",
+        "de": "Entfernt Mailto- und Anzeigenamenhüllen.",
+        "en": "Removes mailto and display-name wrappers."
+      },
+      {
+        "path": "src/lib/dedupeEmpfaenger.ts",
+        "de": "Behält den ersten Eintrag je normalisiertem Empfänger.",
+        "en": "Keeps the first entry for each normalized recipient."
+      }
+    ],
+    "limits": {
+      "de": [
+        "Die vollständige Anwendung, Datenbankschemata und Provider-Routen sind nicht enthalten. Dieses Repository startet kein CRM.",
+        "Quellumfang und gezeigte Funktionen belegen weder aktivierte Produktionsrouten noch ausgerollte Migrationen oder Kundenergebnisse.",
+        "Die Helfertests prüfen weder Telefonintegration noch RLS. Telefonnummernnormalisierung bestätigt keine Erreichbarkeit; E-Mail-Bereinigung ist kein vollständiger Validator."
+      ],
+      "en": [
+        "The complete application, database schemas and provider routes are excluded. This repository cannot launch the CRM.",
+        "Source counts and illustrated features establish neither enabled production routes nor deployed migrations or customer outcomes.",
+        "Helper tests cover neither telephony integration nor RLS. Phone normalization does not establish reachability, and email cleanup is not a complete validator."
+      ]
+    },
+    "sources": [
+      {
+        "title": "README.md",
+        "url": "https://github.com/Atakan-24/team-gold-crm-showcase/blob/main/README.md"
+      },
+      {
+        "title": "overview.md",
+        "url": "https://github.com/Atakan-24/team-gold-crm-showcase/blob/main/overview.md"
+      },
+      {
+        "title": "src/lib/phone.ts",
+        "url": "https://github.com/Atakan-24/team-gold-crm-showcase/blob/main/src/lib/phone.ts"
+      },
+      {
+        "title": "src/lib/normEmail.ts",
+        "url": "https://github.com/Atakan-24/team-gold-crm-showcase/blob/main/src/lib/normEmail.ts"
+      },
+      {
+        "title": "src/lib/dedupeEmpfaenger.ts",
+        "url": "https://github.com/Atakan-24/team-gold-crm-showcase/blob/main/src/lib/dedupeEmpfaenger.ts"
+      },
+      {
+        "title": "package.json",
+        "url": "https://github.com/Atakan-24/team-gold-crm-showcase/blob/main/package.json"
+      }
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "browser",
+          "de": "Next.js / React",
+          "en": "Next.js / React"
+        },
+        {
+          "id": "api",
+          "de": "Server-Routen (dokumentiert)",
+          "en": "Server routes (documented)"
+        },
+        {
+          "id": "db",
+          "de": "Supabase Auth / Postgres",
+          "en": "Supabase Auth / Postgres"
+        },
+        {
+          "id": "voice",
+          "de": "Telnyx WebRTC",
+          "en": "Telnyx WebRTC"
+        },
+        {
+          "id": "mail",
+          "de": "Resend",
+          "en": "Resend"
+        },
+        {
+          "id": "helpers",
+          "de": "3 öffentliche Helfer",
+          "en": "3 public helpers"
+        },
+        {
+          "id": "tests",
+          "de": "Isolierte Node-Tests",
+          "en": "Isolated Node tests"
+        }
+      ],
+      "edges": [
+        [
+          "browser",
+          "api"
+        ],
+        [
+          "api",
+          "db"
+        ],
+        [
+          "api",
+          "voice"
+        ],
+        [
+          "api",
+          "mail"
+        ],
+        [
+          "browser",
+          "voice"
+        ],
+        [
+          "tests",
+          "helpers"
+        ]
+      ]
+    },
+    "media": [
+      {
+        "kind": "image",
+        "url": "https://raw.githubusercontent.com/Atakan-24/team-gold-crm-showcase/main/docs/images/02-dashboard.png",
+        "caption": {
+          "de": "Dashboard aus der lokalen Sitzung mit synthetischen Daten.",
+          "en": "Dashboard captured locally with synthetic data."
+        }
+      },
+      {
+        "kind": "video",
+        "url": "https://raw.githubusercontent.com/Atakan-24/team-gold-crm-showcase/main/docs/media/demo.mp4",
+        "caption": {
+          "de": "Rundgang durch denselben synthetischen Datensatz.",
+          "en": "Walkthrough using the same synthetic dataset."
+        }
+      }
+    ],
+    "evidence_note": {
+      "de": "README, Übersicht, Paketdatei und alle drei veröffentlichten Helfer am 02.11.2026 gelesen. Die Architektur der privaten Anwendung ist in dieser Prüfung dokumentarisch belegt; ihre Laufzeit wurde nicht geprüft.",
+      "en": "Read the README, overview, package file and all three public helpers on 2 November 2026. This review relies on documentary evidence for the private application’s architecture and did not test its runtime."
+    }
+  },
+  {
+    "name": "windows-screen-time-manager",
+    "visibility": "public",
+    "category": "application",
+    "group": "Windows Screen Time Manager",
+    "summary": {
+      "de": "Windows-Anwendung zur Bildschirmzeitverwaltung mit PowerShell und einem kleinen C#-Helfer. Eine privilegierte Zeiterfassung läuft getrennt von den sichtbaren Status- und Sperrfenstern. Die Dokumentation zeigt bestehende Oberflächen und benennt offene Integrationstests.",
+      "en": "Windows screen-time application built with PowerShell and a small C# helper. Privileged usage tracking runs separately from visible status and lock windows. The documentation shows existing interfaces and identifies outstanding integration tests."
+    },
+    "purpose": {
+      "de": "Das System setzt Tageslimits für die Nutzung eines Windows-Rechners um. Eine Verwaltungsoberfläche bearbeitet Regeln und Bonuszeit; Benutzer sehen Warnungen, verbleibende Zeit und die Sperranzeige. Die Trennung zwischen SYSTEM-Aufgabe und angemeldeter Sitzung ist ein zentraler Teil des Entwurfs.",
+      "en": "The system implements daily usage limits on a Windows computer. An administration interface edits rules and bonus time; users see warnings, remaining time and the lock display. Separating the SYSTEM task from the signed-in session is a central design concern."
+    },
+    "features": {
+      "de": [
+        "Tageslimits, Nachspielzeit, Bonuszeit und ein konfigurierbarer Tageswechsel.",
+        "Pausen können nach den eingestellten Regeln verbrauchte Zeit teilweise zurückgeben.",
+        "JSON-Konfiguration, gesalzene PBKDF2-Prüfung für PINs und getrennte Dateirechte.",
+        "Statusleiste und Vollbildansichten einschließlich ausdrücklich simulierter Fehlerbilder."
+      ],
+      "en": [
+        "Daily limits, grace time, bonus time and a configurable daily reset.",
+        "Breaks can restore some consumed time according to configured rules.",
+        "JSON configuration, salted PBKDF2 verification for PINs and separate file permissions.",
+        "Status bar and fullscreen views, including explicitly simulated error screens."
+      ]
+    },
+    "architecture": {
+      "de": [
+        "Task Scheduler startet Sperre.ps1 im SYSTEM-Kontext. Das Skript erfasst aktive Sitzungen und nutzt WTS/Win32 zum Start interaktiver Fenster.",
+        "IdleProbe.cs misst GetLastInputInfo innerhalb einer Benutzersitzung und schreibt den Wert über eine temporäre Datei.",
+        "Die Engine veröffentlicht status.json für die Benutzeranzeige. Geschützte Konfiguration und Laufzeitdaten gehören laut Entwurf in einen nur administrativ beschreibbaren Ordner."
+      ],
+      "en": [
+        "Task Scheduler starts Sperre.ps1 as SYSTEM. The script tracks active sessions and uses WTS/Win32 to launch interactive windows.",
+        "IdleProbe.cs measures GetLastInputInfo inside a user session and writes its result through a temporary file.",
+        "The engine publishes status.json for the user display. The design places protected configuration and runtime data in an administrator-writable folder."
+      ]
+    },
+    "setup": [],
+    "files": [
+      {
+        "path": "Sperre.ps1",
+        "de": "Privilegierte Zeit- und Sitzungslogik.",
+        "en": "Privileged time and session logic."
+      },
+      {
+        "path": "Bildschirm.ps1",
+        "de": "Interaktive Sperr- und Vorschauanzeigen.",
+        "en": "Interactive lock and preview displays."
+      },
+      {
+        "path": "KsAdmin.ps1",
+        "de": "Verwaltungsoberfläche für Regeln und Zugang.",
+        "en": "Administration interface for rules and access."
+      },
+      {
+        "path": "IdleProbe.cs",
+        "de": "Win32-Helfer zur Leerlaufmessung.",
+        "en": "Win32 helper for idle measurement."
+      },
+      {
+        "path": "docs/INSTALLER-SECURITY.md",
+        "de": "Geprüfte Installerlogik und offene Windows-Tests.",
+        "en": "Reviewed installer logic and outstanding Windows tests."
+      }
+    ],
+    "limits": {
+      "de": [
+        "Frische Installation und vollständige Langzeitabfolge sind nicht als geprüft dokumentiert. Der geführte Installer bleibt experimentell.",
+        "Wirksame ACLs, Sitzungswechsel, Trigger und Deinstallation müssen auf einem Windows-Testrechner geprüft werden.",
+        "Ein Windows-Administrator kann Dateien ändern und die Regeln umgehen. Einige Bestandsskripte enthalten feste Kontonamen.",
+        "Fehler- und Reparaturbilder sind Simulationen. Es besteht keine Verbindung zu Microsoft oder NVIDIA."
+      ],
+      "en": [
+        "Fresh installation and the complete long-running sequence are not documented as verified. The guided installer remains experimental.",
+        "Effective ACLs, session switching, triggers and uninstall must be checked on a Windows test machine.",
+        "A Windows administrator can change files and bypass the rules. Some existing scripts contain fixed account names.",
+        "Error and repair screens are simulations. The project is not affiliated with Microsoft or NVIDIA."
+      ]
+    },
+    "sources": [
+      {
+        "title": "README.md",
+        "url": "https://github.com/Atakan-24/windows-screen-time-manager/blob/master/README.md"
+      },
+      {
+        "title": "docs/ARCHITECTURE.md",
+        "url": "https://github.com/Atakan-24/windows-screen-time-manager/blob/master/docs/ARCHITECTURE.md"
+      },
+      {
+        "title": "docs/INSTALLER-SECURITY.md",
+        "url": "https://github.com/Atakan-24/windows-screen-time-manager/blob/master/docs/INSTALLER-SECURITY.md"
+      },
+      {
+        "title": "Sperre.ps1",
+        "url": "https://github.com/Atakan-24/windows-screen-time-manager/blob/master/Sperre.ps1"
+      },
+      {
+        "title": "IdleProbe.cs",
+        "url": "https://github.com/Atakan-24/windows-screen-time-manager/blob/master/IdleProbe.cs"
+      }
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "admin",
+          "de": "KsAdmin.ps1",
+          "en": "KsAdmin.ps1"
+        },
+        {
+          "id": "config",
+          "de": "Geschützte JSON-Konfiguration",
+          "en": "Protected JSON configuration"
+        },
+        {
+          "id": "scheduler",
+          "de": "Task Scheduler / SYSTEM",
+          "en": "Task Scheduler / SYSTEM"
+        },
+        {
+          "id": "engine",
+          "de": "Sperre.ps1",
+          "en": "Sperre.ps1"
+        },
+        {
+          "id": "idle",
+          "de": "IdleProbe in Benutzersitzung",
+          "en": "IdleProbe in user session"
+        },
+        {
+          "id": "lock",
+          "de": "Bildschirm.ps1",
+          "en": "Bildschirm.ps1"
+        },
+        {
+          "id": "status",
+          "de": "status.json",
+          "en": "status.json"
+        },
+        {
+          "id": "bar",
+          "de": "NvBar.ps1",
+          "en": "NvBar.ps1"
+        }
+      ],
+      "edges": [
+        [
+          "admin",
+          "config"
+        ],
+        [
+          "config",
+          "engine"
+        ],
+        [
+          "scheduler",
+          "engine"
+        ],
+        [
+          "engine",
+          "idle"
+        ],
+        [
+          "idle",
+          "engine"
+        ],
+        [
+          "engine",
+          "lock"
+        ],
+        [
+          "engine",
+          "status"
+        ],
+        [
+          "status",
+          "bar"
+        ]
+      ]
+    },
+    "media": [
+      {
+        "kind": "image",
+        "url": "https://raw.githubusercontent.com/Atakan-24/windows-screen-time-manager/master/shot-bsod.png",
+        "caption": {
+          "de": "Veröffentlichte Vorschau einer simulierten Fehleranzeige.",
+          "en": "Published preview of a simulated error screen."
+        }
+      },
+      {
+        "kind": "image",
+        "url": "https://raw.githubusercontent.com/Atakan-24/windows-screen-time-manager/master/shot-terminal.png",
+        "caption": {
+          "de": "Veröffentlichte Terminalansicht der Sperroberfläche.",
+          "en": "Published terminal-style view of the lock interface."
+        }
+      },
+      {
+        "kind": "video",
+        "url": "https://youtube.com/shorts/ujELrVr45qw",
+        "caption": {
+          "de": "Im README verlinktes Video der simulierten Fehlerdiagnose.",
+          "en": "README-linked video of the simulated error diagnosis."
+        }
+      }
+    ],
+    "evidence_note": {
+      "de": "README, Architektur, Installerprüfung, Zeitengine und C#-Helfer am 02.11.2026 gelesen. Vorhandene Testaussagen stammen aus der Dokumentation. Keine Installation oder Windows-Laufzeitprüfung ausgeführt.",
+      "en": "Read the README, architecture, installer review, time engine and C# helper on 2 November 2026. Existing test claims come from documentation. No installation or Windows runtime test was performed."
+    }
+  },
+  {
+    "name": "yt-transcript",
+    "visibility": "public",
+    "category": "tool",
+    "group": "yt-transcript",
+    "summary": {
+      "de": "Kommandozeilenwerkzeug für YouTube-Transkripte mit vier Fallbacks. Es versucht zunächst vorhandene Untertitel und nutzt lokale Spracherkennung zuletzt. Ergebnisse landen als Text oder JSON auf stdout und optional im SQLite-Cache.",
+      "en": "Command-line tool for YouTube transcripts with four fallback paths. It first tries existing captions and uses local speech recognition last. Results go to stdout as text or JSON and can be cached in SQLite."
+    },
+    "purpose": {
+      "de": "Fehlende Antworten eines Untertitel-Endpunkts bedeuten nicht immer, dass ein Video keine Untertitel hat. Das Skript unterscheidet mehrere Zugangswege und fällt bei Fehlern weiter, ohne einen Server oder dauerhaften Dienst zu benötigen.",
+      "en": "A missing caption response does not always mean a video has no captions. The script tries several access paths and falls back after errors without requiring a server or persistent service."
+    },
+    "features": {
+      "de": [
+        "yt-dlp-Untertitel, optionaler SSH-Relay, Transcript-Panel und Audio/Whisper.",
+        "Cache trennt Video, Sprache, Quelle, Ausgabeformat und Zeitstempeloption.",
+        "Entfernt unmittelbar wiederholte Untertitelsegmente.",
+        "Validiert URLs/Video-IDs und verwendet Argumentlisten für lokale Unterprozesse."
+      ],
+      "en": [
+        "yt-dlp captions, optional SSH relay, transcript panel and audio/Whisper.",
+        "Cache separates video, language, source, output format and timestamp choice.",
+        "Collapses immediately repeated caption segments.",
+        "Validates URLs/video IDs and uses argument lists for local subprocesses."
+      ]
+    },
+    "architecture": {
+      "de": [
+        "Ein Python-Skript enthält Auswahl, Download, Parser und Cache. yt-dlp wird als Unterprozess angesprochen.",
+        "Der Relay-Pfad setzt eine bereits eingerichtete SSH-Verbindung voraus und bleibt ohne YT_RELAY_HOST aus. Whisper braucht zusätzliche Bibliotheken und lokale Rechenzeit.",
+        "Tests konzentrieren sich laut README auf Eingabegrenzen und Segmentverarbeitung; die vier Netzpfade sind dort nicht unitgetestet."
+      ],
+      "en": [
+        "One Python script contains selection, downloading, parsers and caching. It invokes yt-dlp as a subprocess.",
+        "The relay path requires an existing SSH setup and stays off without YT_RELAY_HOST. Whisper needs extra libraries and local compute time.",
+        "The README describes tests for input boundaries and segment processing; the four network paths are not unit-tested there."
+      ]
+    },
+    "setup": [
+      {
+        "command": "python scripts/yt_transcript.py \"https://youtu.be/VIDEO_ID\"",
+        "de": "Dokumentiertes Aufrufmuster. VIDEO_ID durch eine gültige elfstellige ID ersetzen; Python und yt-dlp vorher einrichten.",
+        "en": "Documented invocation pattern. Replace VIDEO_ID with a valid eleven-character ID; configure Python and yt-dlp first."
+      },
+      {
+        "command": "python -m pytest",
+        "de": "Nach Einrichtung der Testabhängigkeiten im Repository ausführen.",
+        "en": "Run in the repository after setting up test dependencies."
+      }
+    ],
+    "files": [
+      {
+        "path": "scripts/yt_transcript.py",
+        "de": "Vier Zugangswege, Ausgabe und Cache.",
+        "en": "Four access paths, output and cache."
+      },
+      {
+        "path": "tests/test_input_validation.py",
+        "de": "Dokumentierte Eingabe- und URL-Tests.",
+        "en": "Documented input and URL tests."
+      },
+      {
+        "path": "tests/test_segments.py",
+        "de": "Dokumentierte Segment- und Ausgabetests.",
+        "en": "Documented segment and output tests."
+      }
+    ],
+    "limits": {
+      "de": [
+        "YouTube-Endpunkte, Cookies und lokale Werkzeuge können ausfallen. Die Fallbacks garantieren kein Transkript.",
+        "Lokale Spracherkennung ist langsamer und kann Fehler enthalten. Sprachwahl übersetzt keine Inhalte.",
+        "Die README-Beispielflags --format und --timestamps passen nicht zum aktuellen Parser; dieser nutzt --text und --no-ts.",
+        "Keine Umgehung von Mitglieder- oder Altersbeschränkungen und keine veröffentlichten bezahlten Provider-Fallbacks."
+      ],
+      "en": [
+        "YouTube endpoints, cookies and local tools can fail. Fallbacks do not guarantee a transcript.",
+        "Local recognition is slower and can contain errors. Language selection does not translate content.",
+        "The README example flags --format and --timestamps do not match the current parser; it uses --text and --no-ts.",
+        "It does not bypass membership or age restrictions and includes no published paid-provider fallbacks."
+      ]
+    },
+    "sources": [
+      {
+        "title": "README.md",
+        "url": "https://github.com/Atakan-24/yt-transcript/blob/main/README.md"
+      },
+      {
+        "title": "scripts/yt_transcript.py",
+        "url": "https://github.com/Atakan-24/yt-transcript/blob/main/scripts/yt_transcript.py"
+      }
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "input",
+          "de": "YouTube-URL / ID",
+          "en": "YouTube URL / ID"
+        },
+        {
+          "id": "cache",
+          "de": "SQLite-Cache",
+          "en": "SQLite cache"
+        },
+        {
+          "id": "captions",
+          "de": "yt-dlp-Untertitel",
+          "en": "yt-dlp captions"
+        },
+        {
+          "id": "relay",
+          "de": "Optionaler SSH-Relay",
+          "en": "Optional SSH relay"
+        },
+        {
+          "id": "panel",
+          "de": "Transcript-Panel",
+          "en": "Transcript panel"
+        },
+        {
+          "id": "whisper",
+          "de": "Audio + lokales Whisper",
+          "en": "Audio + local Whisper"
+        },
+        {
+          "id": "output",
+          "de": "Segmente / Text / JSON",
+          "en": "Segments / text / JSON"
+        }
+      ],
+      "edges": [
+        [
+          "input",
+          "cache"
+        ],
+        [
+          "input",
+          "captions"
+        ],
+        [
+          "captions",
+          "relay"
+        ],
+        [
+          "relay",
+          "panel"
+        ],
+        [
+          "panel",
+          "whisper"
+        ],
+        [
+          "captions",
+          "output"
+        ],
+        [
+          "relay",
+          "output"
+        ],
+        [
+          "panel",
+          "output"
+        ],
+        [
+          "whisper",
+          "output"
+        ],
+        [
+          "output",
+          "cache"
+        ],
+        [
+          "cache",
+          "output"
+        ]
+      ]
+    },
+    "media": [],
+    "evidence_note": {
+      "de": "README und vollständiges Hauptskript am 02.11.2026 gelesen. Netzpfade und Transkriptqualität wurden nicht getestet; das Fallback-Diagramm zeigt die im Code beobachtete Reihenfolge.",
+      "en": "Read the README and full main script on 2 November 2026. Network paths and transcript quality were not tested; the fallback diagram follows the observed source order."
+    }
+  },
+  {
+    "name": "Atakan-24",
+    "visibility": "public",
+    "category": "context",
+    "group": "Atakan profile and portfolio",
+    "summary": {
+      "de": "Das öffentliche GitHub-Profil verbindet Arbeitsproben, Lebenslauf und Kontaktwege. Es ist der Einstieg in die Projektsammlung, keine eigenständige Softwareanwendung.",
+      "en": "The public GitHub profile connects work samples, a CV and contact channels. It is the entry point to the project collection, rather than a standalone application."
+    },
+    "purpose": {
+      "de": "Entwicklern und möglichen Projektpartnern einen überprüfbaren Überblick über Atakans Arbeit geben.",
+      "en": "Give developers and potential project partners a verifiable overview of Atakan’s work."
+    },
+    "features": {
+      "de": [
+        "Verweise auf CRM-Fallstudie, Entwicklerwerkzeuge, Sprachmodell-Experimente und Voice-Demo.",
+        "Lebenslauf und Ziele in deutscher und englischer Fassung.",
+        "Links zu Portfolio und TEAM GOLD."
+      ],
+      "en": [
+        "Links to the CRM case study, developer tools, language-model experiments and voice demo.",
+        "CV and goals in German and English.",
+        "Links to the portfolio and TEAM GOLD."
+      ]
+    },
+    "architecture": {
+      "de": [
+        "GitHub rendert die README des gleichnamigen Profil-Repositories.",
+        "Dokumente und verlinkte Repos liefern die eigentlichen Arbeitsproben."
+      ],
+      "en": [
+        "GitHub renders the README from the repository matching the account name.",
+        "Documents and linked repositories provide the actual work samples."
+      ]
+    },
+    "setup": [],
+    "files": [
+      {
+        "path": "README.md",
+        "de": "Profiltext und Projektindex.",
+        "en": "Profile copy and project index."
+      },
+      {
+        "path": "CV_Atakan_Ismail_Oeztunc_EN.md",
+        "de": "Englischer Lebenslauf.",
+        "en": "English CV."
+      },
+      {
+        "path": "Lebenslauf_Atakan_Ismail_Oeztunc_DE.md",
+        "de": "Deutscher Lebenslauf.",
+        "en": "German CV."
+      }
+    ],
+    "limits": {
+      "de": [
+        "Profilangaben sind Selbstauskünfte; Funktionen und Ergebnisse müssen am verlinkten Projekt belegt werden.",
+        "Die Anzahl verlinkter Repos ist kein Nachweis für ebenso viele unabhängige produktive Anwendungen."
+      ],
+      "en": [
+        "Profile statements are self-reported; linked projects must substantiate functions and results.",
+        "The number of linked repositories is not evidence of the same number of independent production applications."
+      ]
+    },
+    "sources": [
+      {
+        "title": "Profile README",
+        "url": "https://github.com/Atakan-24/Atakan-24/blob/main/README.md"
+      },
+      {
+        "title": "GitHub profile",
+        "url": "https://github.com/Atakan-24"
+      }
+    ],
+    "diagram": {
+      "nodes": [
+        {
+          "id": "readme",
+          "de": "Profil-README",
+          "en": "Profile README"
+        },
+        {
+          "id": "projects",
+          "de": "Öffentliche Arbeitsproben",
+          "en": "Public work samples"
+        },
+        {
+          "id": "cv",
+          "de": "Lebenslauf DE / EN",
+          "en": "CV DE / EN"
+        },
+        {
+          "id": "portfolio",
+          "de": "Portfolio und Kontakt",
+          "en": "Portfolio and contact"
+        }
+      ],
+      "edges": [
+        [
+          "readme",
+          "projects"
+        ],
+        [
+          "readme",
+          "cv"
+        ],
+        [
+          "readme",
+          "portfolio"
+        ]
+      ]
+    },
+    "media": [
+      {
+        "kind": "demo",
+        "url": "https://github.com/Atakan-24",
+        "caption": {
+          "de": "Öffentliches GitHub-Profil öffnen.",
+          "en": "Open the public GitHub profile."
+        }
+      }
+    ],
+    "evidence_note": {
+      "de": "Profil-README und verlinkte Arbeitsproben gelesen; keine unabhängige Bestätigung von Kundenergebnissen.",
+      "en": "Profile README and linked work samples inspected; no independent verification of customer outcomes."
+    }
+  }
+]
