@@ -29,6 +29,7 @@ The owner can inspect page views and outbound link clicks. Visitors can ask a mo
 - Only ask contains visible quota checks in the reviewed code. track has no visible rate limit despite broad README wording.
 - Question-quota counting and insertion are separate steps. This audit does not establish atomic enforcement or production RLS.
 - Free text and referrers can contain personal information. The fixed prompt cannot prevent inaccurate answers and can become outdated.
+- Release check, 2 Nov 2026: public read access to visitor/chat logs was removed. The legacy report using an anonymous key needs an administrative access path and no longer works as written.
 
 ## Getting started
 
@@ -58,7 +59,7 @@ node bericht.mjs --tage=30
 
 ## Sources
 
-Read the README and all three implementation files on 2 November 2026. Database schema, deployment and external services were not tested. Source differences from the README are explicitly recorded.
+Read the README and all three implementation files on 2 November 2026. Database schema, deployment and external services were not tested. Source differences from the README are explicitly recorded. Production RLS permissions and deployed ask v11 / track v4 were also inspected. No visitor or chat records were read.
 
 - [README.md](https://github.com/Atakan-24/portfolio-tracker/blob/main/README.md)
 - [functions/track/index.ts](https://github.com/Atakan-24/portfolio-tracker/blob/main/functions/track/index.ts)

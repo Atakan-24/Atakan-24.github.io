@@ -29,6 +29,7 @@ Der Betreiber kann sehen, welche Seiten und ausgehenden Links besucht wurden. Be
 - Nur ask zeigt im geprüften Code Quotenprüfungen. track enthält keine sichtbare Ratenbegrenzung, obwohl die README dies breit formuliert.
 - Zählen und Schreiben der Fragequote sind getrennte Schritte. Das Audit bestätigt keine atomare Durchsetzung oder Produktions-RLS.
 - Freitext und Referrer können persönliche Angaben enthalten. Der feste Prompt verhindert keine falschen Antworten und kann veralten.
+- Release-Prüfung 02.11.2026: Öffentliche Leserechte auf Besucher-/Chatprotokolle wurden entfernt. Der alte Bericht per anonymem Schlüssel benötigt einen administrativen Zugriffsweg und ist so nicht mehr nutzbar.
 
 ## Einstieg
 
@@ -58,7 +59,7 @@ node bericht.mjs --tage=30
 
 ## Belege
 
-README und alle drei Implementierungsdateien am 02.11.2026 gelesen. Datenbankschema, Deployment und externe Dienste wurden nicht geprüft. Quellcodeabweichungen von der README sind ausdrücklich festgehalten.
+README und alle drei Implementierungsdateien am 02.11.2026 gelesen. Datenbankschema, Deployment und externe Dienste wurden nicht geprüft. Quellcodeabweichungen von der README sind ausdrücklich festgehalten. Zusätzlich wurden die produktiven RLS-Rechte sowie die bereitgestellten Funktionen ask v11 und track v4 geprüft. Keine Besucher- oder Chatdaten gelesen.
 
 - [README.md](https://github.com/Atakan-24/portfolio-tracker/blob/main/README.md)
 - [functions/track/index.ts](https://github.com/Atakan-24/portfolio-tracker/blob/main/functions/track/index.ts)
