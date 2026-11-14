@@ -32,3 +32,28 @@ document.querySelectorAll('.ba__row').forEach(function (row) {
     });
   });
 });
+
+// Gentle autoplay for the before/after strips: one strip at a time, only while
+// visible, never again after the visitor touches it, off for reduced motion.
+(function () {
+  var strips = Array.prototype.slice.call(document.querySelectorAll('.ba__strip'));
+  if (!strips.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var visible = new Set(), stopped = new Set(), hovered = null;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { e.isIntersecting ? visible.add(e.target) : visible.delete(e.target); });
+  }, { threshold: 0.6 });
+  strips.forEach(function (s) {
+    io.observe(s);
+    ['pointerdown', 'wheel', 'keydown'].forEach(function (t) { s.addEventListener(t, function () { stopped.add(s); }, { passive: true }); });
+    s.parentNode.addEventListener('click', function (e) { if (e.target.closest('.ba__nav')) stopped.add(s); });
+    s.addEventListener('pointerenter', function () { hovered = s; });
+    s.addEventListener('pointerleave', function () { hovered = null; });
+  });
+  setInterval(function () {
+    var s = strips.find(function (x) { return visible.has(x) && !stopped.has(x); });
+    if (!s || s === hovered) return;
+    var next = Array.prototype.find.call(s.children, function (img) { return img.offsetLeft - s.offsetLeft > s.scrollLeft + 5; });
+    if (next) s.scrollTo({ left: next.offsetLeft - s.offsetLeft, behavior: 'smooth' });
+    if (!next || s.scrollLeft + s.clientWidth >= s.scrollWidth - 5) stopped.add(s);
+  }, 3000);
+})();
