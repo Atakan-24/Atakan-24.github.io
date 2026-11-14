@@ -22,3 +22,13 @@ document.addEventListener('play', function (event) {
     else if (!pausedByVisitor) video.play().catch(function () {});
   }, { threshold: 0.5 }).observe(video);
 })();
+
+document.querySelectorAll('.ba__row').forEach(function (row) {
+  var strip = row.querySelector('.ba__strip');
+  row.querySelectorAll('.ba__nav').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var dir = btn.classList.contains('ba__nav--next') ? 1 : -1;
+      strip.scrollBy({ left: dir * strip.clientWidth * 0.72, behavior: 'smooth' });
+    });
+  });
+});

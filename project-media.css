@@ -84,8 +84,10 @@
 .ba { margin-top: 3rem; }
 .ba h3 { font-size: 1.5rem; margin: 0 0 .4rem; }
 .ba__text { max-width: 60ch; margin: 0 0 1rem; opacity: .8; }
-.ba__pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.ba__pair figure { margin: 0; }
-.ba__pair img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-radius: 12px; display: block; border: 1px solid color-mix(in oklab, currentColor 14%, transparent); }
-.ba__pair figcaption { font-size: .85rem; margin-top: .4rem; font-weight: 600; }
-@media (max-width: 700px) { .ba__pair { grid-template-columns: 1fr; } }
+.ba__row { position: relative; margin-top: 1rem; }
+.ba__tag { display: inline-block; font-size: .85rem; font-weight: 700; margin-bottom: .4rem; }
+.ba__strip { display: flex; gap: .75rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; padding-bottom: .5rem; }
+.ba__strip img { flex: 0 0 min(72%, 760px); aspect-ratio: 16 / 10; object-fit: cover; scroll-snap-align: start; border-radius: 12px; border: 1px solid color-mix(in oklab, currentColor 14%, transparent); }
+.ba__nav { position: absolute; top: 55%; width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 0; background: rgba(0,0,0,.65); color: #fff; font-size: 1.5rem; line-height: 1; cursor: pointer; }
+.ba__nav--prev { left: .5rem; } .ba__nav--next { right: .5rem; }
+@media (max-width: 700px) { .ba__strip img { flex-basis: 88%; } .ba__nav { display: none; } }
