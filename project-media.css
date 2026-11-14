@@ -79,3 +79,13 @@
     justify-content: center;
   }
 }
+
+/* Before and after */
+.ba { margin-top: 3rem; }
+.ba h3 { font-size: 1.5rem; margin: 0 0 .4rem; }
+.ba__text { max-width: 60ch; margin: 0 0 1rem; opacity: .8; }
+.ba__pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.ba__pair figure { margin: 0; }
+.ba__pair img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-radius: 12px; display: block; border: 1px solid color-mix(in oklab, currentColor 14%, transparent); }
+.ba__pair figcaption { font-size: .85rem; margin-top: .4rem; font-weight: 600; }
+@media (max-width: 700px) { .ba__pair { grid-template-columns: 1fr; } }
