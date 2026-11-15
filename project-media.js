@@ -34,26 +34,49 @@ document.querySelectorAll('.ba__row').forEach(function (row) {
 });
 
 // Gentle autoplay for the before/after strips: one strip at a time, only while
-// visible, never again after the visitor touches it, off for reduced motion.
+// visible, slow eased glide, stops once the visitor swipes a strip sideways.
+// Scrolling the page past a strip does not count as touching it.
 (function () {
   var strips = Array.prototype.slice.call(document.querySelectorAll('.ba__strip'));
   if (!strips.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var visible = new Set(), stopped = new Set(), hovered = null;
+  var visible = new Set(), stopped = new Set(), hovered = null, busy = false;
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) { e.isIntersecting ? visible.add(e.target) : visible.delete(e.target); });
-  }, { threshold: 0.6 });
+  }, { threshold: 0.5 });
+  function glide(s, to, done) {
+    var from = s.scrollLeft, start = performance.now(), ms = 1800;
+    s.style.scrollSnapType = 'none';
+    (function step(now) {
+      var t = Math.min((now - start) / ms, 1);
+      s.scrollLeft = from + (to - from) * (t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
+      if (t < 1) return requestAnimationFrame(step);
+      s.style.scrollSnapType = '';
+      done();
+    })(start);
+  }
   strips.forEach(function (s) {
+    var x0, y0;
     io.observe(s);
-    ['pointerdown', 'wheel', 'keydown'].forEach(function (t) { s.addEventListener(t, function () { stopped.add(s); }, { passive: true }); });
+    s.addEventListener('keydown', function () { stopped.add(s); });
+    s.addEventListener('wheel', function (e) { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) stopped.add(s); }, { passive: true });
+    s.addEventListener('pointerdown', function (e) { if (e.pointerType === 'mouse') stopped.add(s); });
+    s.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+    s.addEventListener('touchmove', function (e) {
+      if (Math.abs(e.touches[0].clientX - x0) > Math.abs(e.touches[0].clientY - y0)) stopped.add(s);
+    }, { passive: true });
     s.parentNode.addEventListener('click', function (e) { if (e.target.closest('.ba__nav')) stopped.add(s); });
-    s.addEventListener('pointerenter', function () { hovered = s; });
+    s.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') hovered = s; });
     s.addEventListener('pointerleave', function () { hovered = null; });
   });
   setInterval(function () {
     var s = strips.find(function (x) { return visible.has(x) && !stopped.has(x); });
-    if (!s || s === hovered) return;
+    if (!s || s === hovered || busy) return;
     var next = Array.prototype.find.call(s.children, function (img) { return img.offsetLeft - s.offsetLeft > s.scrollLeft + 5; });
-    if (next) s.scrollTo({ left: next.offsetLeft - s.offsetLeft, behavior: 'smooth' });
-    if (!next || s.scrollLeft + s.clientWidth >= s.scrollWidth - 5) stopped.add(s);
-  }, 3000);
+    if (!next) return stopped.add(s);
+    busy = true;
+    glide(s, next.offsetLeft - s.offsetLeft, function () {
+      busy = false;
+      if (s.scrollLeft + s.clientWidth >= s.scrollWidth - 5) stopped.add(s);
+    });
+  }, 4500);
 })();
