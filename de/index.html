@@ -1034,6 +1034,14 @@ img { display: block; max-width: 100%; }
   .v4-facts { gap: var(--sc-5); }
 }
 
+/* Phones: the hero stays a normal block. Pinned for 1.85 screens it left an
+   empty page with a clipped terminal once the copy had faded. */
+@media (max-width: 700px) {
+  #hero { height: auto !important; }
+  #hero [data-sc-stage] { position: static; height: auto; overflow: visible; padding-block: var(--sc-5) var(--sc-8); }
+  #hero .v4-hero__copy, #hero .v4-hero__drift, #hero .v4-hero__rig { opacity: 1 !important; transform: none !important; }
+}
+
 /* Reduced motion. "Fewer and gentler, not zero": what carries meaning stays,
    what only carries motion goes.
    - The layers stay apart and lit, because they ARE the content of the peak.
