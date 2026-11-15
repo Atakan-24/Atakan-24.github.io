@@ -98,3 +98,5 @@
 @media (max-width: 700px) { .ps__strip img { flex-basis: 62%; } }
 .ps__strip--wide img { flex-basis: min(78%, 520px); aspect-ratio: auto; object-fit: contain; align-self: flex-start; background: var(--sc-surface); }
 @media (max-width: 700px) { .ps__strip--wide img { flex-basis: 88%; } }
+/* Phones: the phone mock-up of the Team Gold site is not shown */
+@media (max-width: 760px) { .v4-rail__dev--phone { display: none; } }
