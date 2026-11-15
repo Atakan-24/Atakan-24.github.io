@@ -91,3 +91,8 @@
 .ba__nav { position: absolute; top: 55%; width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 0; background: rgba(0,0,0,.65); color: #fff; font-size: 1.5rem; line-height: 1; cursor: pointer; }
 .ba__nav--prev { left: .5rem; } .ba__nav--next { right: .5rem; }
 @media (max-width: 700px) { .ba__strip img { flex-basis: 100%; min-width: 0; object-fit: contain; background: var(--sc-surface); border: 0; border-radius: var(--sc-r-md); } .ba__nav { display: none; } }
+
+/* Phone screenshots, swiped sideways */
+.ps__strip { display: flex; gap: .75rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; padding-bottom: .5rem; }
+.ps__strip img { flex: 0 0 min(46%, 230px); height: auto; min-width: 0; aspect-ratio: 480 / 1039; object-fit: cover; scroll-snap-align: start; border-radius: 18px; border: 1px solid color-mix(in oklab, currentColor 14%, transparent); }
+@media (max-width: 700px) { .ps__strip img { flex-basis: 62%; } }
